@@ -2,7 +2,6 @@
 
 /**
  * Index du projet GSB
- *
  * PHP Version 8
  *
  * @category  PPE
