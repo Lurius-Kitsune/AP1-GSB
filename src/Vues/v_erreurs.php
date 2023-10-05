@@ -18,6 +18,7 @@
 
 ?>
 <div class="alert alert-danger" role="alert">
+    <strong><span class="glyphicon glyphicon-warning-sign"></span> Erreur !</strong>
     <?php
     foreach ($_REQUEST['erreurs'] as $erreur) {
         echo '<p>' . htmlspecialchars($erreur) . '</p>';
