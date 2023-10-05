@@ -101,7 +101,12 @@ class PdoGsb
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
         $requetePrepare->execute();
-        return $requetePrepare->fetch();
+        if(is_array($requetePrepare)){
+            return $requetePrepare->fetch();
+        }else{
+            return [];
+        }
+        
     }
 
     /**
