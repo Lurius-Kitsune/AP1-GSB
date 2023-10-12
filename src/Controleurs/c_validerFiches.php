@@ -18,4 +18,4 @@
 
 use Outils\Utilitaires;
 
-require PATH_VIEWS . 'v_validerFiches.php'
+require PATH_VIEWS . 'v_validerFiches.php';
