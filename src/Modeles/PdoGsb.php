@@ -82,20 +82,20 @@ class PdoGsb
         return self::$instance;
     }
     
-    public function getUser($login, $mdp) : ?array 
+    public function getUser($login, $mdp) : array|bool 
     {
         if(is_array($this->getInfosComptable($login, $mdp))) {
             $user = $this->getInfosComptable($login, $mdp);
             $user["isComptable"] = true;
             return $user;
         }
-        elseif(is_array($this->getInfosComptable($login, $mdp))) {
+        elseif(is_array($this->getInfosVisiteur($login, $mdp))) {
             $user = $this->getInfosVisiteur($login, $mdp);
             $user["isComptable"] = false;
             return $user;
         }
         else{
-            return null;
+            return false;
         }
     }
 
@@ -108,7 +108,7 @@ class PdoGsb
      *
      * @return l'id, le nom et le prénom sous la forme d'un tableau associatif ou null si rien
      */
-    public function getInfosComptable($login, $mdp): ?array
+    public function getInfosComptable($login, $mdp): array|bool
     {
         $requetePrepare = $this->connexion->prepare(
             'SELECT comptable.id AS id, comptable.nom AS nom, '
@@ -119,11 +119,7 @@ class PdoGsb
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
         $requetePrepare->execute();
-        if(is_array($requetePrepare)){
-            return $requetePrepare->fetch();
-        }else{
-            return null;
-        }
+        return $requetePrepare->fetch();
         
     }
     
@@ -135,7 +131,7 @@ class PdoGsb
      *
      * @return l'id, le nom et le prénom sous la forme d'un tableau associatif ou null si rien
      */
-    public function getInfosVisiteur($login, $mdp): ?array
+    public function getInfosVisiteur($login, $mdp): array|bool
     {
         $requetePrepare = $this->connexion->prepare(
             'SELECT visiteur.id AS id, visiteur.nom AS nom, '
@@ -146,11 +142,7 @@ class PdoGsb
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
         $requetePrepare->execute();
-        if(is_array($requetePrepare)){
-            return $requetePrepare->fetch();
-        }else{
-            return null;
-        }
+        return $requetePrepare->fetch();
         
     }
 
