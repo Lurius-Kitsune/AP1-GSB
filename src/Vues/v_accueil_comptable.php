@@ -9,6 +9,7 @@
  * @package   GSB
  * @author    Réseau CERTA <contact@reseaucerta.org>
  * @author    José GIL <jgil@ac-nice.fr>
+ * @author    Lucas Bruel <lucasfox@outlook.fr>
  * @copyright 2017 Réseau CERTA
  * @license   Réseau CERTA
  * @version   GIT: <0>
@@ -34,16 +35,14 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                        <a href="#"
+                        <a href="index.php?uc=validerFiches"
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-ok"></span>
                             <br>Valider des fiches de frais</a>
-                    </div>
-                    <div class="col-xs-12 col-md-12">
                         <a href="#"
                            class="btn btn-primary btn-lg" role="button">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            <br>Valider des fiches de frais</a>
+                            <span class="glyphicon glyphicon-euro"></span>
+                            <br>Suivre le paiement des fches de frais</a>
                     </div>
                 </div>
             </div>
