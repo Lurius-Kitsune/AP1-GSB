@@ -39,6 +39,12 @@
                             <span class="glyphicon glyphicon-ok"></span>
                             <br>Valider des fiches de frais</a>
                     </div>
+                    <div class="col-xs-12 col-md-12">
+                        <a href="#"
+                           class="btn btn-primary btn-lg" role="button">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <br>Valider des fiches de frais</a>
+                    </div>
                 </div>
             </div>
         </div>
