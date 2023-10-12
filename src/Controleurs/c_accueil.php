@@ -17,7 +17,13 @@
 
 if ($estConnecte) {
     include_once PATH_VIEWS . 'v_entete.php';
-	include PATH_VIEWS . 'v_accueil.php';
+    $_SESSION['isComptable'] = true; // @TO-DO : Delete it
+    if ($_SESSION['isComptable']){
+	include PATH_VIEWS . 'v_accueil_comptable.php';
+    }
+    else {
+        include PATH_VIEWS . 'v_accueil_visiteur.php';
+    }
 } else {
     include PATH_VIEWS . 'v_connexion.php';
 }
