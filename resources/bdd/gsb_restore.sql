@@ -18,6 +18,16 @@ CREATE TABLE IF NOT EXISTS fraisforfait (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
+-- Ajout de la table comptable 
+create table  if not exists comptable (
+    id int not null auto_increment,
+    nom varchar(50) not null,
+    prenom varchar(50) not null,
+    login varchar(50) not null,
+    mdp varchar(50) not null,
+		primary key (id)
+        );
+
 CREATE TABLE IF NOT EXISTS etat (
   id char(2) NOT NULL,
   libelle varchar(30) DEFAULT NULL,
@@ -69,6 +79,10 @@ CREATE TABLE IF NOT EXISTS lignefraishorsforfait (
   PRIMARY KEY (id),
   FOREIGN KEY (idvisiteur, mois) REFERENCES fichefrais(idvisiteur, mois)
 ) ENGINE=InnoDB;
+
+-- Déclaration des comptes comptables en bdd
+insert into comptable (nom, prenom, login, mdp) values 
+("Clin", "Marco", "m.clin", "mdp"), ("Bruel", "Lucas", "l.bruel", "mdp");
 
 -- Alimentation des données paramètres
 INSERT INTO fraisforfait (id, libelle, montant) VALUES
