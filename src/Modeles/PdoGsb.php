@@ -587,13 +587,10 @@ class PdoGsb
             $numAnnee = substr($mois, 0, 4);
             $numMois = substr($mois, 4, 2);
             $lesMois[] = array(
-                'mois' => $mois,
                 'numAnnee' => $numAnnee,
                 'numMois' => $numMois
             );
         }
         return $lesMois;
     }
-
-   
 }
