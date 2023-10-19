@@ -1,5 +1,4 @@
 -- Script de restauration de l'application "GSB Frais"
-
 -- Administration de la base de données
 CREATE DATABASE IF NOT EXISTS gsb_frais 
 DEFAULT CHARACTER SET utf8
