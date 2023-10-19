@@ -1,3 +1,13 @@
+-- US 2  Ajout de la table comptable 
+create table  if not exists comptable (
+    id int not null auto_increment,
+    nom varchar(50) not null,
+    prenom varchar(50) not null,
+    login varchar(50) not null,
+    mdp CHAR(128) not null,
+		primary key (id)
+        );
+
 -- Modification de la table
 ALTER TABLE visiteur modify mdp char(255);
 ALTER TABLE comptable modify mdp char(255);
