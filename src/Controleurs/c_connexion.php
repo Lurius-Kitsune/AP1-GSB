@@ -9,6 +9,7 @@
  * @package   GSB
  * @author    Réseau CERTA <contact@reseaucerta.org>
  * @author    José GIL <jgil@ac-nice.fr>
+ * @author    Marco Clin
  * @copyright 2017 Réseau CERTA
  * @license   Réseau CERTA
  * @version   GIT: <0>
@@ -30,8 +31,6 @@ switch ($action) {
         $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $mdp = filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $user = $pdo->getUser($login);
-        echo password_hash($mdp, PASSWORD_DEFAULT);
-        echo password_verify($mdp, $pdo->getMdpUser($login, $user['isComptable'])) ? 'MDP VALIDE' : 'FALSE';
         if (!password_verify($mdp, $pdo->getMdpUser($login, $user['isComptable']))) {
             Utilitaires::ajouterErreur('Login ou mot de passe incorrect');
             include PATH_VIEWS . 'v_erreurs.php';

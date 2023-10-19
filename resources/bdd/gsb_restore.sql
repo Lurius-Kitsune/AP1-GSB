@@ -55711,3 +55711,11 @@ INSERT INTO `lignefraishorsforfait` VALUES
 (22655,'v959e','202308','Achat d\'espace publicitaire','2023-08-14',27.00),
 (22656,'v959e','202308','Traiteur, alimentation, boisson','2023-08-27',340.00),
 (22657,'v959e','202308','Repas avec praticien','2023-08-26',47.00);
+
+-- Modification des mdp pour les mettre en SHA2-512
+ALTER TABLE visiteur MODIFY mdp CHAR(128) ;
+ALTER TABLE comptable MODIFY mdp CHAR(128) ;
+
+UPDATE visiteur SET mdp = sha2(mdp, 512);
+
+UPDATE comptable SET mdp = sha2(mdp, 512);

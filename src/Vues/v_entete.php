@@ -55,8 +55,8 @@
                             <?php
                                 if ($_SESSION['isComptable']) {
                             ?>
-                            <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=gererFrais&action=saisirFrais">
+                            <li <?php if ($uc == 'validerFiches') { ?>class="active"<?php } ?>>
+                                <a href="index.php?uc=validerFiches">
                                     <span class="glyphicon glyphicon-ok"></span>
                                     Valider les fiches de frais
                                 </a>
