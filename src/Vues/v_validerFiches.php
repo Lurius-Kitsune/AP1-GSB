@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Vue Valider Fiches Frais
  *
@@ -18,8 +17,6 @@
 require '../vendor/autoload.php';
 
 use Modeles\PdoGsb;
-
-require 'v_entete.php';
 ?>
 
 <link href="./styles/validerFiches.css" rel="stylesheet">
@@ -28,8 +25,13 @@ require 'v_entete.php';
 <div id="moisVisiteur" class="gras">
     <p id="visiteur">Choisir le visiteur : 
         <select name="visiteur">
-            <option value="1">Réponse 1</option>
-            <option value="2">Réponse 2</option>
+<?php
+$pdo = PdoGsb::getPdoGsb();
+$utilisateurs = $pdo->getNomsVisiteurs();
+for ($i = 0; $i < count($utilisateurs); $i++) {
+    echo "<option value=\"" . $i + 1 . "\">" . $utilisateurs[$i]["prenom"] . " " . $utilisateurs[$i]["nom"] . "</option>;";
+}
+?>
         </select>
     </p>
     <p id="mois" class="gras">Mois : 
@@ -117,7 +119,5 @@ require 'v_entete.php';
 </button>
 
 <?php
-
 require 'v_pied.php';
-
 

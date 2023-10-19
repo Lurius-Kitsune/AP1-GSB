@@ -551,4 +551,19 @@ class PdoGsb
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
+    
+    /**
+     * Retourne les noms de tout les visiteurs en vue
+     * de les afficher dans la maquette de validation
+     * de fiches de frais
+     * @return array|bool
+     */
+    public function getNomsVisiteurs() :array|bool{
+        $requetePrepare = $this->connexion->prepare(
+            'SELECT visiteur.prenom, visiteur.nom '
+            . 'FROM visiteur '
+        );
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
 }
