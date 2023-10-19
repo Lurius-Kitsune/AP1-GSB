@@ -1,0 +1,38 @@
+#moisVisiteur
+{
+    display: flex;
+    text-align: right;
+}
+
+#mois
+{
+    margin-left: 20px;
+}
+
+.gras
+{
+    font-weight: bold;
+}
+
+.orange
+{
+    color: orange;
+}
+
+.bgorange
+{
+    background-color: orange;
+    color: white;
+}
+
+.ok
+{
+    background-color: green;
+    color: white;
+}
+
+.nok
+{
+    background-color: red;
+    color: white;
+}
