@@ -63,9 +63,10 @@ class PdoGsb
     }
     
     /**
-     * Fonction qui renvoie le mdp hasher du login utilisateurs.
-     * 
-     * @return array le mdp hasher du login des utilisateur.
+     * Obtient le mdp hasher du login user.
+     * @param type $login login de l'user
+     * @param type $isComptable Est-t'il comptable ?
+     * @return string mdp de la bd
      */
     public function getMdpUser ($login, $isComptable) : string
     {
