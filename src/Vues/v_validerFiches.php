@@ -119,5 +119,5 @@ require 'v_entete.php';
 <?php
 
 require 'v_pied.php';
-?>
+
 
