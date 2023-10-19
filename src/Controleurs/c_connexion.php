@@ -29,9 +29,9 @@ switch ($action) {
         break;
     case 'valideConnexion':
         $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $mdp = hash('sha512', filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-        $user = $pdo->getUser($login, $mdp);
-        if (!is_array($user)) {
+        $mdp = filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $user = $pdo->getUser($login);
+        if (!password_verify($mdp, $pdo->getMdpUser($login, $user['isComptable']))) {
             Utilitaires::ajouterErreur('Login ou mot de passe incorrect');
             include PATH_VIEWS . 'v_erreurs.php';
             include PATH_VIEWS . 'v_connexion.php';
