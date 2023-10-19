@@ -82,20 +82,72 @@ class PdoGsb
         return self::$instance;
     }
     
-    public function getUser($login, $mdp) : array|bool 
+    /**
+     * Fonction qui renvoie le mdp hasher du login utilisateurs.
+     * 
+     * @return array le mdp hasher du login des utilisateur.
+     */
+    public function getMdpUser ($login, $isComptable) : string
     {
-        if(is_array($this->getInfosComptable($login, $mdp))) {
-            $user = $this->getInfosComptable($login, $mdp);
+        if ($isComptable) {
+            return $this->getMdpComptable($login);
+        }
+        else {
+            return $this->getMdpVisiteur($login);
+        }
+    }
+    
+    /**
+     * Fonction qui renvoie le mdp hasher du login comptable.
+     * 
+     * @return array le mdp hasher du login utilisateur.
+     */
+    private function getMdpComptable($login) : string
+    {
+        $requetePrepare = $this->connexion->prepare(
+            'SELECT mdp '
+            . 'FROM comptable '
+            . 'WHERE comptable.login = :unLogin'
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch(PDO::FETCH_OBJ)->mdp;
+    }
+    
+    /**
+     * Fonction qui renvoie le mdp hasher du login visiteur.
+     * 
+     * @return array le mdp hasher du login utilisateur.
+     */
+    private function getMdpVisiteur($login) : string
+    {
+        $requetePrepare = $this->connexion->prepare(
+            'SELECT mdp '
+            . 'FROM visiteur '
+            . 'WHERE visiteur.login = :unLogin'
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch(PDO::FETCH_OBJ)->mdp;
+    }
+    
+    public function getUser($login) : array|bool 
+    {
+        $req = $this->getInfosComptable($login);
+        if(is_array($req)) {
+            $user = $this->getInfosComptable($login);
             $user["isComptable"] = true;
             return $user;
-        }
-        elseif(is_array($this->getInfosVisiteur($login, $mdp))) {
-            $user = $this->getInfosVisiteur($login, $mdp);
-            $user["isComptable"] = false;
-            return $user;
-        }
-        else{
-            return false;
+        } else {
+            $req = $this->getInfosVisiteur($login);
+            if(is_array($req)) {
+                $user = $this->getInfosVisiteur($login);
+                $user["isComptable"] = false;
+                return $user;
+            }
+            else{
+                return false;
+            }
         }
     }
 
@@ -108,16 +160,15 @@ class PdoGsb
      *
      * @return l'id, le nom et le prénom sous la forme d'un tableau associatif ou null si rien
      */
-    public function getInfosComptable($login, $mdp): array|bool
+    public function getInfosComptable($login): array|bool
     {
         $requetePrepare = $this->connexion->prepare(
             'SELECT comptable.id AS id, comptable.nom AS nom, '
             . 'comptable.prenom AS prenom '
             . 'FROM comptable '
-            . 'WHERE comptable.login = :unLogin AND comptable.mdp = :unMdp'
+            . 'WHERE comptable.login = :unLogin'
         );
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
         $requetePrepare->execute();
         return $requetePrepare->fetch();
         
@@ -131,16 +182,15 @@ class PdoGsb
      *
      * @return l'id, le nom et le prénom sous la forme d'un tableau associatif ou null si rien
      */
-    public function getInfosVisiteur($login, $mdp): array|bool
+    public function getInfosVisiteur($login): array|bool
     {
         $requetePrepare = $this->connexion->prepare(
             'SELECT visiteur.id AS id, visiteur.nom AS nom, '
             . 'visiteur.prenom AS prenom '
             . 'FROM visiteur '
-            . 'WHERE visiteur.login = :unLogin AND visiteur.mdp = :unMdp'
+            . 'WHERE visiteur.login = :unLogin'
         );
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
         $requetePrepare->execute();
         return $requetePrepare->fetch();
         
