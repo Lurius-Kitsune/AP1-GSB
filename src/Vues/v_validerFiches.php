@@ -15,34 +15,17 @@
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
 ?>
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Dropdown
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Action</a></li>
-    <li><a href="#">Another action</a></li>
-    <li><a href="#">Something else here</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div>
 <div>
-    <form actio="" method="get">
-        <p id="visiteur">Choisir le visiteur : 
-            <button class="btn btn-default dropdown-toggle" type="button" id="visiteurDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Dropdown
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="visiteurDropdown">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
-        </p>
+    <form action="" method="get">
+        <div>
+            <p id="visiteur">Choisir le visiteur : 
+                <select class="form-control form-control-md col-2">
+                    <option>Large select</option>
+                </select>
+            </p>
+        </div>
+
+
         <p id="mois" class="gras">Mois : 
             <select name="mois" class="dropdown-menu" aria-labelledby="dropdownMenu3">
                 <option value="1">Réponse 1</option>
