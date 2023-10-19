@@ -543,3 +543,5 @@ UPDATE visiteur set mdp = 'eis1Sai9ao' where id = 'v627n';
 UPDATE visiteur set mdp = 'ua4Be4shae1' where id = 'v889e';
 UPDATE visiteur set mdp = 'lahQu0uD' where id = 'v893t';
 UPDATE visiteur set mdp = 'tuiH6ohdui' where id = 'v959e';
+
+UPDATE comptable set mdp = 'mdp';
