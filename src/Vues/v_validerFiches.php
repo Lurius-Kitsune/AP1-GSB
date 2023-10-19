@@ -25,19 +25,23 @@ use Modeles\PdoGsb;
 <div id="moisVisiteur" class="gras">
     <p id="visiteur">Choisir le visiteur : 
         <select name="visiteur">
-<?php
-$pdo = PdoGsb::getPdoGsb();
-$utilisateurs = $pdo->getNomsVisiteurs();
-for ($i = 0; $i < count($utilisateurs); $i++) {
-    echo "<option value=\"" . $i + 1 . "\">" . $utilisateurs[$i]["prenom"] . " " . $utilisateurs[$i]["nom"] . "</option>;";
-}
-?>
+            <?php
+            $pdo = PdoGsb::getPdoGsb();
+            $utilisateurs = $pdo->getNomsVisiteurs();
+            for ($i = 0; $i < count($utilisateurs); $i++) {
+                echo "<option value=\"" . $i + 1 . "\">" . $utilisateurs[$i]["prenom"] . " " . $utilisateurs[$i]["nom"] . "</option>;";
+            }
+            ?>
         </select>
     </p>
     <p id="mois" class="gras">Mois : 
         <select name="mois">
-            <option value="1">Réponse 1</option>
-            <option value="2">Réponse 2</option>
+            <?php
+            $lesMois = $pdo->getTousLesMoisDisponibles();
+            for ($i = 0; $i < count($lesMois); $i++) {
+                echo "<option value=\"" . $i + 1 . "\">" . $lesMois[$i]["numMois"] . "/" . $lesMois[$i]["numAnnee"] . "</option>;";
+            }
+            ?>
         </select>
     </p>
 </div>

@@ -560,10 +560,40 @@ class PdoGsb
      */
     public function getNomsVisiteurs() :array|bool{
         $requetePrepare = $this->connexion->prepare(
-            'SELECT visiteur.prenom, visiteur.nom '
+            'SELECT visiteur.prenom, visiteur.nom, visiteur.id '
             . 'FROM visiteur '
         );
         $requetePrepare->execute();
         return $requetePrepare->fetchAll();
     }
+    
+    /**
+     * Retourne l'ensemble des mois disponibles en vue
+     * de les afficher dans la maquette de validation
+     * de fiches de frais
+     * @return array
+     */
+    public function getTousLesMoisDisponibles(): array
+    {
+        $requetePrepare = $this->connexion->prepare(
+            'SELECT DISTINCT fichefrais.mois AS mois FROM fichefrais '
+            . 'ORDER BY fichefrais.mois desc'
+                . ''
+        );
+        $requetePrepare->execute();
+        $lesMois = array();
+        while ($laLigne = $requetePrepare->fetch()) {
+            $mois = $laLigne['mois'];
+            $numAnnee = substr($mois, 0, 4);
+            $numMois = substr($mois, 4, 2);
+            $lesMois[] = array(
+                'mois' => $mois,
+                'numAnnee' => $numAnnee,
+                'numMois' => $numMois
+            );
+        }
+        return $lesMois;
+    }
+
+   
 }
