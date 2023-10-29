@@ -87,12 +87,10 @@
 </div>
 
 <br><br>
-<form class="form-horizontal">
+<form class="form-inline">
     <div class="form-group">
-        <label for="inputNbJustificatif" class="control-label col-sm-1">Forfait Etape</label>
-        <div class="col-sm-1">
-            <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif">
-        </div>
+        <label for="inputNbJustificatif" class="control-label">Forfait Etape :</label>
+            <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" style="width: 20% !important;">
     </div>
 </form>
 <br>
