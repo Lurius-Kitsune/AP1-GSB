@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Vue Valider Fiches Frais
  *
@@ -14,110 +15,85 @@
  * @version   GIT: <0>
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
-require '../vendor/autoload.php';
 
-use Modeles\PdoGsb;
 ?>
-
-<link href="./styles/validerFiches.css" rel="stylesheet">
-<link href="./styles/bootstrap/bootstrap.css" rel="stylesheet">
-
-<div id="moisVisiteur" class="gras">
-    <p id="visiteur">Choisir le visiteur : 
-        <select name="visiteur">
-<?php
-$pdo = PdoGsb::getPdoGsb();
-$utilisateurs = $pdo->getNomsVisiteurs();
-for ($i = 0; $i < count($utilisateurs); $i++) {
-    echo "<option value=\"" . $i + 1 . "\">" . $utilisateurs[$i]["prenom"] . " " . $utilisateurs[$i]["nom"] . "</option>;";
-}
-?>
-        </select>
-    </p>
-    <p id="mois" class="gras">Mois : 
-        <select name="mois">
-            <option value="1">Réponse 1</option>
-            <option value="2">Réponse 2</option>
-        </select>
-    </p>
+<div>
+    <form action="" method="get" class="form-inline">
+        <div>
+            <div class="form-group">
+                <label for="visiteurInput">Choisir le visiteur : </label>
+                <select class="form-control" id="visiteurInput">
+                    <option>Large select</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="monthInput" style="margin-left: 20px">Mois : </label>
+                <select class="form-control form-control" id="monthInput">
+                    <option>Large select</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <h3 class="gras orange">Valider la fiche de frais</h3>
+    <h4>Eléments forfaitisés</h4>
+    <form action="" method="get">
+        <div class="row">
+            <div class="form-group col-sm-3">
+                <label for="inputForfaitStage">Forfait Etape</label>
+                <input type="text" name="forfaitEtape" class="form-control" id="inputForfaitStage">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-3">
+                <label for="inputFraisKm">Frais Kilométrique</label>
+                <input type="text" name="forfaitEtape" class="form-control" id="inputFraisKm">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-3">
+                <label for="inputinputNuitHotel">Nuitée Hôtel</label>
+                <input type="text" name="nuitHotel" class="form-control" id="inputinputNuitHotel">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-3">
+                <label for="inputRepasResto">Repas Restaurant</label>
+                <input type="text" name="repasResto" class="form-control" id="inputRepasResto">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Corriger</button>
+        <button type="reset" class="btn btn-danger">Réinitialiser</button>
+        <br>
+    </form>
+    <br><br>
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <p class="panel-title">Descriptif des éléments hors forfait</p>
+        </div>
+        <table border="1" class="table border-warning table-bordered" style="margin-bottom: 0px !important;">
+            <thead>
+                <tr>
+                    <td class="gras border-warning">Date</td>
+                    <td class="gras border-warning">Libellé</td>
+                    <td class="gras border-warning">Montant</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php include PATH_VIEWS . 'v_tableFichesFrais.php' ?>
+                <?php include PATH_VIEWS . 'v_tableFichesFrais.php' ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-
-
-<h3 class="gras orange">Valider la fiche de frais</h3>
-
-<h4>Eléments forfaitisés</h4>
-<p class="gras">Forfait Etape</p>
-<input type="text" name="forfaitEtape">
-<p class="gras">Frais Kilométrique</p>
-<input type="text" name="fraisKm">
-<p class="gras">Nuitée Hôtel</p>
-<input type="text" name="nuitHotel">
-<p class="gras">Repas Restaurant</p>
-<input type="text" name="repasResto">
+<br><br>
+<form class="form-inline">
+    <div class="form-group">
+        <label for="inputNbJustificatif" class="control-label">Forfait Etape :</label>
+            <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" style="width: 20% !important;">
+    </div>
+</form>
 <br>
 
-<button class="ok">
-    <span>Corriger</span>
-</button>
-<button class="nok">
-    <span>Réinitialiser</span>
-</button>
-<br><br>
-
-<table border="1">
-    <thead>
-        <tr class="panel-heading">
-            <th>Descriptif des éléments hors forfait</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td class="gras">Date</td>
-            <td class="gras">Libellé</td>
-            <td class="gras">Montant</td>
-        </tr>
-        <tr>
-            <td>12/08/2022</td>
-            <td>achat de fleurs</td>
-            <td>29.90</td>
-            <td>
-                <button>
-                    <span>Corriger</span>
-                </button><button>
-                    <span>Réinitialiser</span>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>14/08/2022</td>
-            <td>taxi</td>
-            <td>32.50</td>
-            <td>
-                <button class="ok">
-                    <span>Corriger</span>
-                </button>
-                <button class="nok">
-                    <span>Réinitialiser</span>
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<br><br>
-
-<p class="gras" >Nombres de justificatifs : </p>
-<input type="text" name="nbJustificatifs">
-
-<br>
-
-<button class="ok">
-    <span>Corriger</span>
-</button>
-<button>
-    <span class="nok">Réinitialiser</span>
-</button>
-
-<?php
-require 'v_pied.php';
-
+<button type="submit" class="btn btn-success">Valider</button>
+<button type="reset" class="btn btn-danger">Réinitialiser</button>
