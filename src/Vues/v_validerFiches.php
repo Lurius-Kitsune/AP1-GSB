@@ -16,20 +16,37 @@
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
 
+use Modeles\PdoGsb;
+
+/**
+ * @var PdoGsb $pdo
+ */
+
 ?>
+
 <div>
     <form action="" method="get" class="form-inline">
         <div>
             <div class="form-group">
                 <label for="visiteurInput">Choisir le visiteur : </label>
                 <select class="form-control" id="visiteurInput">
-                    <option>Large select</option>
+                    <?php
+                    $utilisateurs = $pdo->getNomsVisiteurs();
+                    for ($i = 0; $i < count($utilisateurs); $i++) {
+                        echo "<option value=\"" . $i + 1 . "\">" . $utilisateurs[$i]["prenom"] . " " . $utilisateurs[$i]["nom"] . "</option>;";
+                    }
+                    ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="monthInput" style="margin-left: 20px">Mois : </label>
                 <select class="form-control form-control" id="monthInput">
-                    <option>Large select</option>
+                    <?php
+                    $lesMois = $pdo->getTousLesMoisDisponibles();
+                    for ($i = 0; $i < count($lesMois); $i++) {
+                        echo "<option value=\"" . $i + 1 . "\">" . $lesMois[$i]["numMois"] . "/" . $lesMois[$i]["numAnnee"] . "</option>;";
+                    }
+                    ?>
                 </select>
             </div>
         </div>
@@ -90,7 +107,7 @@
 <form class="form-inline">
     <div class="form-group">
         <label for="inputNbJustificatif" class="control-label">Forfait Etape :</label>
-            <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" style="width: 20% !important;">
+        <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" style="width: 20% !important;">
     </div>
 </form>
 <br>
