@@ -41,7 +41,12 @@ use Modeles\PdoGsb;
             <div class="form-group">
                 <label for="monthInput" style="margin-left: 20px">Mois : </label>
                 <select class="form-control form-control" id="monthInput">
-                    <option>Large select</option>
+                    <?php
+                    $lesMois = $pdo->getTousLesMoisDisponibles();
+                    for ($i = 0; $i < count($lesMois); $i++) {
+                        echo "<option value=\"" . $i + 1 . "\">" . $lesMois[$i]["numMois"] . "/" . $lesMois[$i]["numAnnee"] . "</option>;";
+                    }
+                    ?>
                 </select>
             </div>
         </div>
