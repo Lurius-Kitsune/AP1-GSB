@@ -29,7 +29,6 @@ $estConnecte = Utilitaires::estConnecte();
 
 require PATH_VIEWS . 'v_entete.php';
 
-/**
 $uc = filter_input(INPUT_GET, 'uc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 if ($uc && !$estConnecte) {
@@ -62,9 +61,5 @@ switch ($uc) {
         include PATH_VIEWS . 'v_erreurs.php';
         break;
 }
-
-**/
-
-require "../src/Vues/v_validerFiches.php";
 
 require PATH_VIEWS . 'v_pied.php';

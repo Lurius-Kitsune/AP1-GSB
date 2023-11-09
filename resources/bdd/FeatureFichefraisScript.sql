@@ -13,7 +13,7 @@ ALTER TABLE visiteur modify mdp char(255);
 ALTER TABLE comptable modify mdp char(255);
 
 -- Remise à 0 des mdp
-﻿UPDATE visiteur set mdp = 'xiej3uuY0' where id = 'a118y';
+UPDATE visiteur set mdp = 'xiej3uuY0' where id = 'a118y';
 UPDATE visiteur set mdp = 'xie2IY8ee' where id = 'a134e';
 UPDATE visiteur set mdp = 'quohle9Ohng' where id = 'a188n';
 UPDATE visiteur set mdp = 'phoo5ohH' where id = 'a193e';
