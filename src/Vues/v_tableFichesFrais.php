@@ -21,17 +21,17 @@
     <tr>
         <td>
             <div class="form-group">
-                <input type="date" class="form-control" id="inputDate" placeholder="01/01/0001">
+                <input type="date" class="form-control" id="inputDate" placeholder="01/01/0001" value="<?= $fraisHorsForfait['4'] ?>">
             </div>
         </td>
         <td>
             <div class="form-group">
-                <input type="text" class="form-control" id="inputLibelle" placeholder="Libellé">
+                <input type="text" class="form-control" id="inputLibelle" placeholder="Libellé" value="<?= $fraisHorsForfait['libelle'] ?>">
             </div>
         </td>
         <td>
             <div class="form-group">
-                <input type="number" class="form-control" id="inputPrix" placeholder="0.00">
+                <input type="number" class="form-control" id="inputPrix" placeholder="0.00" value="<?= $fraisHorsForfait['montant'] ?>">
             </div>
         </td>
         <td>

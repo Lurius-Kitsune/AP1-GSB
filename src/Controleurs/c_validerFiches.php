@@ -26,8 +26,9 @@ $visiteurs = $pdo->getNomsVisiteurs();
 $selectedVisiteurId = 'none';
 $selectedMonth = filter_input(INPUT_GET, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? 'none';
 
-if (isset($_GET['visiteurId'])) {
+if (isset($_GET['visiteurId']) && $_GET['visiteurId'] != 'none') {
     $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $infoFicheFrais = $pdo->
+    $infoFraisForfait = $pdo->getLesFraisForfait($selectedVisiteurId, $selectedMonth);
+    $listeFraisHorsForfait = $pdo->getLesFraisHorsForfait($selectedVisiteurId, $selectedMonth);
 }
 require PATH_VIEWS . 'v_validerFiches.php';

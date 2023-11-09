@@ -24,7 +24,9 @@ use Modeles\PdoGsb;
  * @var array $lesMois
  * @var string $selectedVisiteurId
  * @var string $selectedMonth
- */
+ * @var array $infoFraisForfait
+ * @var array $listeFraisHorsForfait
+*/
 
 ?>
 
@@ -63,25 +65,25 @@ use Modeles\PdoGsb;
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputForfaitStage">Forfait Etape</label>
-                <input type="text" name="forfaitEtape" class="form-control" id="inputForfaitStage">
+                <input type="text" name="forfaitEtape" class="form-control" id="inputForfaitStage" value="<?= $infoFraisForfait[0]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputFraisKm">Frais Kilométrique</label>
-                <input type="text" name="forfaitEtape" class="form-control" id="inputFraisKm">
+                <input type="text" name="forfaitEtape" class="form-control" id="inputFraisKm" value="<?= $infoFraisForfait[1]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputinputNuitHotel">Nuitée Hôtel</label>
-                <input type="text" name="nuitHotel" class="form-control" id="inputinputNuitHotel">
+                <input type="text" name="nuitHotel" class="form-control" id="inputinputNuitHotel" value="<?= $infoFraisForfait[2]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputRepasResto">Repas Restaurant</label>
-                <input type="text" name="repasResto" class="form-control" id="inputRepasResto">
+                <input type="text" name="repasResto" class="form-control" id="inputRepasResto" value="<?= $infoFraisForfait[3]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <button type="submit" class="btn btn-success">Corriger</button>
@@ -102,8 +104,11 @@ use Modeles\PdoGsb;
                 </tr>
             </thead>
             <tbody>
-                <?php include PATH_VIEWS . 'v_tableFichesFrais.php' ?>
-                <?php include PATH_VIEWS . 'v_tableFichesFrais.php' ?>
+                <?php 
+                foreach($listeFraisHorsForfait as $fraisHorsForfait){
+                    include PATH_VIEWS . 'v_tableFichesFrais.php';
+                }    
+                ?>
             </tbody>
         </table>
     </div>
@@ -112,8 +117,8 @@ use Modeles\PdoGsb;
 <br><br>
 <form class="form-inline">
     <div class="form-group">
-        <label for="inputNbJustificatif" class="control-label">Forfait Etape :</label>
-        <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" style="width: 20% !important;">
+        <label for="inputNbJustificatif" class="control-label">Nombre de justificatifs :</label>
+        <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" style="width: 20% !important;" value="<?= count($listeFraisHorsForfait); ?>">
     </div>
 </form>
 <br>
