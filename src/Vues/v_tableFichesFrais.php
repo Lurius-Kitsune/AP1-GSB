@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Vue Valider Fiches Frais
  *
@@ -15,7 +14,6 @@
  * @version   GIT: <0>
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
-
 ?>
 <form action="">
     <tr>
@@ -31,7 +29,10 @@
         </td>
         <td>
             <div class="form-group">
-                <input type="number" class="form-control" id="inputPrix" placeholder="0.00" value="<?= $fraisHorsForfait['montant'] ?>">
+                <div class="input-group">
+                    <input type="number" class="form-control" id="inputPrix" placeholder="0.00" value="<?= $fraisHorsForfait['montant'] ?>">
+                    <div class="input-group-addon">€</div>
+                </div>
             </div>
         </td>
         <td>
