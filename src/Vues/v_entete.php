@@ -18,7 +18,7 @@
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta charset="UTF-8">
@@ -47,7 +47,7 @@
                     <div class="col-md-8">
                         <ul class="nav nav-pills pull-right" role="tablist">
                             <li <?php if (!$uc || $uc == 'accueil') { ?>class="active" <?php } ?>>
-                                <a href="index.php">
+                                <a href="/">
                                     <span class="glyphicon glyphicon-home"></span>
                                     Accueil
                                 </a>
@@ -56,26 +56,26 @@
                                 if ($_SESSION['isComptable']) {
                             ?>
                             <li <?php if ($uc == 'validerFiches') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=validerFiches">
+                                <a href="/?uc=validerFiches">
                                     <span class="glyphicon glyphicon-ok"></span>
                                     Valider les fiches de frais
                                 </a>
                             </li>
                             <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=etatFrais&action=selectionnerMois">
+                                <a href="/?uc=etatFrais&action=selectionnerMois">
                                     <span class="glyphicon glyphicon-euro"></span>
                                     Suivre le paiement des fches de frais
                                 </a>
                             </li>
                             <?php } else { ?>
                             <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=gererFrais&action=saisirFrais">
+                                <a href="/?uc=gererFrais&action=saisirFrais">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                     Renseigner la fiche de frais
                                 </a>
                             </li>
                             <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=etatFrais&action=selectionnerMois">
+                                <a href="/index.php?uc=etatFrais&action=selectionnerMois">
                                     <span class="glyphicon glyphicon-list-alt"></span>
                                     Afficher mes fiches de frais
                                 </a>
@@ -83,7 +83,7 @@
                             <?php } ?>
                             <li 
                             <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=deconnexion&action=demandeDeconnexion">
+                                <a href="/?uc=deconnexion&action=demandeDeconnexion">
                                     <span class="glyphicon glyphicon-log-out"></span>
                                     Déconnexion
                                 </a>

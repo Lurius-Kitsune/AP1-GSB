@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Gestion des frais
  *
@@ -16,6 +15,20 @@
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
 
+/**
+ * @var PdoGsb $pdo
+ */
 use Outils\Utilitaires;
 
+$lesMois = $pdo->getTousLesMoisDisponibles();
+$visiteurs = $pdo->getNomsVisiteurs();
+
+$selectedVisiteurId = 'none';
+$selectedMonth = filter_input(INPUT_GET, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? 'none';
+
+if (isset($_GET['visiteurId']) && $_GET['visiteurId'] != 'none') {
+    $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $infoFraisForfait = $pdo->getLesFraisForfait($selectedVisiteurId, $selectedMonth);
+    $listeFraisHorsForfait = $pdo->getLesFraisHorsForfait($selectedVisiteurId, $selectedMonth);
+}
 require PATH_VIEWS . 'v_validerFiches.php';

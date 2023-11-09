@@ -20,62 +20,75 @@ use Modeles\PdoGsb;
 
 /**
  * @var PdoGsb $pdo
- */
+ * @var array $visiteurs
+ * @var array $lesMois
+ * @var string $selectedVisiteurId
+ * @var string $selectedMonth
+ * @var array $infoFraisForfait
+ * @var array $listeFraisHorsForfait
+*/
 
 ?>
 
 <div>
-    <form action="" method="get" class="form-inline">
+    <form action="/" method="GET" class="form-inline">
         <div>
             <div class="form-group">
+                <input type="hidden" value="validerFiches" name="uc">
                 <label for="visiteurInput">Choisir le visiteur : </label>
-                <select class="form-control" id="visiteurInput">
+                <select class="form-control" id="visiteurInput" autocomplete="on" name="visiteurId">
+                    <option value="none" >Selectionner un visiteur.</option>
                     <?php
-                    $utilisateurs = $pdo->getNomsVisiteurs();
-                    for ($i = 0; $i < count($utilisateurs); $i++) {
-                        echo "<option value=\"" . $i + 1 . "\">" . $utilisateurs[$i]["prenom"] . " " . $utilisateurs[$i]["nom"] . "</option>;";
+                    foreach ($visiteurs as $visiteur) {
+                        echo "<option value='" . $visiteur["id"] . "'" . ($selectedVisiteurId == $visiteur["id"] ? 'selected' : '') . ">" . $visiteur["prenom"] . " " . $visiteur["nom"] . "</option>";
                     }
                     ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="monthInput" style="margin-left: 20px">Mois : </label>
-                <select class="form-control form-control" id="monthInput">
+                <select class="form-control form-control" id="monthInput" name="month">
                     <?php
-                    $lesMois = $pdo->getTousLesMoisDisponibles();
-                    for ($i = 0; $i < count($lesMois); $i++) {
-                        echo "<option value=\"" . $i + 1 . "\">" . $lesMois[$i]["numMois"] . "/" . $lesMois[$i]["numAnnee"] . "</option>;";
+                    foreach ($lesMois as $mois) {
+                        $concatYearsMonth = $mois["numAnnee"] . $mois["numMois"];
+                        echo "<option value='" . $concatYearsMonth . "'" . ($selectedMonth == $concatYearsMonth ? 'selected' : '') . ">" . $mois["numMois"] . "/" . $mois["numAnnee"] . "</option>";
                     }
                     ?>
                 </select>
             </div>
+            <button type="submit" class="btn btn-warning ms-3">Rechercher</button>
         </div>
     </form>
+    <?php 
+    if(empty($infoFraisForfait)) {
+        echo '<h3>Pas de frais pour ce visiteur ce mois-ci</h3>';
+    } else {
+    ?>
     <h3 class="gras orange">Valider la fiche de frais</h3>
     <h4>Eléments forfaitisés</h4>
     <form action="" method="get">
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputForfaitStage">Forfait Etape</label>
-                <input type="text" name="forfaitEtape" class="form-control" id="inputForfaitStage">
+                <input type="text" name="forfaitEtape" class="form-control" id="inputForfaitStage" value="<?= $infoFraisForfait[0]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputFraisKm">Frais Kilométrique</label>
-                <input type="text" name="forfaitEtape" class="form-control" id="inputFraisKm">
+                <input type="text" name="forfaitEtape" class="form-control" id="inputFraisKm" value="<?= $infoFraisForfait[1]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputinputNuitHotel">Nuitée Hôtel</label>
-                <input type="text" name="nuitHotel" class="form-control" id="inputinputNuitHotel">
+                <input type="text" name="nuitHotel" class="form-control" id="inputinputNuitHotel" value="<?= $infoFraisForfait[2]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputRepasResto">Repas Restaurant</label>
-                <input type="text" name="repasResto" class="form-control" id="inputRepasResto">
+                <input type="text" name="repasResto" class="form-control" id="inputRepasResto" value="<?= $infoFraisForfait[3]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <button type="submit" class="btn btn-success">Corriger</button>
@@ -96,8 +109,11 @@ use Modeles\PdoGsb;
                 </tr>
             </thead>
             <tbody>
-                <?php include PATH_VIEWS . 'v_tableFichesFrais.php' ?>
-                <?php include PATH_VIEWS . 'v_tableFichesFrais.php' ?>
+                <?php 
+                foreach($listeFraisHorsForfait as $fraisHorsForfait){
+                    include PATH_VIEWS . 'v_tableFichesFrais.php';
+                }    
+                ?>
             </tbody>
         </table>
     </div>
@@ -106,11 +122,16 @@ use Modeles\PdoGsb;
 <br><br>
 <form class="form-inline">
     <div class="form-group">
-        <label for="inputNbJustificatif" class="control-label">Forfait Etape :</label>
-        <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" style="width: 20% !important;">
+        <label for="inputNbJustificatif" class="control-label">Nombre de justificatifs :</label>
+        <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" style="width: 20% !important;" value="<?= count($listeFraisHorsForfait); ?>">
     </div>
 </form>
 <br>
 
 <button type="submit" class="btn btn-success">Valider</button>
 <button type="reset" class="btn btn-danger">Réinitialiser</button>
+
+<?php 
+    echo '</div>';
+} 
+?>
