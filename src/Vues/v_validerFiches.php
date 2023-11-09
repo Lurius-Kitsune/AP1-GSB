@@ -20,35 +20,41 @@ use Modeles\PdoGsb;
 
 /**
  * @var PdoGsb $pdo
+ * @var array $visiteurs
+ * @var array $lesMois
+ * @var string $selectedVisiteurId
+ * @var string $selectedMonth
  */
 
 ?>
 
 <div>
-    <form action="" method="get" class="form-inline">
+    <form action="/" method="GET" class="form-inline">
         <div>
             <div class="form-group">
+                <input type="hidden" value="validerFiches" name="uc">
                 <label for="visiteurInput">Choisir le visiteur : </label>
-                <select class="form-control" id="visiteurInput">
+                <select class="form-control" id="visiteurInput" autocomplete="on" name="visiteurId">
+                    <option value="none" >Selectionner un visiteur.</option>
                     <?php
-                    $utilisateurs = $pdo->getNomsVisiteurs();
-                    for ($i = 0; $i < count($utilisateurs); $i++) {
-                        echo "<option value=\"" . $i + 1 . "\">" . $utilisateurs[$i]["prenom"] . " " . $utilisateurs[$i]["nom"] . "</option>;";
+                    foreach ($visiteurs as $visiteur) {
+                        echo "<option value='" . $visiteur["id"] . "'" . ($selectedVisiteurId == $visiteur["id"] ? 'selected' : '') . ">" . $visiteur["prenom"] . " " . $visiteur["nom"] . "</option>";
                     }
                     ?>
                 </select>
             </div>
             <div class="form-group">
                 <label for="monthInput" style="margin-left: 20px">Mois : </label>
-                <select class="form-control form-control" id="monthInput">
+                <select class="form-control form-control" id="monthInput" name="month">
                     <?php
-                    $lesMois = $pdo->getTousLesMoisDisponibles();
-                    for ($i = 0; $i < count($lesMois); $i++) {
-                        echo "<option value=\"" . $i + 1 . "\">" . $lesMois[$i]["numMois"] . "/" . $lesMois[$i]["numAnnee"] . "</option>;";
+                    foreach ($lesMois as $mois) {
+                        $concatYearsMonth = $mois["numAnnee"] . $mois["numMois"];
+                        echo "<option value='" . $concatYearsMonth . "'" . ($selectedMonth == $concatYearsMonth ? 'selected' : '') . ">" . $mois["numMois"] . "/" . $mois["numAnnee"] . "</option>";
                     }
                     ?>
                 </select>
             </div>
+            <button type="submit" class="btn btn-warning ms-3">Rechercher</button>
         </div>
     </form>
     <h3 class="gras orange">Valider la fiche de frais</h3>
