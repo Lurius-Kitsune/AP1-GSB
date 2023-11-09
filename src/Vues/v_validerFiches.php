@@ -59,6 +59,11 @@ use Modeles\PdoGsb;
             <button type="submit" class="btn btn-warning ms-3">Rechercher</button>
         </div>
     </form>
+    <?php 
+    if(empty($infoFraisForfait)) {
+        echo '<h3>Pas de frais pour ce visiteur ce mois-ci</h3>';
+    } else {
+    ?>
     <h3 class="gras orange">Valider la fiche de frais</h3>
     <h4>Eléments forfaitisés</h4>
     <form action="" method="get">
@@ -125,3 +130,8 @@ use Modeles\PdoGsb;
 
 <button type="submit" class="btn btn-success">Valider</button>
 <button type="reset" class="btn btn-danger">Réinitialiser</button>
+
+<?php 
+    echo '</div>';
+} 
+?>
