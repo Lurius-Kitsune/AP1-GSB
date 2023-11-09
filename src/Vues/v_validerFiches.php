@@ -70,25 +70,33 @@ use Modeles\PdoGsb;
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputForfaitStage">Forfait Etape</label>
-                <input type="text" name="forfaitEtape" class="form-control" id="inputForfaitStage" value="<?= $infoFraisForfait[0]['quantite'] ?? '0' ?>">
+                <input type="text" name="forfaitEtape" class="form-control" id="inputForfaitStage" 
+                       value="<?= $infoFraisForfait[0]['quantite'] ?? '0' ?>" 
+                       placeholder="<?= $infoFraisForfait[0]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputFraisKm">Frais Kilométrique</label>
-                <input type="text" name="forfaitEtape" class="form-control" id="inputFraisKm" value="<?= $infoFraisForfait[1]['quantite'] ?? '0' ?>">
+                <input type="text" name="forfaitEtape" class="form-control" id="inputFraisKm" 
+                       value="<?= $infoFraisForfait[1]['quantite'] ?? '0' ?>"
+                       placeholder="<?= $infoFraisForfait[1]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputinputNuitHotel">Nuitée Hôtel</label>
-                <input type="text" name="nuitHotel" class="form-control" id="inputinputNuitHotel" value="<?= $infoFraisForfait[2]['quantite'] ?? '0' ?>">
+                <input type="text" name="nuitHotel" class="form-control" id="inputinputNuitHotel" 
+                       value="<?= $infoFraisForfait[2]['quantite'] ?? '0' ?>"
+                       placeholder="<?= $infoFraisForfait[2]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputRepasResto">Repas Restaurant</label>
-                <input type="text" name="repasResto" class="form-control" id="inputRepasResto" value="<?= $infoFraisForfait[3]['quantite'] ?? '0' ?>">
+                <input type="text" name="repasResto" class="form-control" id="inputRepasResto" 
+                       value="<?= $infoFraisForfait[3]['quantite'] ?? '0' ?>"
+                       placeholder="<?= $infoFraisForfait[3]['quantite'] ?? '0' ?>">
             </div>
         </div>
         <button type="submit" class="btn btn-success">Corriger</button>
@@ -123,13 +131,16 @@ use Modeles\PdoGsb;
 <form class="form-inline">
     <div class="form-group">
         <label for="inputNbJustificatif" class="control-label">Nombre de justificatifs :</label>
-        <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" style="width: 20% !important;" value="<?= count($listeFraisHorsForfait); ?>">
+        <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" 
+               style="width: 20% !important;" 
+               value="<?= count($listeFraisHorsForfait); ?>"
+               placeholder="<?= count($listeFraisHorsForfait); ?>">
     </div>
-</form>
 <br>
 
 <button type="submit" class="btn btn-success">Valider</button>
 <button type="reset" class="btn btn-danger">Réinitialiser</button>
+</form>
 
 <?php 
     echo '</div>';
