@@ -493,6 +493,32 @@ class PdoGsb
         }
         return $lesMois;
     }
+    
+    /**
+     * Retourne les les visiteur pour un mois donné si
+     * La fiche est cloturer
+     *
+     * @param String $mois       Mois sous la forme aaaamm
+     *
+     * @return array un tableau avec des champs de jointure entre une fiche de frais
+     * 
+     */
+    public function getVisiteurHavingFicheMonth($mois): array|bool
+    {
+        $requetePrepare = $this->connexion->prepare(
+            'SELECT visiteur.nom as nom, '
+                . 'visiteur.prenom as prenom, '
+                . 'visiteur.id as id '
+                . 'FROM visiteur '
+                . 'INNER JOIN fichefrais on fichefrais.idvisiteur = visiteur.id '
+                . 'WHERE fichefrais.mois = :unMois '
+                . 'AND fichefrais.idetat = "CL"'
+        );
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $lesLignes = $requetePrepare->fetchAll();
+        return $lesLignes;
+    }
 
     /**
      * Retourne les informations d'une fiche de frais d'un visiteur pour un
@@ -576,6 +602,34 @@ class PdoGsb
             'SELECT DISTINCT fichefrais.mois AS mois FROM fichefrais '
                 . 'ORDER BY fichefrais.mois desc'
                 . ''
+        );
+        $requetePrepare->execute();
+        $lesMois = array();
+        while ($laLigne = $requetePrepare->fetch()) {
+            $mois = $laLigne['mois'];
+            $numAnnee = substr($mois, 0, 4);
+            $numMois = substr($mois, 4, 2);
+            $lesMois[] = array(
+                'numAnnee' => $numAnnee,
+                'numMois' => $numMois
+            );
+        }
+        return $lesMois;
+    }
+    
+    
+    /**
+     * Retourne l'ensemble des mois disponibles en vue
+     * de les afficher dans la maquette de validation
+     * de fiches de frais
+     * @return array
+     */
+    public function getMoisFichesFraisCloturer(): array
+    {
+        $requetePrepare = $this->connexion->prepare(
+            'SELECT DISTINCT fichefrais.mois AS mois FROM fichefrais '
+                . 'WHERE fichefrais.idetat = "CL" '
+                . 'ORDER BY fichefrais.mois desc'
         );
         $requetePrepare->execute();
         $lesMois = array();
