@@ -25,22 +25,22 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-warning">
+        <div class="panel user">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     <span class="glyphicon glyphicon-bookmark"></span>
                     Navigation
                 </h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body div-user">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <a href="index.php?uc=validerFiches"
-                           class="btn btn-primary btn-lg" role="button">
+                           class="btn btn-primary btn-lg btn-user" role="button">
                             <span class="glyphicon glyphicon-ok"></span>
                             <br>Valider des fiches de frais</a>
                         <a href="#"
-                           class="btn btn-primary btn-lg" role="button">
+                           class="btn btn-primary btn-lg btn-user" role="button">
                             <span class="glyphicon glyphicon-euro"></span>
                             <br>Suivre le paiement des fches de frais</a>
                     </div>
