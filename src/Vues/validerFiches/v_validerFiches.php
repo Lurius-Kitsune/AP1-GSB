@@ -30,24 +30,22 @@ use Modeles\PdoGsb;
 
 ?>
 
+<script>
+    function reloadPage() {
+        // Récupérer la valeur sélectionnée dans la selectbox
+        var selectedValue = document.getElementById("monthInput").value;
+
+        // Recharger la page avec le paramètre GET
+        window.location.href = window.location.pathname + "?uc=validerFiches&month=" + selectedValue;
+    }
+</script>
 <div>
     <form action="/" method="GET" class="form-inline">
+        <input type="hidden" value="validerFiches" name="uc">
         <div>
             <div class="form-group">
-                <input type="hidden" value="validerFiches" name="uc">
-                <label for="visiteurInput">Choisir le visiteur : </label>
-                <select class="form-control" id="visiteurInput" autocomplete="on" name="visiteurId">
-                    <option value="none" >Selectionner un visiteur.</option>
-                    <?php
-                    foreach ($visiteurs as $visiteur) {
-                        echo "<option value='" . $visiteur["id"] . "'" . ($selectedVisiteurId == $visiteur["id"] ? 'selected' : '') . ">" . $visiteur["prenom"] . " " . $visiteur["nom"] . "</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-            <div class="form-group">
                 <label for="monthInput" style="margin-left: 20px">Mois : </label>
-                <select class="form-control form-control" id="monthInput" name="month">
+                <select class="form-control form-control" id="monthInput" name="month" onchange="reloadPage()">
                     <?php
                     foreach ($lesMois as $mois) {
                         $concatYearsMonth = $mois["numAnnee"] . $mois["numMois"];
@@ -56,12 +54,27 @@ use Modeles\PdoGsb;
                     ?>
                 </select>
             </div>
+            <?php if (isset($visiteurs) && !empty($visiteurs)) : ?>
+            <div class="form-group">
+                    <label for="visiteurInput">Choisir le visiteur : </label>
+                    <select class="form-control" id="visiteurInput" autocomplete="on" name="visiteurId">
+                        <option value="none" >Selectionner un visiteur.</option>
+                        <?php
+                        foreach ($visiteurs as $visiteur) {
+                            echo "<option value='" . $visiteur["id"] . "'" . ($selectedVisiteurId == $visiteur["id"] ? 'selected' : '') . ">" . $visiteur["prenom"] . " " . $visiteur["nom"] . "</option>";
+                        }
+                        ?>
+                    </select>
+            </div>
+            <?php endif; ?>
             <button type="submit" class="btn btn-warning ms-3">Rechercher</button>
         </div>
     </form>
     <?php 
-    if(empty($infoFraisForfait)) {
-        echo '<h3>Pas de frais pour ce visiteur ce mois-ci</h3>';
+    if (is_null($selectedVisiteurId)) {
+        echo '<h3></h3>'; 
+     } elseif(empty($infoFraisForfait)) {
+        echo '<h3>Aucune fiche de frais trouver</h3>';
     } else {
     ?>
     <h3 class="gras orange">Valider la fiche de frais</h3>
@@ -119,7 +132,7 @@ use Modeles\PdoGsb;
             <tbody>
                 <?php 
                 foreach($listeFraisHorsForfait as $fraisHorsForfait){
-                    include PATH_VIEWS . 'v_tableFichesFrais.php';
+                    include PATH_VIEWS . 'validerFiches/v_tableFichesHorsForfait.php';
                 }    
                 ?>
             </tbody>

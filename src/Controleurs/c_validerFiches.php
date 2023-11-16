@@ -20,15 +20,18 @@
  */
 use Outils\Utilitaires;
 
-$lesMois = $pdo->getTousLesMoisDisponibles();
-$visiteurs = $pdo->getNomsVisiteurs();
+$lesMois = $pdo->getMoisFichesFraisCloturer();
 
-$selectedVisiteurId = 'none';
-$selectedMonth = filter_input(INPUT_GET, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? 'none';
+
+$selectedVisiteurId = null;
+$selectedMonth = filter_input(INPUT_GET, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? $lesMois[0]["numAnnee"] . $lesMois[0]["numMois"];
 
 if (isset($_GET['visiteurId']) && $_GET['visiteurId'] != 'none') {
     $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $infoFraisForfait = $pdo->getLesFraisForfait($selectedVisiteurId, $selectedMonth);
     $listeFraisHorsForfait = $pdo->getLesFraisHorsForfait($selectedVisiteurId, $selectedMonth);
 }
-require PATH_VIEWS . 'v_validerFiches.php';
+
+$visiteurs = $pdo->getVisiteurHavingFicheMonth($selectedMonth);
+
+require PATH_VIEWS . 'validerFiches/v_validerFiches.php';
