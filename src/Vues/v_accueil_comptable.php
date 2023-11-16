@@ -36,13 +36,13 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <a href="index.php?uc=validerFiches"
-                           class="btn btn-primary btn-lg btn-user" role="button">
+                           class="btn btn-primary btn-lg btn-user btn-valider" role="button">
                             <span class="glyphicon glyphicon-ok"></span>
-                            <br>Valider des fiches de frais</a>
+                            <br>Valider les fiches de frais</a>
                         <a href="#"
                            class="btn btn-primary btn-lg btn-user" role="button">
                             <span class="glyphicon glyphicon-euro"></span>
-                            <br>Suivre le paiement des fches de frais</a>
+                            <br>Suivre le paiement des fiches de frais</a>
                     </div>
                 </div>
             </div>

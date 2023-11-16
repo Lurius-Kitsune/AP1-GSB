@@ -35,6 +35,10 @@ code {
 
 .user {
     border-color: var(--couleur);
+}
+
+.user > .panel-heading {
+    border-color: var(--couleur);
     background-color: var(--couleur);
     color : white;
 }
@@ -42,6 +46,16 @@ code {
 .btn-user {
     background-color: var(--couleur);
     color : white;
+    border-color: var(--couleur);
+}
+
+.btn-valider{
+    background-color: #51c151;
+    border-color: #51c151;
+}
+
+.btn-valider:hover{
+    background-color: #4b974b !important;
 }
 
 .btn-user:hover{
@@ -53,11 +67,11 @@ code {
     background-color: white; 
 }
 
-.nav-pills > li > a{
+.user > li > a{
     color: var(--couleur);
 }
 
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+.user > li.active > a, .user > li.active > a:hover, .user > li.active > a:focus {
     color:  white;
     background-color: var(--couleur);
 }
