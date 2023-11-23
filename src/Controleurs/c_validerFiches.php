@@ -35,6 +35,7 @@ if(isset($_POST['forfaitEtape']) && isset($_POST['fraisKm'])  && isset($_POST['n
         "REP" => filter_input(INPUT_POST, 'repasResto', FILTER_SANITIZE_FULL_SPECIAL_CHARS)
     );
     $pdo->majFraisForfait(filter_input(INPUT_GET, 'visiteurId'), filter_input(INPUT_GET, 'month'), $val);
+    echo "<br><div class=\"alert alert-warning\" role=\"alert\">Les données ont bien été mises à jour.</div>";
 }
 
 if (isset($_GET['visiteurId']) && $_GET['visiteurId'] != 'none') {
