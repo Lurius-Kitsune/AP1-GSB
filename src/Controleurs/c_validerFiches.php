@@ -20,14 +20,21 @@
  */
 use Outils\Utilitaires;
 
+$selectedVisiteurId = null;
+
 $lesMois = $pdo->getMoisFichesFraisCloturer();
 
-
-$selectedVisiteurId = null;
 $selectedMonth = filter_input(INPUT_GET, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? $lesMois[0]["numAnnee"] . $lesMois[0]["numMois"];
 
+if (!empty($_POST)) {
+    if ($_POST['buttonInput'] == 'refuser') {
+        $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $idLigneHorsForfait = filter_input(INPUT_POST, 'idLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $pdo->denyUnFraisHorsForfait($idLigneHorsForfait, $selectedVisiteurId);
+    }
+}
 
-if(isset($_POST['forfaitEtape']) && isset($_POST['fraisKm'])  && isset($_POST['nuitHotel']) && isset($_POST['repasResto'])){
+if (isset($_POST['forfaitEtape']) && isset($_POST['fraisKm']) && isset($_POST['nuitHotel']) && isset($_POST['repasResto'])) {
     $val = array(
         "ETP" => filter_input(INPUT_POST, 'forfaitEtape', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
         "KM" => filter_input(INPUT_POST, 'fraisKm', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
