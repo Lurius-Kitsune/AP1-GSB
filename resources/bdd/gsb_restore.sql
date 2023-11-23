@@ -1,5 +1,6 @@
 -- Script de restauration de l'application "GSB Frais"
 -- Administration de la base de données
+drop database if exists gsb_frais;
 CREATE DATABASE IF NOT EXISTS gsb_frais 
 DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;

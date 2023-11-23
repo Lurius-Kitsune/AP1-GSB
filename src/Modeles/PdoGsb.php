@@ -9,7 +9,7 @@
  * @package   GSB
  * @author    Cheri Bibi - Réseau CERTA <contact@reseaucerta.org>
  * @author    José GIL - CNED <jgil@ac-nice.fr>
- * @author    Marco Clin
+ * @author    Marco Clin <marcoetude@gmail.com>
  * @author    Lucas Bruel <lucasfox@outlook.fr>
  * @copyright 2017 Réseau CERTA
  * @license   Réseau CERTA
@@ -589,7 +589,7 @@ class PdoGsb
         $requetePrepare->execute();
         return $requetePrepare->fetchAll();
     }
-
+    
     /**
      * Retourne l'ensemble des mois disponibles en vue
      * de les afficher dans la maquette de validation

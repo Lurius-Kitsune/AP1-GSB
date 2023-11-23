@@ -117,7 +117,7 @@ use Modeles\PdoGsb;
         <br>
     </form>
     <br><br>
-    <div class="panel panel-warning">
+    <div class="panel user">
         <div class="panel-heading">
             <p class="panel-title">Descriptif des éléments hors forfait</p>
         </div>

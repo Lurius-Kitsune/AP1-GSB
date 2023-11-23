@@ -40,6 +40,7 @@ switch ($action) {
             $nom = $user['nom'];
             $prenom = $user['prenom'];
             $isComptable = $user['isComptable'];
+            $_SESSION['isComptable'] = $user['isComptable'];
             Utilitaires::connecter($id, $nom, $prenom, $isComptable);
             header('Location: index.php');
         }
