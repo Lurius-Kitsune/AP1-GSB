@@ -148,9 +148,9 @@ use Modeles\PdoGsb;
         <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" 
                style="width: 20% !important;" 
                value="<?= count($listeFraisHorsForfait); ?>"
-               placeholder="<?= count($listeFraisHorsForfait); ?>">
+               disabled>
     </div>
-<br>
+<br><br>
 
 <button type="submit" class="btn btn-success">Valider</button>
 <button type="reset" class="btn btn-danger">Réinitialiser</button>

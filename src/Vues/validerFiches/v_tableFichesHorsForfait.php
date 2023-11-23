@@ -35,7 +35,7 @@
         <td>
             <div class="form-group">
                 <div class="input-group">
-                    <input type="number" class="form-control" name="prixLigneHorsForfait" id="inputPrix" placeholder="0.00" value="<?= $fraisHorsForfait->getMontant() ?>">
+                    <input type="number" class="form-control" name="montantLigneHorsForfait" id="inputMontant" placeholder="0.00" value="<?= $fraisHorsForfait->getMontant() ?>">
                     <div class="input-group-addon">€</div>
                 </div>
             </div>

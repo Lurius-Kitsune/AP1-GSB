@@ -19,6 +19,7 @@
  * @var PdoGsb $pdo
  */
 use Outils\Utilitaires;
+use App\Entity\LigneHorsForfait;
 
 $selectedVisiteurId = null;
 
@@ -36,7 +37,7 @@ if (!empty($_POST)) {
         case "formForfait":
             actionForfait($pdo);
             break;
-        default : 
+        default :
             break;
     }
 }
@@ -51,15 +52,24 @@ $visiteurs = $pdo->getVisiteurHavingFicheMonth($selectedMonth);
 
 require PATH_VIEWS . 'validerFiches/v_validerFiches.php';
 
-
 /**
  * Interaction avec les lignes Hors Forfait
  */
 function actionLigneHorsForfait($pdo) {
-    if ($_POST['buttonInput'] == 'refuser') {
+    $buttonInput = filter_input(INPUT_POST, 'buttonInput', FILTER_SANITIZE_SPECIAL_CHARS);
+    if ($buttonInput == 'refuser') {
         $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $idLigneHorsForfait = filter_input(INPUT_POST, 'idLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $pdo->denyUnFraisHorsForfait($idLigneHorsForfait, $selectedVisiteurId);
+    } else if ($buttonInput == 'corriger') {
+        $params = array(
+            "id" => filter_input(INPUT_POST, 'idLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            "date" => filter_input(INPUT_POST, 'dateLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            "libelle" => filter_input(INPUT_POST, 'libelleLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            "montant" => filter_input(INPUT_POST, 'montantLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+        );
+        $ligneHf = new LigneHorsForfait($params);
+        $pdo->majFraisHorsForfait(filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_SPECIAL_CHARS), filter_input(INPUT_GET, 'month', FILTER_SANITIZE_SPECIAL_CHARS), $ligneHf);
     }
 }
 
