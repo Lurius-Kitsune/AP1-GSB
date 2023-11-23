@@ -31,7 +31,7 @@ switch ($action) {
         $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $mdp = filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $user = $pdo->getUser($login);
-        if (!password_verify($mdp, $pdo->getMdpUser($login, $user['isComptable']))) {
+        if (!is_array($user) || !password_verify($mdp, $pdo->getMdpUser($login, $user['isComptable']))) {
             Utilitaires::ajouterErreur('Login ou mot de passe incorrect');
             include PATH_VIEWS . 'v_erreurs.php';
             include PATH_VIEWS . 'v_connexion.php';
