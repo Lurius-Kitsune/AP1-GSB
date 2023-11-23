@@ -212,6 +212,43 @@ class PdoGsb {
         $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
+    
+    private function ficheExiste(int $mois, string $idVisiteur){
+        $requetePrepare = $this->connexion->prepare(
+                'select * from fichefrais '
+                . 'where mois = :mois '
+                . 'and idVisiteur = :idVisiteur'
+        );
+        $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_INT);
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        if(is_bool($requetePrepare->fetchAll())){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    private function recupMois(int $idLigneHf){
+        $requetePrepare = $this->connexion->prepare(
+                'select mois from fichefraishorsforfait '
+                . 'where id = :id '
+        );
+        $requetePrepare->bindParam(':id', $idLigneHf, PDO::PARAM_INT);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch();
+    }
+    
+    public function reportLigneHf(string $idVisiteur, int $idLigneHf) {
+        $mois = $this->recupMois($idLigneHf);
+        if($this->ficheExiste($mois, $idVisiteur)){
+            $requetePrepare = $this->connexion->prepare(
+                    'select * from lignefraishorsforfait '
+                    . 'where id = :idLigneHf '
+            );
+            $requetePrepare->bindParam(':idLigneHf', $idLigneHf, PDO::PARAM_INT);
+        }
+    }
 
     /**
      * Retourne le nombre de justificatif d'un visiteur pour un mois donné
