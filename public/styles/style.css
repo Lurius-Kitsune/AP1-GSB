@@ -75,3 +75,13 @@ code {
     color:  white;
     background-color: var(--couleur);
 }
+
+.table {
+  table-layout:fixed;
+}
+
+input.form-control {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
