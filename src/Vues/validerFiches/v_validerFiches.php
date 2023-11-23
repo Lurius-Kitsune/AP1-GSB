@@ -79,7 +79,7 @@ use Modeles\PdoGsb;
     ?>
     <h3 class="gras orange">Valider la fiche de frais</h3>
     <h4>Eléments forfaitisés</h4>
-    <form action="" method="get">
+    <form action="?uc=validerFiches&month=<?= $selectedMonth ?>&visiteurId=<?= $selectedVisiteurId ?>" method="post">
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputForfaitStage">Forfait Etape</label>
@@ -91,7 +91,7 @@ use Modeles\PdoGsb;
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputFraisKm">Frais Kilométrique</label>
-                <input type="text" name="forfaitEtape" class="form-control" id="inputFraisKm" 
+                <input type="text" name="fraisKm" class="form-control" id="inputFraisKm" 
                        value="<?= $infoFraisForfait[1]['quantite'] ?? '0' ?>"
                        placeholder="<?= $infoFraisForfait[1]['quantite'] ?? '0' ?>">
             </div>
