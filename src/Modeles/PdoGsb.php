@@ -21,6 +21,7 @@ namespace Modeles;
 
 use PDO;
 use Outils\Utilitaires;
+use App\Entity\LigneHorsForfait;
 
 require '../config/bdd.php';
 
@@ -186,13 +187,8 @@ class PdoGsb {
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
-        $lesLignes = $requetePrepare->fetchAll();
-        $nbLignes = count($lesLignes);
-        for ($i = 0; $i < $nbLignes; $i++) {
-            $date = $lesLignes[$i]['date'];
-            $lesLignes[$i]['date'] = Utilitaires::dateAnglaisVersFrancais($date);
-        }
-        return $lesLignes;
+        $lesLignesHorsForfait = $requetePrepare->fetchAll(PDO::FETCH_CLASS, LigneHorsForfait::class, null);
+        return $lesLignesHorsForfait;
     }
 
     /**
@@ -436,7 +432,7 @@ class PdoGsb {
         $requetePrepare = $this->connexion->prepare(
                 'INSERT INTO lignefraishorsforfait '
                 . 'VALUES (null, :unIdVisiteur,:unMois, :unLibelle, :uneDateFr,'
-                . ':unMontant) '
+                . ':unMontant, false) '
         );
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);

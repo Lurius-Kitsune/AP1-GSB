@@ -80,6 +80,7 @@ use Modeles\PdoGsb;
     <h3 class="gras orange">Valider la fiche de frais</h3>
     <h4>Eléments forfaitisés</h4>
     <form action="?uc=validerFiches&month=<?= $selectedMonth ?>&visiteurId=<?= $selectedVisiteurId ?>" method="post">
+        <input name="case" type="hidden" value="formForfait"/>
         <div class="row">
             <div class="form-group col-sm-3">
                 <label for="inputForfaitStage">Forfait Etape</label>
