@@ -65,7 +65,8 @@ class PdoGsb {
      * @param bool $isComptable Est-t'il comptable ?
      * @return string mdp de la bd
      */
-    public function getMdpUser($login, $isComptable): string {
+    public function getMdpUser($login, $isComptable): ?string
+    {
         if ($isComptable) {
             return $this->getMdpComptable($login);
         } else {
@@ -94,7 +95,8 @@ class PdoGsb {
      *
      * @return array le mdp hasher du login utilisateur.
      */
-    private function getMdpVisiteur($login): string {
+    private function getMdpVisiteur($login): ?string 
+    {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT mdp '
                 . 'FROM visiteur '
