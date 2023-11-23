@@ -555,3 +555,7 @@ UPDATE visiteur set mdp = 'lahQu0uD' where id = 'v893t';
 UPDATE visiteur set mdp = 'tuiH6ohdui' where id = 'v959e';
 
 UPDATE comptable set mdp = 'mdp';
+
+Alter table lignefraishorsforfait add (
+	isDeny BOOLEAN NOT NULL DEFAULT false
+);
