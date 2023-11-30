@@ -20,7 +20,7 @@ namespace App\Entity;
 class LigneHorsForfait {
 
     private ?int $id = null;
-    private ?string $idVisiteur = null;
+    private ?string $idvisiteur = null;
     private ?string $mois = null;
     private ?string $libelle = null;
     private ?string $date = null;
@@ -35,13 +35,43 @@ class LigneHorsForfait {
         }
     }
 
+    public function getId (): string
+    {
+        return $this->id;
+    }
+    
+    
+    public function getMontant(): string
+    {
+        return $this->montant;
+    }
+    
     public function isDeny(): bool
     {
         return $this->isDeny;
     }
     
+    public function getLibelle(): string
+    {
+        return $this->libelle;
+    }
     public function setLibelle(string $libelle): void
     {
         $this->libelle = $libelle;
+    }
+    
+    public function getDate (): string
+    {
+        return $this->date;
+    }
+    
+    public function getDateFrenchFormat(): string
+    {
+            return str_replace("-", "/", Utilitaires::dateAnglaisVersFrancais($this->date));
+    }
+    
+    public function setDate (string $date): void
+    {
+        $this->date = $date;
     }
 }

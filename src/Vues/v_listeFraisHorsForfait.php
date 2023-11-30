@@ -33,10 +33,10 @@
             <tbody>
             <?php
             foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
-                $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
-                $date = $unFraisHorsForfait['date'];
-                $montant = $unFraisHorsForfait['montant'];
-                $id = $unFraisHorsForfait['id']; ?>           
+                $libelle = htmlspecialchars($unFraisHorsForfait->getLibelle());
+                $date = $unFraisHorsForfait->getDate();
+                $montant = $unFraisHorsForfait->getMontant();
+                $id = $unFraisHorsForfait->getId(); ?>           
                 <tr>
                     <td> <?php echo $date ?></td>
                     <td> <?php echo $libelle ?></td>

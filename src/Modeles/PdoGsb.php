@@ -21,6 +21,7 @@ namespace Modeles;
 
 use PDO;
 use Outils\Utilitaires;
+use App\Entity\LigneHorsForfait;
 
 require '../config/bdd.php';
 
@@ -65,8 +66,7 @@ class PdoGsb {
      * @param bool $isComptable Est-t'il comptable ?
      * @return string mdp de la bd
      */
-    public function getMdpUser($login, $isComptable): ?string
-    {
+    public function getMdpUser($login, $isComptable): ?string {
         if ($isComptable) {
             return $this->getMdpComptable($login);
         } else {
@@ -95,8 +95,7 @@ class PdoGsb {
      *
      * @return array le mdp hasher du login utilisateur.
      */
-    private function getMdpVisiteur($login): ?string 
-    {
+    private function getMdpVisiteur($login): ?string {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT mdp '
                 . 'FROM visiteur '
@@ -186,13 +185,8 @@ class PdoGsb {
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
-        $lesLignes = $requetePrepare->fetchAll();
-        $nbLignes = count($lesLignes);
-        for ($i = 0; $i < $nbLignes; $i++) {
-            $date = $lesLignes[$i]['date'];
-            $lesLignes[$i]['date'] = Utilitaires::dateAnglaisVersFrancais($date);
-        }
-        return $lesLignes;
+        $lesLignesHorsForfait = $requetePrepare->fetchAll(PDO::FETCH_CLASS, LigneHorsForfait::class, null);
+        return $lesLignesHorsForfait;
     }
 
     /**
@@ -345,6 +339,36 @@ class PdoGsb {
     }
 
     /**
+     * Met à jour la table ligneFraisForfait
+     * Met à jour la table ligneFraisForfait pour un visiteur et
+     * un mois donné en enregistrant les nouveaux montants
+     *
+     * @param String $idVisiteur ID du visiteur
+     * @param String $mois       Mois sous la forme aaaamm
+     * @param LigneHorsForfait  $uneLigne   Objet de la classe LigneHorsForfait
+     *
+     * @return null
+     */
+    public function majFraisHorsForfait($idVisiteur, $mois, LigneHorsForfait $uneLigne): void {
+        $requetePrepare = $this->connexion->prepare(
+                'UPDATE lignefraishorsforfait '
+                . 'SET lignefraishorsforfait.date = :uneDate, '
+                . 'lignefraishorsforfait.libelle = :unLibelle, '
+                . 'lignefraishorsforfait.montant = :unMontant '
+                . 'WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur '
+                . 'AND lignefraishorsforfait.mois = :unMois '
+                . 'AND lignefraishorsforfait.id = :id'
+        );
+        $requetePrepare->bindValue(':uneDate', $uneLigne->getDate(), PDO::PARAM_STR);
+        $requetePrepare->bindValue(':unLibelle', $uneLigne->getLibelle(), PDO::PARAM_STR);
+        $requetePrepare->bindValue(':unMontant', $uneLigne->getMontant(), PDO::PARAM_STR);
+        $requetePrepare->bindValue(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindValue(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindValue(':id', $uneLigne->getId(), PDO::PARAM_INT);
+        $requetePrepare->execute();
+    }
+
+    /**
      * Met à jour le nombre de justificatifs de la table ficheFrais
      * pour le mois et le visiteur concerné
      *
@@ -473,7 +497,7 @@ class PdoGsb {
         $requetePrepare = $this->connexion->prepare(
                 'INSERT INTO lignefraishorsforfait '
                 . 'VALUES (null, :unIdVisiteur,:unMois, :unLibelle, :uneDateFr,'
-                . ':unMontant) '
+                . ':unMontant, false) '
         );
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
