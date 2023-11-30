@@ -736,7 +736,7 @@ class PdoGsb {
      * @param string $idVisiteur
      * @param int $idLigneHf
      */
-    public function reportLigneHf(string $idVisiteur, int $idLigneHf) {
+    public function reportLigneHf(string $idVisiteur, string $idLigneHf) {
         $mois = $this->recupMoisLigneHf($idLigneHf);
         $moisSuivant = $this->getMoisSuivant($mois['mois']);
         $ligneAReporter = $this->getFraisHorsForfait($idLigneHf);
