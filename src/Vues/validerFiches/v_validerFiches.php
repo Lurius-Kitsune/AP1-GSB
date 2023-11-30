@@ -155,7 +155,4 @@ use Modeles\PdoGsb;
 <button type="reset" class="btn btn-danger">Réinitialiser</button>
 </form>
 
-<?php 
-    echo '</div>';
-} 
-?>
+<?php } ?>
