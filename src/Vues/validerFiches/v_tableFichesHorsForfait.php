@@ -43,6 +43,7 @@
             <button type="submit" class="btn btn-success" name="buttonInput" value="corriger">Corriger</button>
             <button type="submit" class="btn btn-danger" name="buttonInput" <?= (bool)$fraisHorsForfait['isDeny'] ?? false ? 'disabled' : 'value="refuser"' ?>>Refuser</button>
             <button type="reset" class="btn btn-danger">Réinitialiser</button>
+            <button type="submit" class="btn btn-warning" name="buttonInput" value="reporter">Reporter</button>
         </td>
     </tr>
 </form>
