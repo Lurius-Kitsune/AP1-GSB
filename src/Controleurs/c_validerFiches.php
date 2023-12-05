@@ -37,6 +37,9 @@ if (!empty($_POST)) {
         case "formForfait":
             actionForfait($pdo);
             break;
+        case "ficheFrais":
+            validerFiche($pdo);
+            break;
         default :
             break;
     }
@@ -85,6 +88,14 @@ function actionForfait($pdo) {
             "REP" => filter_input(INPUT_POST, 'repasResto', FILTER_SANITIZE_FULL_SPECIAL_CHARS)
         );
         $pdo->majFraisForfait(filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_SPECIAL_CHARS), filter_input(INPUT_GET, 'month', FILTER_SANITIZE_SPECIAL_CHARS), $val);
-        echo "<br><div class=\"alert alert-warning\" role=\"alert\">Les données ont bien été mises à jour.</div>";
+        echo "<br><div class=\"alert alert-sucess\" role=\"alert\">Les données ont bien été mises à jour.</div>";
     }
+}
+
+function validerFiche($pdo) {
+    $visiteurId = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+    $pdo->majEtatFicheFrais($visiteurId, $month, 'VA');
+    echo "<br><div class=\"alert alert-sucess\" role=\"alert\">Les données ont bien été mises à jour.</div>";
 }

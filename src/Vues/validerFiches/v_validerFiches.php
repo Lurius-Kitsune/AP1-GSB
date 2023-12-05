@@ -39,6 +39,7 @@ use Modeles\PdoGsb;
         window.location.href = window.location.pathname + "?uc=validerFiches&month=" + selectedValue;
     }
 </script>
+
 <div>
     <form action="/" method="GET" class="form-inline">
         <input type="hidden" value="validerFiches" name="uc">
@@ -79,7 +80,7 @@ use Modeles\PdoGsb;
     ?>
     <h3 class="gras orange">Valider la fiche de frais</h3>
     <h4>Eléments forfaitisés</h4>
-    <form action="?uc=validerFiches&month=<?= $selectedMonth ?>&visiteurId=<?= $selectedVisiteurId ?>" method="post">
+    <form action="?uc=validerFiches&month=<?= $selectedMonth; ?>&visiteurId=<?= $selectedVisiteurId; ?>" method="post">
         <input name="case" type="hidden" value="formForfait"/>
         <div class="row">
             <div class="form-group col-sm-3">
@@ -142,7 +143,7 @@ use Modeles\PdoGsb;
 </div>
 
 <br><br>
-<form class="form-inline">
+<form class="form-inline" action="?uc=validerFiches" method="post">
     <div class="form-group">
         <label for="inputNbJustificatif" class="control-label">Nombre de justificatifs :</label>
         <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" 
@@ -151,9 +152,11 @@ use Modeles\PdoGsb;
                disabled>
     </div>
 <br><br>
-
-<button type="submit" class="btn btn-success">Valider</button>
-<button type="reset" class="btn btn-danger">Réinitialiser</button>
+    <input name="case" type="hidden" value="ficheFrais"/>
+    <input id="inputIdVisiteur" name="idVisiteur" type="hidden" value="<?= $selectedVisiteurId; ?>"/>
+    <input id="inputMonth" name="month" type="hidden" value="<?= $selectedMonth; ?>"/>
+    <button type="submit" class="btn btn-success">Valider</button>
+<a href='/?uc=validerFiches&month=<?= $selectedMonth; ?>&visiteurId=<?= $selectedVisiteurId; ?>'><button type="button" class="btn btn-danger">Réinitialiser</button></a>
 </form>
 
 <?php 
