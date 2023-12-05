@@ -659,5 +659,4 @@ class PdoGsb {
         }
         return $lesMois;
     }
-    
 }
