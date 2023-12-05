@@ -73,7 +73,8 @@ function actionLigneHorsForfait($pdo) {
     } else if ($buttonInput == 'reporter'){
         $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $idLigneHorsForfait = filter_input(INPUT_POST, 'idLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $pdo->reportLigneHf($idLigneHorsForfait, $selectedVisiteurId);
+        $pdo->reportLigneHf($selectedVisiteurId, $idLigneHorsForfait);
+        echo "<br><div class=\"alert alert-warning\" role=\"alert\">La ligne a bien été reporté.</div>";
     }
 }
 

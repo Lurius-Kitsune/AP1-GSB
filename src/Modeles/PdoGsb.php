@@ -456,7 +456,11 @@ class PdoGsb {
      * @return null
      */
     public function creeNouveauFraisHorsForfait($idVisiteur, $mois, $libelle, $date, $montant): void {
-        $dateFr = Utilitaires::dateFrancaisVersAnglais($date);
+        if(preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)){
+            $dateFr = $date;
+        }else{
+            $dateFr = Utilitaires::dateFrancaisVersAnglais($date);
+        }
         $requetePrepare = $this->connexion->prepare(
                 'INSERT INTO lignefraishorsforfait '
                 . 'VALUES (null, :unIdVisiteur,:unMois, :unLibelle, :uneDateFr,'
@@ -669,7 +673,7 @@ class PdoGsb {
         $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_INT);
         $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->execute();
-        if(is_bool($requetePrepare->fetchAll())){
+        if(count($requetePrepare->fetchAll())==0){
             return false;
         }else{
             return true;
@@ -684,7 +688,7 @@ class PdoGsb {
      */
     private function getFraisHorsForfait($idLigne){
         $requetePrepare = $this->connexion->prepare(
-                'select mois from lignefraishorsforfait '
+                'select * from lignefraishorsforfait '
                 . 'where lignefraishorsforfait.id = :id'
         );
         $requetePrepare->bindParam(':id', $idLigne, PDO::PARAM_INT);
@@ -698,12 +702,12 @@ class PdoGsb {
      * 
      * @param int $idLigneHf
      */
-    private function recupMoisLigneHf(int $idLigneHf){
+    private function recupMoisLigneHf(string $idLigneHf){
         $requetePrepare = $this->connexion->prepare(
-                'select mois from fichefraishorsforfait '
+                'select mois from lignefraishorsforfait '
                 . 'where id = :id '
         );
-        $requetePrepare->bindParam(':id', $idLigneHf, PDO::PARAM_INT);
+        $requetePrepare->bindParam(':id', $idLigneHf, PDO::PARAM_STR);
         $requetePrepare->execute();
         return $requetePrepare->fetch(PDO::FETCH_ASSOC);
     }
@@ -722,8 +726,23 @@ class PdoGsb {
             return (string)$partieAnnee.(string)$partieMois;
         }else{
             $partieMois+=1;
+            if($partieMois<10){
+                $partieMois='0'.(string)$partieMois;
+            }
             return (string)$partieAnnee.(string)$partieMois;
         }
+    }
+    
+    private function deleteLigneHf($mois, $idVisiteur, $libelle){
+        $requetePrepare = $this->connexion->prepare(
+                'delete from lignefraishorsforfait '.
+                'where mois = :mois and idVisiteur = :idVisiteur '.
+                'and libelle = :libelle'
+        );
+        $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':libelle', $libelle, PDO::PARAM_STR);
+        $requetePrepare->execute();
     }
     
     /**
@@ -742,9 +761,11 @@ class PdoGsb {
         $ligneAReporter = $this->getFraisHorsForfait($idLigneHf);
         if($this->ficheExiste($moisSuivant, $idVisiteur)){
             $this->creeNouveauFraisHorsForfait($idVisiteur, $moisSuivant, $ligneAReporter['libelle'], $ligneAReporter['date'], $ligneAReporter['montant']);
+            $this->deleteLigneHf($mois['mois'], $idVisiteur, $ligneAReporter['libelle']);
         }else{
             $this->creeNouvellesLignesFrais($idVisiteur, $moisSuivant);
             $this->creeNouveauFraisHorsForfait($idVisiteur, $moisSuivant, $ligneAReporter['libelle'], $ligneAReporter['date'], $ligneAReporter['montant']);
+            $this->deleteLigneHf($mois['mois'], $idVisiteur);
         }
     }
     

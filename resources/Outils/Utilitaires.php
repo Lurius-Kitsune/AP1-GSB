@@ -68,7 +68,7 @@ abstract class Utilitaires
      */
     public static function dateFrancaisVersAnglais($maDate): string
     {
-        @list($jour, $mois, $annee) = explode('/', $maDate);
+        list($jour, $mois, $annee) = explode('/', $maDate);
         return date('Y-m-d', mktime(0, 0, 0, $mois, $jour, $annee));
     }
 
