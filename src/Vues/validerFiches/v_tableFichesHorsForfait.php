@@ -44,7 +44,7 @@
             <button type="submit" class="btn btn-success" name="buttonInput" value="corriger">Corriger</button>
             <button type="submit" class="btn btn-warning" name="buttonInput" value="reporter" <?= $fraisHorsForfait->isDeny() ? 'disabled' : 'value="refuser"' ?>>Reporter</button>
             <button type="submit" class="btn btn-danger" name="buttonInput" <?= $fraisHorsForfait->isDeny() ? 'disabled' : 'value="refuser"' ?>>Refuser</button>
-            <button type="reset" class="btn btn-danger">Réinitialiser</button>
+            <button type="reset" class="btn btn-danger" style='margin-top: 5px;'>Réinitialiser</button>
         </td>
     </tr>
 </form>
