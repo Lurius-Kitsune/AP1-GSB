@@ -664,6 +664,14 @@ class PdoGsb {
         return $lesMois;
     }
     
+    /**
+     * Retourne vrai si la fiche dont le mois et l'id du visiteur
+     * ont été renseigné existe, faux sinon
+     * 
+     * @param int $mois
+     * @param string $idVisiteur
+     * @return bool
+     */
      private function ficheExiste(int $mois, string $idVisiteur){
         $requetePrepare = $this->connexion->prepare(
                 'select * from fichefrais '
