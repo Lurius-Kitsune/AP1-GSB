@@ -50,6 +50,7 @@ if (isset($_GET['visiteurId']) && $_GET['visiteurId'] != 'none') {
     $infoFicheFrais = $pdo->getLesInfosFicheFrais($selectedVisiteurId, $selectedMonth);
     $infoFraisForfait = $infoFicheFrais['idEtat'] === 'CL' ? $pdo->getLesFraisForfait($selectedVisiteurId, $selectedMonth) : null;
     $listeFraisHorsForfait = $infoFicheFrais['idEtat'] === 'CL' ? $pdo->getLesFraisHorsForfait($selectedVisiteurId, $selectedMonth) : null;
+    $nbJustificatif = $infoFicheFrais['nbJustificatifs'];
 }
 
 $visiteurs = $pdo->getVisiteurHavingFicheMonth($selectedMonth);
@@ -96,7 +97,9 @@ function actionForfait($pdo) {
 function validerFiche($pdo) {
     $visiteurId = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $nbJustificatif = filter_input(INPUT_POST, 'nbJustificatif', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
+    $pdo->majNbJustificatifs($visiteurId, $month, $nbJustificatif);
     $pdo->majEtatFicheFrais($visiteurId, $month, 'VA');
     echo "<br><div class=\"alert alert-success\" role=\"alert\">La fiche à bien été validé.</div>";
 }

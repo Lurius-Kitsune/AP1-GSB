@@ -148,8 +148,8 @@ use Modeles\PdoGsb;
         <label for="inputNbJustificatif" class="control-label">Nombre de justificatifs :</label>
         <input type="number" name="nbJustificatif" class="form-control" id="inputNbJustificatif" 
                style="width: 20% !important;" 
-               value="<?= count($listeFraisHorsForfait); ?>"
-               disabled>
+               value="<?= $nbJustificatif; ?>"
+               >
     </div>
 <br><br>
     <input name="case" type="hidden" value="ficheFrais"/>
