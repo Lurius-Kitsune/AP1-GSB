@@ -765,7 +765,7 @@ class PdoGsb {
         }else{
             $this->creeNouvellesLignesFrais($idVisiteur, $moisSuivant);
             $this->creeNouveauFraisHorsForfait($idVisiteur, $moisSuivant, $ligneAReporter['libelle'], $ligneAReporter['date'], $ligneAReporter['montant']);
-            $this->deleteLigneHf($mois['mois'], $idVisiteur);
+            $this->deleteLigneHf($mois['mois'], $idVisiteur, $ligneAReporter['libelle']);
         }
     }
     
