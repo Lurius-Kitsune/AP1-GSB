@@ -57,51 +57,52 @@
                                 </li>
                                 <?php
                                 if ($_SESSION['isComptable']) {
-                            ?>
-                            <li <?php if ($uc == 'validerFiches') { ?>class="active"<?php } ?>>
-                                <a href="/?uc=validerFiches">
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                    Valider les fiches de frais
-                                </a>
-                            </li>
-                            <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
-                                <a href="/">
-                                    <span class="glyphicon glyphicon-euro"></span>
-                                    Suivre le paiement des fiches de frais
-                                </a>
-                            </li>
-                            <?php } else { ?>
-                            <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
-                                <a href="/?uc=gererFrais&action=saisirFrais">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                    Renseigner la fiche de frais
-                                </a>
-                            </li>
-                            <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
-                                <a href="/index.php?uc=etatFrais&action=selectionnerMois">
-                                    <span class="glyphicon glyphicon-list-alt"></span>
-                                    Afficher mes fiches de frais
-                                </a>
-                            </li>
-                            <?php } ?>
-                            <li 
-                            <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
-                                <a href="/?uc=deconnexion&action=demandeDeconnexion">
-                                    <span class="glyphicon glyphicon-log-out"></span>
-                                    Déconnexion
-                                </a>
-                            </li>
-                        </ul>
+                                    ?>
+                                    <li <?php if ($uc == 'validerFiches') { ?>class="active"<?php } ?>>
+                                        <a href="/?uc=validerFiches">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            Valider les fiches de frais
+                                        </a>
+                                    </li>
+                                    <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
+                                        <a href="/">
+                                            <span class="glyphicon glyphicon-euro"></span>
+                                            Suivre le paiement des fiches de frais
+                                        </a>
+                                    </li>
+                                <?php } else { ?>
+                                    <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
+                                        <a href="/?uc=gererFrais&action=saisirFrais">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                            Renseigner la fiche de frais
+                                        </a>
+                                    </li>
+                                    <li <?php if ($uc == 'etatFrais') { ?>class="active"<?php } ?>>
+                                        <a href="/index.php?uc=etatFrais&action=selectionnerMois">
+                                            <span class="glyphicon glyphicon-list-alt"></span>
+                                            Afficher mes fiches de frais
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <li 
+                                    <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
+                                    <a href="/?uc=deconnexion&action=demandeDeconnexion">
+                                        <span class="glyphicon glyphicon-log-out"></span>
+                                        Déconnexion
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <?php
-            } else {
-                ?>   
-                <h1>
-                    <img src="./images/logo.jpg"
-                         class="img-responsive center-block"
-                         alt="Laboratoire Galaxy-Swiss Bourdin"
-                         title="Laboratoire Galaxy-Swiss Bourdin">
-                </h1>
-                <?php
-            }
+                    <?php
+                } else {
+                    ?>   
+                    <h1>
+                        <img src="./images/logo.jpg"
+                             class="img-responsive center-block"
+                             alt="Laboratoire Galaxy-Swiss Bourdin"
+                             title="Laboratoire Galaxy-Swiss Bourdin">
+                    </h1>
+                <?php } ?>
+            </div>
+            

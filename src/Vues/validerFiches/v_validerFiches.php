@@ -159,7 +159,4 @@ use Modeles\PdoGsb;
 <a href='/?uc=validerFiches&month=<?= $selectedMonth; ?>&visiteurId=<?= $selectedVisiteurId; ?>'><button type="button" class="btn btn-danger">Réinitialiser</button></a>
 </form>
 
-<?php 
-    echo '</div>';
-} 
-?>
+<?php } ?>

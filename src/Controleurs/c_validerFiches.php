@@ -75,6 +75,11 @@ function actionLigneHorsForfait($pdo) {
         );
         $ligneHf = new LigneHorsForfait($params);
         $pdo->majFraisHorsForfait(filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_SPECIAL_CHARS), filter_input(INPUT_GET, 'month', FILTER_SANITIZE_SPECIAL_CHARS), $ligneHf);
+    } else if ($buttonInput == 'reporter'){
+        $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $idLigneHorsForfait = filter_input(INPUT_POST, 'idLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $pdo->reportLigneHf($selectedVisiteurId, $idLigneHorsForfait);
+        echo "<br><div class=\"alert alert-warning\" role=\"alert\">La ligne a bien été reporté.</div>";
     }
 }
 

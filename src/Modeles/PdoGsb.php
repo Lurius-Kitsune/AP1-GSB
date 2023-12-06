@@ -206,7 +206,7 @@ class PdoGsb {
         $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
-
+    
     /**
      * Retourne le nombre de justificatif d'un visiteur pour un mois donné
      *
@@ -456,7 +456,11 @@ class PdoGsb {
      * @return null
      */
     public function creeNouveauFraisHorsForfait($idVisiteur, $mois, $libelle, $date, $montant): void {
-        $dateFr = Utilitaires::dateFrancaisVersAnglais($date);
+        if(preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)){
+            $dateFr = $date;
+        }else{
+            $dateFr = Utilitaires::dateFrancaisVersAnglais($date);
+        }
         $requetePrepare = $this->connexion->prepare(
                 'INSERT INTO lignefraishorsforfait '
                 . 'VALUES (null, :unIdVisiteur,:unMois, :unLibelle, :uneDateFr,'
@@ -659,4 +663,118 @@ class PdoGsb {
         }
         return $lesMois;
     }
+    
+    /**
+     * Retourne vrai si la fiche dont le mois et l'id du visiteur
+     * ont été renseigné existe, faux sinon
+     * 
+     * @param int $mois
+     * @param string $idVisiteur
+     * @return bool
+     */
+     private function ficheExiste(int $mois, string $idVisiteur){
+        $requetePrepare = $this->connexion->prepare(
+                'select * from fichefrais '
+                . 'where mois = :mois '
+                . 'and idVisiteur = :idVisiteur'
+        );
+        $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_INT);
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        if(count($requetePrepare->fetchAll())==0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /**
+     * Retourne les info de la ligne de frais hors forfaits dont l'id
+     * a été passé en paramètres
+     * 
+     * @param type $idLigne
+     */
+    private function getFraisHorsForfait($idLigne){
+        $requetePrepare = $this->connexion->prepare(
+                'select * from lignefraishorsforfait '
+                . 'where lignefraishorsforfait.id = :id'
+        );
+        $requetePrepare->bindParam(':id', $idLigne, PDO::PARAM_INT);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    /**
+     * Retourne le mois de la ligne de frais hors forfaits
+     * dont l'id a été renseigné
+     * 
+     * @param int $idLigneHf
+     */
+    private function recupMoisLigneHf(string $idLigneHf){
+        $requetePrepare = $this->connexion->prepare(
+                'select mois from lignefraishorsforfait '
+                . 'where id = :id '
+        );
+        $requetePrepare->bindParam(':id', $idLigneHf, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    /**
+     * Retourne le mois suivant celui donné dans la fonction
+     * 
+     * @param type $mois
+     */
+    private function getMoisSuivant($mois){
+        $partieAnnee = (int)substr((string)$mois, 0, 4);
+        $partieMois = (int)substr((string)$mois, -2);
+        if ($partieMois==12){
+            $partieAnnee+=1;
+            $partieMois=01;
+            return (string)$partieAnnee.(string)$partieMois;
+        }else{
+            $partieMois+=1;
+            if($partieMois<10){
+                $partieMois='0'.(string)$partieMois;
+            }
+            return (string)$partieAnnee.(string)$partieMois;
+        }
+    }
+    
+    private function deleteLigneHf($mois, $idVisiteur, $libelle){
+        $requetePrepare = $this->connexion->prepare(
+                'delete from lignefraishorsforfait '.
+                'where mois = :mois and idVisiteur = :idVisiteur '.
+                'and libelle = :libelle'
+        );
+        $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':libelle', $libelle, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    /**
+     * Reporte la ligne de frais hors forfait du visiteur passé en paramètres
+     * sur sa fiche de paie du mois suivant.
+     * 
+     * Si il n'y a aucune fiche de frais le mois suivant, en créé une
+     * puis reporte la ligne.
+     * 
+     * @param string $idVisiteur
+     * @param int $idLigneHf
+     */
+    public function reportLigneHf(string $idVisiteur, string $idLigneHf) {
+        $mois = $this->recupMoisLigneHf($idLigneHf);
+        $moisSuivant = $this->getMoisSuivant($mois['mois']);
+        $ligneAReporter = $this->getFraisHorsForfait($idLigneHf);
+        if($this->ficheExiste($moisSuivant, $idVisiteur)){
+            $this->creeNouveauFraisHorsForfait($idVisiteur, $moisSuivant, $ligneAReporter['libelle'], $ligneAReporter['date'], $ligneAReporter['montant']);
+            $this->deleteLigneHf($mois['mois'], $idVisiteur, $ligneAReporter['libelle']);
+        }else{
+            $this->creeNouvellesLignesFrais($idVisiteur, $moisSuivant);
+            $this->creeNouveauFraisHorsForfait($idVisiteur, $moisSuivant, $ligneAReporter['libelle'], $ligneAReporter['date'], $ligneAReporter['montant']);
+            $this->deleteLigneHf($mois['mois'], $idVisiteur, $ligneAReporter['libelle']);
+        }
+    }
+    
 }

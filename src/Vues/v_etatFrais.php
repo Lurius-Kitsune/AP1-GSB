@@ -61,9 +61,9 @@
         </tr>
         <?php
         foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
-            $date = $unFraisHorsForfait['date'];
-            $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
-            $montant = $unFraisHorsForfait['montant']; ?>
+            $date = $unFraisHorsForfait->getDate();
+            $libelle = htmlspecialchars($unFraisHorsForfait->getLibelle());
+            $montant = $unFraisHorsForfait->getMontant(); ?>
             <tr>
                 <td><?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
