@@ -21,12 +21,6 @@
 use Outils\Utilitaires;
 use App\Entity\LigneHorsForfait;
 
-$selectedVisiteurId = null;
-
-$lesMois = $pdo->getMoisFichesFraisCloturer();
-
-$selectedMonth = filter_input(INPUT_GET, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? $lesMois[0]["numAnnee"] . $lesMois[0]["numMois"];
-
 if (!empty($_POST)) {
     $case = filter_input(INPUT_POST, 'case', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -37,15 +31,25 @@ if (!empty($_POST)) {
         case "formForfait":
             actionForfait($pdo);
             break;
+        case "ficheFrais":
+            validerFiche($pdo);
+            break;
         default :
             break;
     }
 }
 
+$selectedVisiteurId = null;
+
+$lesMois = $pdo->getMoisFichesFraisCloturer();
+
+$selectedMonth = filter_input(INPUT_GET, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? $lesMois[0]["numAnnee"] . $lesMois[0]["numMois"];
+
 if (isset($_GET['visiteurId']) && $_GET['visiteurId'] != 'none') {
     $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $infoFraisForfait = $pdo->getLesFraisForfait($selectedVisiteurId, $selectedMonth);
-    $listeFraisHorsForfait = $pdo->getLesFraisHorsForfait($selectedVisiteurId, $selectedMonth);
+    $infoFicheFrais = $pdo->getLesInfosFicheFrais($selectedVisiteurId, $selectedMonth);
+    $infoFraisForfait = $infoFicheFrais['idEtat'] === 'CL' ? $pdo->getLesFraisForfait($selectedVisiteurId, $selectedMonth) : null;
+    $listeFraisHorsForfait = $infoFicheFrais['idEtat'] === 'CL' ? $pdo->getLesFraisHorsForfait($selectedVisiteurId, $selectedMonth) : null;
 }
 
 $visiteurs = $pdo->getVisiteurHavingFicheMonth($selectedMonth);
@@ -85,6 +89,14 @@ function actionForfait($pdo) {
             "REP" => filter_input(INPUT_POST, 'repasResto', FILTER_SANITIZE_FULL_SPECIAL_CHARS)
         );
         $pdo->majFraisForfait(filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_SPECIAL_CHARS), filter_input(INPUT_GET, 'month', FILTER_SANITIZE_SPECIAL_CHARS), $val);
-        echo "<br><div class=\"alert alert-warning\" role=\"alert\">Les données ont bien été mises à jour.</div>";
+        echo "<br><div class=\"alert alert-success\" role=\"alert\">Les données ont bien été mises à jour.</div>";
     }
+}
+
+function validerFiche($pdo) {
+    $visiteurId = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+    $pdo->majEtatFicheFrais($visiteurId, $month, 'VA');
+    echo "<br><div class=\"alert alert-success\" role=\"alert\">La fiche à bien été validé.</div>";
 }
