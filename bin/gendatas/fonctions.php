@@ -30,6 +30,14 @@ function getLesVisiteurs($pdo)
     return $lesLignes;
 }
 
+function getLesComptable($pdo)
+{
+    $req = 'select * from comptable';
+    $res = $pdo->query($req);
+    $lesLignes = $res->fetchAll();
+    return $lesLignes;
+}
+
 /**
  * Fonction générique qui retourne le nombre d'enregistrements d'une table
  *

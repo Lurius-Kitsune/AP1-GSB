@@ -1,6 +1,6 @@
 -- Script de restauration de l'application "GSB Frais"
-
 -- Administration de la base de données
+drop database if exists gsb_frais;
 CREATE DATABASE IF NOT EXISTS gsb_frais 
 DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS visiteur (
   nom char(30) DEFAULT NULL,
   prenom char(30)  DEFAULT NULL, 
   login char(20) DEFAULT NULL,
-  mdp char(20) DEFAULT NULL,
+  mdp char(255) DEFAULT NULL,
   adresse char(30) DEFAULT NULL,
   cp char(5) DEFAULT NULL,
   ville char(30) DEFAULT NULL,
@@ -95,7 +95,8 @@ INSERT INTO etat (id, libelle) VALUES
 ('RB', 'Remboursée'),
 ('CL', 'Saisie clôturée'),
 ('CR', 'Fiche créée, saisie en cours'),
-('VA', 'Validée et mise en paiement');
+('VA', 'Validée');
+('MP', 'Mise en paiement'),
 
 -- Récupération des utilisateurs
 INSERT INTO `visiteur` VALUES 
@@ -55711,3 +55712,11 @@ INSERT INTO `lignefraishorsforfait` VALUES
 (22655,'v959e','202308','Achat d\'espace publicitaire','2023-08-14',27.00),
 (22656,'v959e','202308','Traiteur, alimentation, boisson','2023-08-27',340.00),
 (22657,'v959e','202308','Repas avec praticien','2023-08-26',47.00);
+
+-- Modification des mdp pour les mettre en SHA2-512
+ALTER TABLE visiteur MODIFY mdp CHAR(128) ;
+ALTER TABLE comptable MODIFY mdp CHAR(128) ;
+
+UPDATE visiteur SET mdp = sha2(mdp, 512);
+
+UPDATE comptable SET mdp = sha2(mdp, 512);
