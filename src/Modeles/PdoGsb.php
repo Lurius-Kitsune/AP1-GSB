@@ -595,6 +595,30 @@ class PdoGsb {
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
+    
+    /**
+     * Modifie l'état et la date de modification d'une fiche de frais.
+     * Modifie le champ idEtat et met la date de modif à aujourd'hui.
+     *
+     * @param String $idVisiteur ID du visiteur
+     * @param String $mois       Mois sous la forme aaaamm
+     * @param String $etat       Nouvel état de la fiche de frais
+     *
+     * @return null
+     */
+    public function majMontantValiderFicheFrais($idVisiteur, $mois): void {
+        $montant = (float)$this->getMontantTotalForfait($idVisiteur, $mois) + (float)$this->getMontantTotalHorsForfait($idVisiteur, $mois);
+        $requetePrepare = $this->connexion->prepare(
+                'UPDATE fichefrais '
+                . 'SET montantvalide = :unMontant '
+                . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
+                . 'AND fichefrais.mois = :unMois'
+        );
+        $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
 
     /**
      * Retourne les noms de tout les visiteurs en vue
@@ -777,12 +801,10 @@ class PdoGsb {
     }
     
     /**
-     * Retourne les les visiteur pour un mois donné si
-     * La fiche est cloturer
+     * Retourne nom,prenom,idvisiteur,mois,montantvalide,totalHorsForfait,totalForfait 
+     * des fiche dont l'état est en VA
      *
-     * @param String $mois       Mois sous la forme aaaamm
-     *
-     * @return array un tableau avec des champs de jointure entre une fiche de frais
+     * @return array un tableau avec des champs de jointure entre d'une fiche de frais
      * 
      */
     public function getResumeFiche(): array|bool {
@@ -808,7 +830,7 @@ class PdoGsb {
         return $lesLignes;
     }
     
-    public function getMontantTotalForfait(string $idvisiteur, string $mois): string
+    public function getMontantTotalForfait(string $idVisiteur, string $mois): string
     {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT SUM(fraisforfait.montant*lignefraisforfait.quantite) as totalForfait '
@@ -816,20 +838,21 @@ class PdoGsb {
                 . 'INNER JOIN fraisforfait on lignefraisforfait.idfraisforfait = fraisforfait.id '
                 . 'WHERE idvisiteur = :idvisiteur and mois = :mois'
         );
-        $requetePrepare->bindParam(':idvisiteur', $idvisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':idvisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
-        return strval($requetePrepare->fetchColumn());
+        return $requetePrepare->fetchColumn();
     }
     
-        public function getMontantTotalHorsForfait(string $idvisiteur, string $mois): string
+        public function getMontantTotalHorsForfait(string $idVisiteur, string $mois): string
         {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT SUM(lignefraishorsforfait.montant) as totalHorsForfait '
                 . 'FROM lignefraishorsforfait '
-                . 'WHERE idvisiteur = :idvisiteur and mois = :mois'
+                . 'WHERE idvisiteur = :idvisiteur and mois = :mois '
+                . 'AND isDeny = false'
         );
-        $requetePrepare->bindParam(':idvisiteur', $idvisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':idvisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
         return strval($requetePrepare->fetchColumn());
