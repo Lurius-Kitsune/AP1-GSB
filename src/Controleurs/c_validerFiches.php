@@ -73,7 +73,10 @@ function actionLigneHorsForfait($pdo) {
             "libelle" => filter_input(INPUT_POST, 'libelleLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
             "montant" => filter_input(INPUT_POST, 'montantLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
         );
-        $ligneHf = new LigneHorsForfait($params);
+        $ligneHf=array();
+        foreach($params as $paramCle => $paramVal){
+            $ligneHf[$paramCle]=$paramVal;
+        }
         $pdo->majFraisHorsForfait(filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_SPECIAL_CHARS), filter_input(INPUT_GET, 'month', FILTER_SANITIZE_SPECIAL_CHARS), $ligneHf);
     } else if ($buttonInput == 'reporter'){
         $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

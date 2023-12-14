@@ -21,7 +21,6 @@ namespace Modeles;
 
 use PDO;
 use Outils\Utilitaires;
-use App\Entity\LigneHorsForfait;
 
 require '../config/bdd.php';
 
@@ -185,7 +184,7 @@ class PdoGsb {
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
-        $lesLignesHorsForfait = $requetePrepare->fetchAll(PDO::FETCH_CLASS, LigneHorsForfait::class, null);
+        $lesLignesHorsForfait = $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
         return $lesLignesHorsForfait;
     }
 
@@ -308,11 +307,11 @@ class PdoGsb {
      *
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
-     * @param LigneHorsForfait  $uneLigne   Objet de la classe LigneHorsForfait
+     * @param array  $uneLigne   array correspondant à une ligne hors forfait
      *
      * @return null
      */
-    public function majFraisHorsForfait($idVisiteur, $mois, LigneHorsForfait $uneLigne): void {
+    public function majFraisHorsForfait($idVisiteur, $mois, array $uneLigne): void {
         $requetePrepare = $this->connexion->prepare(
                 'UPDATE lignefraishorsforfait '
                 . 'SET lignefraishorsforfait.date = :uneDate, '
@@ -322,12 +321,12 @@ class PdoGsb {
                 . 'AND lignefraishorsforfait.mois = :unMois '
                 . 'AND lignefraishorsforfait.id = :id'
         );
-        $requetePrepare->bindValue(':uneDate', $uneLigne->getDate(), PDO::PARAM_STR);
-        $requetePrepare->bindValue(':unLibelle', $uneLigne->getLibelle(), PDO::PARAM_STR);
-        $requetePrepare->bindValue(':unMontant', $uneLigne->getMontant(), PDO::PARAM_STR);
+        $requetePrepare->bindValue(':uneDate', $uneLigne['date'], PDO::PARAM_STR);
+        $requetePrepare->bindValue(':unLibelle', $uneLigne['libelle'], PDO::PARAM_STR);
+        $requetePrepare->bindValue(':unMontant', $uneLigne['montant'], PDO::PARAM_STR);
         $requetePrepare->bindValue(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindValue(':unMois', $mois, PDO::PARAM_STR);
-        $requetePrepare->bindValue(':id', $uneLigne->getId(), PDO::PARAM_INT);
+        $requetePrepare->bindValue(':id', $uneLigne['id'], PDO::PARAM_INT);
         $requetePrepare->execute();
     }
 
