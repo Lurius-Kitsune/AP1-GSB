@@ -25,7 +25,7 @@ use Outils\Utilitaires;
     <div class="panel-heading">
         <p class="panel-title">Suivre le payements des fiches</p>
     </div>
-    <table border="1" class="table border-warning table-bordered" style="margin-bottom: 0px !important;">
+    <table border="1" class="table border-warning bg-warning table-bordered" style="margin-bottom: 0px !important;">
         <thead>
             <tr>
                 <?php 
