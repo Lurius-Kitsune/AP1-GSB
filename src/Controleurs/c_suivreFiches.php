@@ -5,4 +5,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHP.php to edit this template
  */
 
+/**
+ * @var PdoGsb $pdo
+ */
+
+$listeInfoFiche = $pdo->getResumeFiche();
 include PATH_VIEWS . 'suivreFiches/v_suivreFiches.php';
