@@ -777,6 +777,31 @@ class PdoGsb {
         }
     }
     
-    
+    /**
+     * Retourne les les visiteur pour un mois donné si
+     * La fiche est cloturer
+     *
+     * @param String $mois       Mois sous la forme aaaamm
+     *
+     * @return array un tableau avec des champs de jointure entre une fiche de frais
+     * 
+     */
+    public function getResumeFiche(): array|bool {
+        $requetePrepare = $this->connexion->prepare(
+                'SELECT visiteur.nom as nom, '
+                . 'visiteur.prenom as prenom, '
+                . 'visiteur.id as id, '
+                . 'fichefrais.mois, '
+                . 'fichefrais.montantvalide as totalValide, '
+                . 'SUM(lignefraishorsforfait.montant) as totalHorsForfait '
+                . 'FROM visiteur '
+                . 'INNER JOIN fichefrais on fichefrais.idvisiteur = visiteur.id '
+                . 'INNER JOIN lignefraishorsforfait on lignefraishorsforfait.mois = fichefrais.mois AND lignefraishorsforfait.idvisiteur = fichefrais.idvisiteur '
+                . 'group by nom, prenom, id, fichefrais.mois, fichefrais.montantvalide;'
+        );
+        $requetePrepare->execute();
+        $lesLignes = $requetePrepare->fetchAll();
+        return $lesLignes;
+    }
     
 }

@@ -23,13 +23,13 @@ use Outils\Utilitaires;
 ?>
 <div class="panel user">
     <div class="panel-heading">
-        <p class="panel-title">Suivre le payements des fiches</p>
+        <p class="panel-title">Suivre le paiement des fiches</p>
     </div>
     <table border="1" class="table border-warning bg-warning table-bordered" style="margin-bottom: 0px !important;">
         <thead>
             <tr>
                 <?php 
-                $col = ['Visiteur', 'Mois', 'Total forfait', 'Total hors forfait', 'Montant validé', 'Mettre en payement'];
+                $col = ['Visiteur', 'Mois', 'Total forfait', 'Total hors forfait', 'Montant validé', 'Mettre en paiement'];
                 foreach ($col as $value) {
                     echo "<td class='gras border-warning text-center'>$value</td>";
                 }
@@ -38,16 +38,6 @@ use Outils\Utilitaires;
         </thead>
         <tbody>
             <?php
-            $listeInfoFiche = array(
-                array(
-                    'nom' => 'Bob',
-                    'prenom' => 'Patrick',
-                    'mois' => Utilitaires::dateAnglaisVersFrancais('2023-11-2'),
-                    'totalForfait' => 12,
-                    'totalHorsForfait' => 10,
-                    'totalValider' => 123,
-                )
-            );
             foreach ($listeInfoFiche as $infoFiche) {
                 include PATH_VIEWS . 'suivreFiches/v_ligneTableSuivis.php';
             }

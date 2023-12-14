@@ -21,19 +21,19 @@
 ?>
 <tr class="text-center">
     <td>
-            <p><?= $infoFiche['nom'] . ' ' . $infoFiche['prenom']?></p>
+            <p><?= $infoFiche['nom'] . ' ' . $infoFiche['prenom']?> €</p>
     </td>
     <td>
        <p><?= $infoFiche['mois']?></p>
     </td>
     <td>
-        <p><?= $infoFiche['totalForfait']?></p>
+        <p><?= $infoFiche['totalForfait']?> €</p>
     </td>
         <td>
-        <p><?= $infoFiche['totalHorsForfait']?></p>
+        <p><?= $infoFiche['totalHorsForfait']?> €</p>
     </td>
     <td>
-        <p><?= $infoFiche['totalValider']?></p>
+        <p><?= $infoFiche['totalValide']?> €</p>
     </td>
     <td>
         <input type="checkbox">
