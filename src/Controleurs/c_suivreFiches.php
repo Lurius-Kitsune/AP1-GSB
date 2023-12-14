@@ -5,4 +5,4 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHP.php to edit this template
  */
 
-include PATH_VIEWS . 'v_suivisFiche.php';
+include PATH_VIEWS . 'suivreFiches/v_suivreFiches.php';
