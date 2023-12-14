@@ -21,7 +21,7 @@
 ?>
 <tr class="text-center">
     <td>
-            <p><?= $infoFiche['nom'] . ' ' . $infoFiche['prenom']?> €</p>
+            <p><?= $infoFiche['nom'] . ' ' . $infoFiche['prenom']?></p>
     </td>
     <td>
        <p><?= $infoFiche['mois']?></p>

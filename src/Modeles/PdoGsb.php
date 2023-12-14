@@ -791,16 +791,48 @@ class PdoGsb {
                 . 'visiteur.prenom as prenom, '
                 . 'visiteur.id as id, '
                 . 'fichefrais.mois, '
-                . 'fichefrais.montantvalide as totalValide, '
-                . 'SUM(lignefraishorsforfait.montant) as totalHorsForfait '
+                . 'fichefrais.montantvalide as totalValide '
                 . 'FROM visiteur '
                 . 'INNER JOIN fichefrais on fichefrais.idvisiteur = visiteur.id '
-                . 'INNER JOIN lignefraishorsforfait on lignefraishorsforfait.mois = fichefrais.mois AND lignefraishorsforfait.idvisiteur = fichefrais.idvisiteur '
-                . 'group by nom, prenom, id, fichefrais.mois, fichefrais.montantvalide;'
+                . 'WHERE fichefrais.idetat = "VA" '
+                . 'LIMIT 100'
         );
         $requetePrepare->execute();
         $lesLignes = $requetePrepare->fetchAll();
+        foreach ($lesLignes as $cleLigne=>$uneLigne) {
+            $lesLignes[$cleLigne] = array_merge($lesLignes[$cleLigne], array(
+                'totalForfait' => $this->getMontantTotalForfait($uneLigne['id'], $uneLigne['mois']),
+                'totalHorsForfait' => $this->getMontantTotalHorsForfait($uneLigne['id'], $uneLigne['mois']),
+            ));
+        }
         return $lesLignes;
+    }
+    
+    public function getMontantTotalForfait(string $idvisiteur, string $mois): string
+    {
+        $requetePrepare = $this->connexion->prepare(
+                'SELECT SUM(fraisforfait.montant*lignefraisforfait.quantite) as totalForfait '
+                . 'FROM lignefraisforfait '
+                . 'INNER JOIN fraisforfait on lignefraisforfait.idfraisforfait = fraisforfait.id '
+                . 'WHERE idvisiteur = :idvisiteur and mois = :mois'
+        );
+        $requetePrepare->bindParam(':idvisiteur', $idvisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return strval($requetePrepare->fetchColumn());
+    }
+    
+        public function getMontantTotalHorsForfait(string $idvisiteur, string $mois): string
+        {
+        $requetePrepare = $this->connexion->prepare(
+                'SELECT SUM(lignefraishorsforfait.montant) as totalHorsForfait '
+                . 'FROM lignefraishorsforfait '
+                . 'WHERE idvisiteur = :idvisiteur and mois = :mois'
+        );
+        $requetePrepare->bindParam(':idvisiteur', $idvisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return strval($requetePrepare->fetchColumn());
     }
     
 }
