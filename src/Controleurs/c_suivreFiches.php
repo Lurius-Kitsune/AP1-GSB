@@ -9,9 +9,10 @@
  * @var PdoGsb $pdo
  */
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$listeInfoFiche = $pdo->getResumeFiche();
+
 
 if($action == 'fichePaiement'){
+    $listeInfoFiche = $pdo->getResumeFiche();
     $ficheSelectionner = array();
     foreach ($listeInfoFiche as $infoFiche) {
         $toVerif = $infoFiche['mois'].'-'.$infoFiche['id'];
@@ -21,7 +22,9 @@ if($action == 'fichePaiement'){
     }
     
     foreach ($ficheSelectionner as $uneFiche){
-        $pdo->majEtatFicheFrais($uneFiche['id'], $uneFiche['mois'], 'RB');
+        $pdo->majEtatFicheFrais($uneFiche['id'], $uneFiche['mois'], 'MP');
     }
 }
+
+$listeInfoFiche = $pdo->getResumeFiche();
 include PATH_VIEWS . 'suivreFiches/v_suivreFiches.php';
