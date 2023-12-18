@@ -817,6 +817,7 @@ class PdoGsb {
                 . 'FROM visiteur '
                 . 'INNER JOIN fichefrais on fichefrais.idvisiteur = visiteur.id '
                 . 'WHERE fichefrais.idetat = "VA" '
+                . 'order by mois '
                 . 'LIMIT 100'
         );
         $requetePrepare->execute();
