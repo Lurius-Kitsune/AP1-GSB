@@ -45,3 +45,9 @@ use Outils\Utilitaires;
         </tbody>
     </table>
 </div>
+<form action="/?uc=suivreFiches" method="post">
+    <input type="submit" name="action" value="10"></input>
+    <input type="submit" name="action" value="20"></input>
+    <input type="submit" name="action" value="30"></input>
+    <input type="submit" name="action" value="50"></input>
+</form>

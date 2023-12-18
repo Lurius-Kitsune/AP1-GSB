@@ -785,7 +785,7 @@ class PdoGsb {
      * @return array un tableau avec des champs de jointure entre une fiche de frais
      * 
      */
-    public function getResumeFiche(): array|bool {
+    public function getResumeFiche($limit=10): array|bool {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT visiteur.nom as nom, '
                 . 'visiteur.prenom as prenom, '
@@ -795,8 +795,9 @@ class PdoGsb {
                 . 'FROM visiteur '
                 . 'INNER JOIN fichefrais on fichefrais.idvisiteur = visiteur.id '
                 . 'WHERE fichefrais.idetat = "VA" '
-                . 'LIMIT 100'
+                . 'LIMIT :limit'
         );
+        $requetePrepare->bindParam(':limit', $limit, PDO::PARAM_INT);
         $requetePrepare->execute();
         $lesLignes = $requetePrepare->fetchAll();
         foreach ($lesLignes as $cleLigne=>$uneLigne) {
@@ -822,7 +823,7 @@ class PdoGsb {
         return strval($requetePrepare->fetchColumn());
     }
     
-        public function getMontantTotalHorsForfait(string $idvisiteur, string $mois): string
+    public function getMontantTotalHorsForfait(string $idvisiteur, string $mois): string
         {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT SUM(lignefraishorsforfait.montant) as totalHorsForfait '

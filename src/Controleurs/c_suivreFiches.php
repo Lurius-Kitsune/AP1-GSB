@@ -10,4 +10,9 @@
  */
 
 $listeInfoFiche = $pdo->getResumeFiche();
+
+if(isset($_POST['action'])){
+    $listeInfoFiche = $pdo->getResumeFiche($_POST['action']);
+}
+
 include PATH_VIEWS . 'suivreFiches/v_suivreFiches.php';

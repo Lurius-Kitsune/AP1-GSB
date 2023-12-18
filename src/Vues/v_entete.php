@@ -26,6 +26,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./styles/bootstrap/bootstrap.css" rel="stylesheet">
         <link href="./styles/style.css" rel="stylesheet">
+        <script src="js/affichageNbLignes.js" defer></script>
     </head>
     <body>
         <style>
