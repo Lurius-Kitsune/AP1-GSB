@@ -21,6 +21,7 @@
 
 use Outils\Utilitaires;
 ?>
+<script type="text/javascript" src="/js/suivreFiches/mettreEnPayement.js"></script>
 <div class="panel user">
     <div class="panel-heading">
         <p class="panel-title">Suivre le paiement des fiches</p>
@@ -45,3 +46,4 @@ use Outils\Utilitaires;
         </tbody>
     </table>
 </div>
+<?php include PATH_VIEWS . 'suivreFiches/v_actionSuivre.php'; ?>
