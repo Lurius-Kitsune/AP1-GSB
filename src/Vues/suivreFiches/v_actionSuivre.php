@@ -9,8 +9,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         position: fixed;
         bottom: 0;
         right: 0;
-        width: 300px;
-        margin: 10px 10px 80px 10px;
+        width: 310px;
+        margin: 1% 1% 80px 1%;
         padding: 10px;
         box-shadow: 2px 4px 13px 2px #666666;
         border-radius: 18px;
