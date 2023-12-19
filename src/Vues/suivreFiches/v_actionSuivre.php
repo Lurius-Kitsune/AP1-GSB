@@ -23,6 +23,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 </style>
 <div id="action-wrapper" class="container">
     <h4> Action possible : </h4>
-    <button id="btnSelectAll" class="btn btn-warning btn-block space-btn">Sélectionner tous</button>
+    <button type="button" id="selectAllBtn" class="btn btn-warning btn-block space-btn">Sélectionner tous</button>
     <button id="mettreEnPaiement" class="btn btn-warning btn-block space-btn">Mettre en paiement</button>
 </div>

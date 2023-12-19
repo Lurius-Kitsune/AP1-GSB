@@ -21,6 +21,8 @@
 
 use Outils\Utilitaires;
 ?>
+
+<script src="/js/suivreFiches/selectAll.js"></script>
 <form action="/?uc=suivreFiches&action=fichePaiement" method="POST">
 <div class="panel user">
     <div class="panel-heading">
