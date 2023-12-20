@@ -45,6 +45,8 @@ if (isset($_GET['month']) && $_GET['month'] != 'none') {
     }
 }
 
+$nbFiches = count($listeInfoFiche);
+
 $listeInfoFiche = array_slice($listeInfoFiche, 0, 100);
 
 $visiteurs = $pdo->getNomsVisiteurs();
