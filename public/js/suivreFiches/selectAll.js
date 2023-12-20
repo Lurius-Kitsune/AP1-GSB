@@ -10,7 +10,6 @@ window.addEventListener('load', () => {
         fiches.forEach((element) => {
             if (isAllSelected) {
                 element.checked = true;
-                btnAll.textContent = 'bob'
             }
             else {
                 element.checked = false;
