@@ -630,6 +630,7 @@ class PdoGsb {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT visiteur.prenom, visiteur.nom, visiteur.id '
                 . 'FROM visiteur '
+                . 'ORDER BY visiteur.nom'
         );
         $requetePrepare->execute();
         return $requetePrepare->fetchAll();
