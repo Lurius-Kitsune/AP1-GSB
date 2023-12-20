@@ -630,6 +630,7 @@ class PdoGsb {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT visiteur.prenom, visiteur.nom, visiteur.id '
                 . 'FROM visiteur '
+                . 'ORDER BY visiteur.nom'
         );
         $requetePrepare->execute();
         return $requetePrepare->fetchAll();
@@ -807,7 +808,7 @@ class PdoGsb {
      * @return array un tableau avec des champs de jointure entre d'une fiche de frais
      * 
      */
-    public function getResumeFiche($limit=10, $offset=0): array|bool {
+    public function getResumeFiche(): array|bool {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT visiteur.nom as nom, '
                 . 'visiteur.prenom as prenom, '
@@ -818,11 +819,7 @@ class PdoGsb {
                 . 'INNER JOIN fichefrais on fichefrais.idvisiteur = visiteur.id '
                 . 'WHERE fichefrais.idetat = "VA" '
                 . 'order by mois '
-                . 'LIMIT :limit '
-                . 'OFFSET :offset'
         );
-        $requetePrepare->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $requetePrepare->bindParam(':offset', $offset, PDO::PARAM_INT);
         $requetePrepare->execute();
         $lesLignes = $requetePrepare->fetchAll();
         foreach ($lesLignes as $cleLigne=>$uneLigne) {
