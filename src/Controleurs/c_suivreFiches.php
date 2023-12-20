@@ -36,6 +36,16 @@ if (isset($_GET['visiteurId']) && $_GET['visiteurId'] != 'none') {
     }
 }
 
+if (isset($_GET['month']) && $_GET['month'] != 'none') {
+    $selectedMonth= filter_input(INPUT_GET, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    foreach ($listeInfoFiche as $key => $uneFiche) {
+        if ($uneFiche['mois'] !== $selectedMonth) {
+            unset($listeInfoFiche[$key]);
+        }
+    }
+}
+
+$listeInfoFiche = array_slice($listeInfoFiche, 0, 100);
 
 $visiteurs = $pdo->getNomsVisiteurs();
 $lesMois = $pdo->getTousLesMoisDisponibles();
