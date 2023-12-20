@@ -108,6 +108,7 @@ function validerFiche($pdo) {
     $nbJustificatif = filter_input(INPUT_POST, 'nbJustificatif', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
     $pdo->majNbJustificatifs($visiteurId, $month, $nbJustificatif);
+    $pdo->majMontantValiderFicheFrais($visiteurId, $month);
     $pdo->majEtatFicheFrais($visiteurId, $month, 'VA');
     echo "<br><div class=\"alert alert-success\" role=\"alert\">La fiche à bien été validé.</div>";
 }

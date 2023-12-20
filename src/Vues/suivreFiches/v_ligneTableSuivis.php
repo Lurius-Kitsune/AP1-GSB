@@ -36,6 +36,6 @@
         <p><?= $infoFiche['totalValide']?> €</p>
     </td>
     <td>
-        <input type="checkbox">
+        <input type="checkbox" class="ficheCheckbox" name="<?= $infoFiche['mois'].'-'.$infoFiche['id']?>">
     </td>
 </tr>

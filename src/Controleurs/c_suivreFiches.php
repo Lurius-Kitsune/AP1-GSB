@@ -8,6 +8,23 @@
 /**
  * @var PdoGsb $pdo
  */
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+
+if($action == 'fichePaiement'){
+    $listeInfoFiche = $pdo->getResumeFiche();
+    $ficheSelectionner = array();
+    foreach ($listeInfoFiche as $infoFiche) {
+        $toVerif = $infoFiche['mois'].'-'.$infoFiche['id'];
+        if(isset($_POST[$toVerif]) && $_POST[$toVerif] == 'on'){
+            $ficheSelectionner[] = $infoFiche;
+        }
+    }
+    
+    foreach ($ficheSelectionner as $uneFiche){
+        $pdo->majEtatFicheFrais($uneFiche['id'], $uneFiche['mois'], 'MP');
+    }
+}
 
 $listeInfoFiche = $pdo->getResumeFiche();
 
