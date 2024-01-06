@@ -6,6 +6,11 @@ Search.appendIndex(
             "summary": "Fonction\u0020qui\u0020retourne\u0020la\u0020liste\u0020des\u0020visiteurs",
             "url": "namespaces/default.html#function_getLesVisiteurs"
         },                {
+            "fqsen": "\\getLesComptable\u0028\u0029",
+            "name": "getLesComptable",
+            "summary": "",
+            "url": "namespaces/default.html#function_getLesComptable"
+        },                {
             "fqsen": "\\getNbTable\u0028\u0029",
             "name": "getNbTable",
             "summary": "Fonction\u0020g\u00E9n\u00E9rique\u0020qui\u0020retourne\u0020le\u0020nombre\u0020d\u0027enregistrements\u0020d\u0027une\u0020table",
@@ -65,6 +70,16 @@ Search.appendIndex(
             "name": "majFicheFrais",
             "summary": "Fonction\u0020qui\u0020met\u0020\u00E0\u0020jour\u0020les\u0020montants\u0020des\u0020fiches\u0020de\u0020frais\u0020\u0028via\u0020des\u0020UPDATE\u0020SQL\u0029",
             "url": "namespaces/default.html#function_majFicheFrais"
+        },                {
+            "fqsen": "\\updateHashToDb\u0028\u0029",
+            "name": "updateHashToDb",
+            "summary": "Met\u0020\u00E0\u0020jours\u0020les\u0020mdp\u0020en\u0020les\u0020hashant",
+            "url": "namespaces/default.html#function_updateHashToDb"
+        },                {
+            "fqsen": "\\hashPassword\u0028\u0029",
+            "name": "hashPassword",
+            "summary": "Hash\u0020le\u0020mdp",
+            "url": "namespaces/default.html#function_hashPassword"
         },                {
             "fqsen": "\\DB_URL",
             "name": "DB_URL",
@@ -176,6 +191,21 @@ Search.appendIndex(
             "summary": "Retoune\u0020le\u0020nombre\u0020de\u0020lignes\u0020du\u0020tableau\u0020des\u0020erreurs",
             "url": "classes/Outils-Utilitaires.html#method_nbErreurs"
         },                {
+            "fqsen": "\\actionLigneHorsForfait\u0028\u0029",
+            "name": "actionLigneHorsForfait",
+            "summary": "Interaction\u0020avec\u0020les\u0020lignes\u0020Hors\u0020Forfait",
+            "url": "namespaces/default.html#function_actionLigneHorsForfait"
+        },                {
+            "fqsen": "\\actionForfait\u0028\u0029",
+            "name": "actionForfait",
+            "summary": "Interaction\u0020avec\u0020la\u0020partie\u0020frais\u0020forfait",
+            "url": "namespaces/default.html#function_actionForfait"
+        },                {
+            "fqsen": "\\validerFiche\u0028\u0029",
+            "name": "validerFiche",
+            "summary": "",
+            "url": "namespaces/default.html#function_validerFiche"
+        },                {
             "fqsen": "\\Modeles\\PdoGsb",
             "name": "PdoGsb",
             "summary": "",
@@ -196,6 +226,31 @@ Search.appendIndex(
             "summary": "Fonction\u0020statique\u0020qui\u0020cr\u00E9e\u0020l\u0027unique\u0020instance\u0020de\u0020la\u0020classe\nAppel\u0020\u003A\u0020\u0024instancePdoGsb\u0020\u003D\u0020PdoGsb\u003A\u003AgetPdoGsb\u0028\u0029\u003B",
             "url": "classes/Modeles-PdoGsb.html#method_getPdoGsb"
         },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetMdpUser\u0028\u0029",
+            "name": "getMdpUser",
+            "summary": "Obtient\u0020le\u0020mdp\u0020hasher\u0020du\u0020login\u0020user.",
+            "url": "classes/Modeles-PdoGsb.html#method_getMdpUser"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetMdpComptable\u0028\u0029",
+            "name": "getMdpComptable",
+            "summary": "Fonction\u0020qui\u0020renvoie\u0020le\u0020mdp\u0020hasher\u0020du\u0020login\u0020comptable.",
+            "url": "classes/Modeles-PdoGsb.html#method_getMdpComptable"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetMdpVisiteur\u0028\u0029",
+            "name": "getMdpVisiteur",
+            "summary": "Fonction\u0020qui\u0020renvoie\u0020le\u0020mdp\u0020hasher\u0020du\u0020login\u0020visiteur.",
+            "url": "classes/Modeles-PdoGsb.html#method_getMdpVisiteur"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetUser\u0028\u0029",
+            "name": "getUser",
+            "summary": "",
+            "url": "classes/Modeles-PdoGsb.html#method_getUser"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetInfosComptable\u0028\u0029",
+            "name": "getInfosComptable",
+            "summary": "Retourne\u0020les\u0020informations\u0020d\u0027un\u0020comptable",
+            "url": "classes/Modeles-PdoGsb.html#method_getInfosComptable"
+        },                {
             "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetInfosVisiteur\u0028\u0029",
             "name": "getInfosVisiteur",
             "summary": "Retourne\u0020les\u0020informations\u0020d\u0027un\u0020visiteur",
@@ -205,6 +260,11 @@ Search.appendIndex(
             "name": "getLesFraisHorsForfait",
             "summary": "Retourne\u0020sous\u0020forme\u0020d\u0027un\u0020tableau\u0020associatif\u0020toutes\u0020les\u0020lignes\u0020de\u0020frais\nhors\u0020forfait\u0020concern\u00E9es\u0020par\u0020les\u0020deux\u0020arguments.",
             "url": "classes/Modeles-PdoGsb.html#method_getLesFraisHorsForfait"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AdenyUnFraisHorsForfait\u0028\u0029",
+            "name": "denyUnFraisHorsForfait",
+            "summary": "Passe\u0020une\u0020ligne\u0020Hors\u0020forfait\u0020en\u0020\u00E9tat\u0020\u0022Refus\u00E9\u0022.",
+            "url": "classes/Modeles-PdoGsb.html#method_denyUnFraisHorsForfait"
         },                {
             "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetNbjustificatifs\u0028\u0029",
             "name": "getNbjustificatifs",
@@ -225,6 +285,11 @@ Search.appendIndex(
             "name": "majFraisForfait",
             "summary": "Met\u0020\u00E0\u0020jour\u0020la\u0020table\u0020ligneFraisForfait\nMet\u0020\u00E0\u0020jour\u0020la\u0020table\u0020ligneFraisForfait\u0020pour\u0020un\u0020visiteur\u0020et\nun\u0020mois\u0020donn\u00E9\u0020en\u0020enregistrant\u0020les\u0020nouveaux\u0020montants",
             "url": "classes/Modeles-PdoGsb.html#method_majFraisForfait"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AmajFraisHorsForfait\u0028\u0029",
+            "name": "majFraisHorsForfait",
+            "summary": "Met\u0020\u00E0\u0020jour\u0020la\u0020table\u0020ligneFraisForfait\nMet\u0020\u00E0\u0020jour\u0020la\u0020table\u0020ligneFraisForfait\u0020pour\u0020un\u0020visiteur\u0020et\nun\u0020mois\u0020donn\u00E9\u0020en\u0020enregistrant\u0020les\u0020nouveaux\u0020montants",
+            "url": "classes/Modeles-PdoGsb.html#method_majFraisHorsForfait"
         },                {
             "fqsen": "\\Modeles\\PdoGsb\u003A\u003AmajNbJustificatifs\u0028\u0029",
             "name": "majNbJustificatifs",
@@ -261,6 +326,11 @@ Search.appendIndex(
             "summary": "Retourne\u0020les\u0020mois\u0020pour\u0020lesquel\u0020un\u0020visiteur\u0020a\u0020une\u0020fiche\u0020de\u0020frais",
             "url": "classes/Modeles-PdoGsb.html#method_getLesMoisDisponibles"
         },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetVisiteurHavingFicheMonth\u0028\u0029",
+            "name": "getVisiteurHavingFicheMonth",
+            "summary": "Retourne\u0020les\u0020les\u0020visiteur\u0020pour\u0020un\u0020mois\u0020donn\u00E9\u0020si\nLa\u0020fiche\u0020est\u0020cloturer",
+            "url": "classes/Modeles-PdoGsb.html#method_getVisiteurHavingFicheMonth"
+        },                {
             "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetLesInfosFicheFrais\u0028\u0029",
             "name": "getLesInfosFicheFrais",
             "summary": "Retourne\u0020les\u0020informations\u0020d\u0027une\u0020fiche\u0020de\u0020frais\u0020d\u0027un\u0020visiteur\u0020pour\u0020un\nmois\u0020donn\u00E9",
@@ -270,6 +340,71 @@ Search.appendIndex(
             "name": "majEtatFicheFrais",
             "summary": "Modifie\u0020l\u0027\u00E9tat\u0020et\u0020la\u0020date\u0020de\u0020modification\u0020d\u0027une\u0020fiche\u0020de\u0020frais.",
             "url": "classes/Modeles-PdoGsb.html#method_majEtatFicheFrais"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AmajMontantValiderFicheFrais\u0028\u0029",
+            "name": "majMontantValiderFicheFrais",
+            "summary": "Modifie\u0020l\u0027\u00E9tat\u0020et\u0020la\u0020date\u0020de\u0020modification\u0020d\u0027une\u0020fiche\u0020de\u0020frais.",
+            "url": "classes/Modeles-PdoGsb.html#method_majMontantValiderFicheFrais"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetNomsVisiteurs\u0028\u0029",
+            "name": "getNomsVisiteurs",
+            "summary": "Retourne\u0020les\u0020noms\u0020de\u0020tout\u0020les\u0020visiteurs\u0020en\u0020vue\nde\u0020les\u0020afficher\u0020dans\u0020la\u0020maquette\u0020de\u0020validation\nde\u0020fiches\u0020de\u0020frais",
+            "url": "classes/Modeles-PdoGsb.html#method_getNomsVisiteurs"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetTousLesMoisDisponibles\u0028\u0029",
+            "name": "getTousLesMoisDisponibles",
+            "summary": "Retourne\u0020l\u0027ensemble\u0020des\u0020mois\u0020disponibles\u0020en\u0020vue\nde\u0020les\u0020afficher\u0020dans\u0020la\u0020maquette\u0020de\u0020validation\nde\u0020fiches\u0020de\u0020frais",
+            "url": "classes/Modeles-PdoGsb.html#method_getTousLesMoisDisponibles"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetMoisFichesFraisCloturer\u0028\u0029",
+            "name": "getMoisFichesFraisCloturer",
+            "summary": "Retourne\u0020l\u0027ensemble\u0020des\u0020mois\u0020disponibles\u0020en\u0020vue\nde\u0020les\u0020afficher\u0020dans\u0020la\u0020maquette\u0020de\u0020validation\nde\u0020fiches\u0020de\u0020frais",
+            "url": "classes/Modeles-PdoGsb.html#method_getMoisFichesFraisCloturer"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AficheExiste\u0028\u0029",
+            "name": "ficheExiste",
+            "summary": "Retourne\u0020vrai\u0020si\u0020la\u0020fiche\u0020dont\u0020le\u0020mois\u0020et\u0020l\u0027id\u0020du\u0020visiteur\nont\u0020\u00E9t\u00E9\u0020renseign\u00E9\u0020existe,\u0020faux\u0020sinon",
+            "url": "classes/Modeles-PdoGsb.html#method_ficheExiste"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetFraisHorsForfait\u0028\u0029",
+            "name": "getFraisHorsForfait",
+            "summary": "Retourne\u0020les\u0020info\u0020de\u0020la\u0020ligne\u0020de\u0020frais\u0020hors\u0020forfaits\u0020dont\u0020l\u0027id\na\u0020\u00E9t\u00E9\u0020pass\u00E9\u0020en\u0020param\u00E8tres",
+            "url": "classes/Modeles-PdoGsb.html#method_getFraisHorsForfait"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003ArecupMoisLigneHf\u0028\u0029",
+            "name": "recupMoisLigneHf",
+            "summary": "Retourne\u0020le\u0020mois\u0020de\u0020la\u0020ligne\u0020de\u0020frais\u0020hors\u0020forfaits\ndont\u0020l\u0027id\u0020a\u0020\u00E9t\u00E9\u0020renseign\u00E9",
+            "url": "classes/Modeles-PdoGsb.html#method_recupMoisLigneHf"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetMoisSuivant\u0028\u0029",
+            "name": "getMoisSuivant",
+            "summary": "Retourne\u0020le\u0020mois\u0020suivant\u0020celui\u0020donn\u00E9\u0020dans\u0020la\u0020fonction",
+            "url": "classes/Modeles-PdoGsb.html#method_getMoisSuivant"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AdeleteLigneHf\u0028\u0029",
+            "name": "deleteLigneHf",
+            "summary": "",
+            "url": "classes/Modeles-PdoGsb.html#method_deleteLigneHf"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AreportLigneHf\u0028\u0029",
+            "name": "reportLigneHf",
+            "summary": "Reporte\u0020la\u0020ligne\u0020de\u0020frais\u0020hors\u0020forfait\u0020du\u0020visiteur\u0020pass\u00E9\u0020en\u0020param\u00E8tres\nsur\u0020sa\u0020fiche\u0020de\u0020paie\u0020du\u0020mois\u0020suivant.",
+            "url": "classes/Modeles-PdoGsb.html#method_reportLigneHf"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetResumeFiche\u0028\u0029",
+            "name": "getResumeFiche",
+            "summary": "Retourne\u0020nom,prenom,idvisiteur,mois,montantvalide,totalHorsForfait,totalForfait\ndes\u0020fiche\u0020dont\u0020l\u0027\u00E9tat\u0020est\u0020en\u0020VA",
+            "url": "classes/Modeles-PdoGsb.html#method_getResumeFiche"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetMontantTotalForfait\u0028\u0029",
+            "name": "getMontantTotalForfait",
+            "summary": "",
+            "url": "classes/Modeles-PdoGsb.html#method_getMontantTotalForfait"
+        },                {
+            "fqsen": "\\Modeles\\PdoGsb\u003A\u003AgetMontantTotalHorsForfait\u0028\u0029",
+            "name": "getMontantTotalHorsForfait",
+            "summary": "",
+            "url": "classes/Modeles-PdoGsb.html#method_getMontantTotalHorsForfait"
         },                {
             "fqsen": "\\Modeles\\PdoGsb\u003A\u003A\u0024connexion",
             "name": "connexion",
@@ -281,55 +416,50 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Modeles-PdoGsb.html#property_instance"
         },                {
-            "fqsen": "\\ComposerAutoloaderInitb61b79819ae9165507c7f3b1ebfa76b0",
-            "name": "ComposerAutoloaderInitb61b79819ae9165507c7f3b1ebfa76b0",
+            "fqsen": "\\ComposerAutoloaderInit69c59bd425a73a427d5e12c968f2a4e4",
+            "name": "ComposerAutoloaderInit69c59bd425a73a427d5e12c968f2a4e4",
             "summary": "",
-            "url": "classes/ComposerAutoloaderInitb61b79819ae9165507c7f3b1ebfa76b0.html"
+            "url": "classes/ComposerAutoloaderInit69c59bd425a73a427d5e12c968f2a4e4.html"
         },                {
-            "fqsen": "\\ComposerAutoloaderInitb61b79819ae9165507c7f3b1ebfa76b0\u003A\u003AloadClassLoader\u0028\u0029",
+            "fqsen": "\\ComposerAutoloaderInit69c59bd425a73a427d5e12c968f2a4e4\u003A\u003AloadClassLoader\u0028\u0029",
             "name": "loadClassLoader",
             "summary": "",
-            "url": "classes/ComposerAutoloaderInitb61b79819ae9165507c7f3b1ebfa76b0.html#method_loadClassLoader"
+            "url": "classes/ComposerAutoloaderInit69c59bd425a73a427d5e12c968f2a4e4.html#method_loadClassLoader"
         },                {
-            "fqsen": "\\ComposerAutoloaderInitb61b79819ae9165507c7f3b1ebfa76b0\u003A\u003AgetLoader\u0028\u0029",
+            "fqsen": "\\ComposerAutoloaderInit69c59bd425a73a427d5e12c968f2a4e4\u003A\u003AgetLoader\u0028\u0029",
             "name": "getLoader",
             "summary": "",
-            "url": "classes/ComposerAutoloaderInitb61b79819ae9165507c7f3b1ebfa76b0.html#method_getLoader"
+            "url": "classes/ComposerAutoloaderInit69c59bd425a73a427d5e12c968f2a4e4.html#method_getLoader"
         },                {
-            "fqsen": "\\ComposerAutoloaderInitb61b79819ae9165507c7f3b1ebfa76b0\u003A\u003A\u0024loader",
+            "fqsen": "\\ComposerAutoloaderInit69c59bd425a73a427d5e12c968f2a4e4\u003A\u003A\u0024loader",
             "name": "loader",
             "summary": "",
-            "url": "classes/ComposerAutoloaderInitb61b79819ae9165507c7f3b1ebfa76b0.html#property_loader"
+            "url": "classes/ComposerAutoloaderInit69c59bd425a73a427d5e12c968f2a4e4.html#property_loader"
         },                {
-            "fqsen": "\\Composer\\Autoload\\ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0",
-            "name": "ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0",
+            "fqsen": "\\Composer\\Autoload\\ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4",
+            "name": "ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4",
             "summary": "",
-            "url": "classes/Composer-Autoload-ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0.html"
+            "url": "classes/Composer-Autoload-ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4.html"
         },                {
-            "fqsen": "\\Composer\\Autoload\\ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0\u003A\u003AgetInitializer\u0028\u0029",
+            "fqsen": "\\Composer\\Autoload\\ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4\u003A\u003AgetInitializer\u0028\u0029",
             "name": "getInitializer",
             "summary": "",
-            "url": "classes/Composer-Autoload-ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0.html#method_getInitializer"
+            "url": "classes/Composer-Autoload-ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4.html#method_getInitializer"
         },                {
-            "fqsen": "\\Composer\\Autoload\\ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0\u003A\u003A\u0024prefixLengthsPsr4",
+            "fqsen": "\\Composer\\Autoload\\ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4\u003A\u003A\u0024prefixLengthsPsr4",
             "name": "prefixLengthsPsr4",
             "summary": "",
-            "url": "classes/Composer-Autoload-ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0.html#property_prefixLengthsPsr4"
+            "url": "classes/Composer-Autoload-ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4.html#property_prefixLengthsPsr4"
         },                {
-            "fqsen": "\\Composer\\Autoload\\ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0\u003A\u003A\u0024prefixDirsPsr4",
+            "fqsen": "\\Composer\\Autoload\\ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4\u003A\u003A\u0024prefixDirsPsr4",
             "name": "prefixDirsPsr4",
             "summary": "",
-            "url": "classes/Composer-Autoload-ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0.html#property_prefixDirsPsr4"
+            "url": "classes/Composer-Autoload-ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4.html#property_prefixDirsPsr4"
         },                {
-            "fqsen": "\\Composer\\Autoload\\ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0\u003A\u003A\u0024classMap",
+            "fqsen": "\\Composer\\Autoload\\ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4\u003A\u003A\u0024classMap",
             "name": "classMap",
             "summary": "",
-            "url": "classes/Composer-Autoload-ComposerStaticInitb61b79819ae9165507c7f3b1ebfa76b0.html#property_classMap"
-        },                {
-            "fqsen": "\\Composer\\Autoload\\includeFile\u0028\u0029",
-            "name": "includeFile",
-            "summary": "Scope\u0020isolated\u0020include.",
-            "url": "namespaces/composer-autoload.html#function_includeFile"
+            "url": "classes/Composer-Autoload-ComposerStaticInit69c59bd425a73a427d5e12c968f2a4e4.html#property_classMap"
         },                {
             "fqsen": "\\Composer\\Autoload\\ClassLoader",
             "name": "ClassLoader",
@@ -443,13 +573,23 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Composer\\Autoload\\ClassLoader\u003A\u003AgetRegisteredLoaders\u0028\u0029",
             "name": "getRegisteredLoaders",
-            "summary": "Returns\u0020the\u0020currently\u0020registered\u0020loaders\u0020indexed\u0020by\u0020their\u0020corresponding\u0020vendor\u0020directories.",
+            "summary": "Returns\u0020the\u0020currently\u0020registered\u0020loaders\u0020keyed\u0020by\u0020their\u0020corresponding\u0020vendor\u0020directories.",
             "url": "classes/Composer-Autoload-ClassLoader.html#method_getRegisteredLoaders"
         },                {
             "fqsen": "\\Composer\\Autoload\\ClassLoader\u003A\u003AfindFileWithExtension\u0028\u0029",
             "name": "findFileWithExtension",
             "summary": "",
             "url": "classes/Composer-Autoload-ClassLoader.html#method_findFileWithExtension"
+        },                {
+            "fqsen": "\\Composer\\Autoload\\ClassLoader\u003A\u003AinitializeIncludeClosure\u0028\u0029",
+            "name": "initializeIncludeClosure",
+            "summary": "",
+            "url": "classes/Composer-Autoload-ClassLoader.html#method_initializeIncludeClosure"
+        },                {
+            "fqsen": "\\Composer\\Autoload\\ClassLoader\u003A\u003A\u0024includeFile",
+            "name": "includeFile",
+            "summary": "",
+            "url": "classes/Composer-Autoload-ClassLoader.html#property_includeFile"
         },                {
             "fqsen": "\\Composer\\Autoload\\ClassLoader\u003A\u003A\u0024vendorDir",
             "name": "vendorDir",
@@ -473,7 +613,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Composer\\Autoload\\ClassLoader\u003A\u003A\u0024prefixesPsr0",
             "name": "prefixesPsr0",
-            "summary": "",
+            "summary": "List\u0020of\u0020PSR\u002D0\u0020prefixes",
             "url": "classes/Composer-Autoload-ClassLoader.html#property_prefixesPsr0"
         },                {
             "fqsen": "\\Composer\\Autoload\\ClassLoader\u003A\u003A\u0024fallbackDirsPsr0",
