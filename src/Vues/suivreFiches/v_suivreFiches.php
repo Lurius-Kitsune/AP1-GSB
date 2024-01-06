@@ -18,7 +18,6 @@
 /**
  * @var $listesInfoFiche array
  */
-
 use Outils\Utilitaires;
 ?>
 <?php include PATH_VIEWS . 'suivreFiches/v_actionSuivre.php'; ?>
@@ -26,30 +25,30 @@ use Outils\Utilitaires;
 
 <script src="/js/suivreFiches/selectAll.js"></script>
 <form action="/?uc=suivreFiches&action=fichePaiement" method="POST">
-    <p><?= $nbFiches . ' ' . $nbPages;?></p>
-<div class="panel user">
-    <div class="panel-heading">
-        <p class="panel-title">Suivre le paiement des fiches</p>
-    </div>
-    <table border="1" class="table border-warning bg-warning table-bordered" style="margin-bottom: 0px !important;">
-        <thead>
-            <tr>
-                <?php 
-                $col = ['Visiteur', 'Mois', 'Total forfait', 'Total hors forfait', 'Montant validé', 'Mettre en paiement'];
-                foreach ($col as $value) {
-                    echo "<td class='gras border-warning text-center'>$value</td>";
+    <h3 class="badge" style="font-size: 24px"><?= $nbFiches; ?> Fiches trouvées</h3>
+    <div class="panel user">
+        <div class="panel-heading">
+            <p class="panel-title">Suivre le paiement des fiches</p>
+        </div>
+        <table border="1" class="table border-warning bg-warning table-bordered" style="margin-bottom: 0px !important;">
+            <thead>
+                <tr>
+                    <?php
+                    $col = ['Visiteur', 'Mois', 'Total forfait', 'Total hors forfait', 'Montant validé', 'Mettre en paiement'];
+                    foreach ($col as $value) {
+                        echo "<td class='gras border-warning text-center'>$value</td>";
+                    }
+                    ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($listeInfoFiche as $infoFiche) {
+                    include PATH_VIEWS . 'suivreFiches/v_ligneTableSuivis.php';
                 }
                 ?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($listeInfoFiche as $infoFiche) {
-                include PATH_VIEWS . 'suivreFiches/v_ligneTableSuivis.php';
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 </form>
 

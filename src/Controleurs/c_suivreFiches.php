@@ -48,13 +48,12 @@ if (isset($_GET['month']) && $_GET['month'] != 'none') {
 
 $nbFiches = count($listeInfoFiche);
 
-if(isset($_GET['qte'])){
-    $qteAfficher = filter_input(INPUT_GET, 'qte', FILTER_SANITIZE_NUMBER_INT);
-}else{
-    $qteAfficher = 30;
-}
+// quantité de visiteurs à afficher
+$qteAfficher = 30;
+
+
 $nbPages = $nbFiches/$qteAfficher;
-if($nbPages>(int)$nbPages){
+if($nbPages>(int)$nbPages){  // cast en int car arrondissement du nombre de page (14.8 -> 15)
     $nbPages+=1;
     $nbPages=(int)$nbPages;
 }
@@ -68,15 +67,7 @@ $listeInfoFiche = array_slice($listeInfoFiche, ($qteAfficher*$pageActuel)-$qteAf
 $listeInfoFiche = array_slice($listeInfoFiche, 0, 30);
 
 
-// Partie page suivante/précédente
-if (isset($_POST['suiv'])) {
-    $listeInfoFiche = array_slice($listeInfoFiche, $_SESSION['derniereLigne'], $_SESSION['derniereLigne']+10);
-    $_SESSION['derniereLigne']+=$_SESSION['lignesAffichees'];
-}
 
-if (isset($_POST['prec'])) {
-    // à compléter
-}
 
 
 $visiteurs = $pdo->getNomsVisiteurs();

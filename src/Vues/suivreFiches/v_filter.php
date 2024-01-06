@@ -64,9 +64,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </form>
     <form  action="/" method="get">
         <input type="hidden" name="uc" value="suivreFiches"></input>
-        <input type="hidden" name="qte" value="<?= $qteAfficher; ?>"></input>
-        <button type="submit" name="page" value="<?= isset($pageActuel) && $pageActuel !== '1' ? $pageActuel-1 : '1'; ?>"><</button>
-        <?= isset($pageActuel) ? $pageActuel : '1'; ?>
-        <button type="submit" name="page" <?= $qteAfficher+1 > $nbPages ? 'disabled' : ''; ?> value="<?= isset($pageActuel) ? $pageActuel+1 : '2'; ?>">></button>
+        <button type="submit" name="page" <?= $pageActuel-1 <= 0 ? 'disabled' : ''; ?> value="<?= isset($pageActuel) && $pageActuel !== '1' ? $pageActuel-1 : '1'; ?>"><</button>
+        <?= isset($pageActuel) ? $pageActuel : '1'; ?>/<?= $nbPages; ?>
+        <button type="submit" name="page" <?= $pageActuel+1 > $nbPages ? 'disabled' : ''; ?> value="<?= isset($pageActuel) ? $pageActuel+1 : '2'; ?>">></button>
     </form>
 </div>
