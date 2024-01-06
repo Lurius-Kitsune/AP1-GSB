@@ -62,13 +62,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             <button type="submit" class="btn btn-warning ms-3 center">Rechercher</button>
         </div>
     </form>
-    <form action="/" method="get">
-        <input type="hidden" name="uc" value="suivreFiches"></input>
-        <button type="submit" name="qte" value="10">10</button>
-        <button type="submit" name="qte" value="20">20</button>
-        <button type="submit" name="qte" value="30">30</button>
-        <button type="submit" name="qte" value="50">50</button>
-    </form>
     <form  action="/" method="get">
         <input type="hidden" name="uc" value="suivreFiches"></input>
         <input type="hidden" name="qte" value="<?= $qteAfficher; ?>"></input>

@@ -51,7 +51,7 @@ $nbFiches = count($listeInfoFiche);
 if(isset($_GET['qte'])){
     $qteAfficher = filter_input(INPUT_GET, 'qte', FILTER_SANITIZE_NUMBER_INT);
 }else{
-    $qteAfficher = 10;
+    $qteAfficher = 30;
 }
 $nbPages = $nbFiches/$qteAfficher;
 if($nbPages>(int)$nbPages){
@@ -60,18 +60,13 @@ if($nbPages>(int)$nbPages){
 }
 $pageActuel = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
 
+// gestion des pages
 $listeInfoFiche = array_slice($listeInfoFiche, ($qteAfficher*$pageActuel)-$qteAfficher, $qteAfficher);
 
 // Partie limite d'affichage
-if (isset($_GET['qte'])) {
-    $qteAfficher = $_GET['qte'];
-    $_SESSION['lignesAffichees'] = $_GET['qte'];
-    $_SESSION['derniereLigne'] = $_GET['qte'];
-} else {
-    $listeInfoFiche = array_slice($listeInfoFiche, 0, 10);
-    $_SESSION['derniereLigne'] = 10;
-    $_SESSION['lignesAffichees'] = 10;
-}
+
+$listeInfoFiche = array_slice($listeInfoFiche, 0, 30);
+
 
 // Partie page suivante/précédente
 if (isset($_POST['suiv'])) {
