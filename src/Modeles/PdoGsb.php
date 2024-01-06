@@ -61,8 +61,9 @@ class PdoGsb {
 
     /**
      * Obtient le mdp hasher du login user.
-     * @param string $login login de l'user
-     * @param bool $isComptable Est-t'il comptable ?
+     * 
+     * @param string $login     login de l'user
+     * @param bool $isComptable Est-t'il comptable ? (true/false)
      * @return string mdp de la bd
      */
     public function getMdpUser($login, $isComptable): ?string {
@@ -105,6 +106,15 @@ class PdoGsb {
         return $requetePrepare->fetch(PDO::FETCH_OBJ)->mdp;
     }
 
+    /**
+     * 
+     * Fonction permettant de déterminer si l'utilisateur dont le login
+     * passé en paramètre est un visiteur ou un comptable.
+     * Renvoie les informations associées à l'utilisateur (ID, nom, prenom)
+     * 
+     * @param type $login le login (identifiant) de l'utilisateur
+     * @return array|bool
+     */
     public function getUser($login): array|bool {
         $req = $this->getInfosComptable($login);
         if (is_array($req)) {
@@ -624,6 +634,7 @@ class PdoGsb {
      * Retourne les noms de tout les visiteurs en vue
      * de les afficher dans la maquette de validation
      * de fiches de frais
+     * 
      * @return array|bool
      */
     public function getNomsVisiteurs(): array|bool {
@@ -640,6 +651,7 @@ class PdoGsb {
      * Retourne l'ensemble des mois disponibles en vue
      * de les afficher dans la maquette de validation
      * de fiches de frais
+     * 
      * @return array
      */
     public function getTousLesMoisDisponibles(): array {
@@ -666,6 +678,7 @@ class PdoGsb {
      * Retourne l'ensemble des mois disponibles en vue
      * de les afficher dans la maquette de validation
      * de fiches de frais
+     * 
      * @return array
      */
     public function getMoisFichesFraisCloturer(): array {
@@ -692,8 +705,8 @@ class PdoGsb {
      * Retourne vrai si la fiche dont le mois et l'id du visiteur
      * ont été renseigné existe, faux sinon
      * 
-     * @param int $mois
-     * @param string $idVisiteur
+     * @param int $mois          mois au format aaaamm 
+     * @param string $idVisiteur ID du visiteur
      * @return bool
      */
      private function ficheExiste(int $mois, string $idVisiteur){
@@ -716,7 +729,7 @@ class PdoGsb {
      * Retourne les info de la ligne de frais hors forfaits dont l'id
      * a été passé en paramètres
      * 
-     * @param type $idLigne
+     * @param type $idLigne ID de la ligne
      */
     private function getFraisHorsForfait($idLigne){
         $requetePrepare = $this->connexion->prepare(
@@ -732,7 +745,7 @@ class PdoGsb {
      * Retourne le mois de la ligne de frais hors forfaits
      * dont l'id a été renseigné
      * 
-     * @param int $idLigneHf
+     * @param int $idLigneHf ID de la ligne hors forfait
      */
     private function recupMoisLigneHf(string $idLigneHf){
         $requetePrepare = $this->connexion->prepare(
@@ -747,7 +760,7 @@ class PdoGsb {
     /**
      * Retourne le mois suivant celui donné dans la fonction
      * 
-     * @param type $mois
+     * @param type $mois mois au format aaaamm
      */
     private function getMoisSuivant($mois){
         $partieAnnee = (int)substr((string)$mois, 0, 4);
@@ -765,6 +778,16 @@ class PdoGsb {
         }
     }
     
+    /**
+     * 
+     * Fonction supprimant de la base de données la ligne
+     * hors forfait choisit en fonction de son mois, de son 
+     * visiteur, et de son libellé
+     * 
+     * @param type $mois       mois sous la forme aaaamm
+     * @param type $idVisiteur ID du visiteur
+     * @param type $libelle    libellé de la ligne hors forfait
+     */
     private function deleteLigneHf($mois, $idVisiteur, $libelle){
         $requetePrepare = $this->connexion->prepare(
                 'delete from lignefraishorsforfait '.
@@ -784,8 +807,8 @@ class PdoGsb {
      * Si il n'y a aucune fiche de frais le mois suivant, en créé une
      * puis reporte la ligne.
      * 
-     * @param string $idVisiteur
-     * @param int $idLigneHf
+     * @param string $idVisiteur ID du visiteur
+     * @param int $idLigneHf     ID de la ligne hors forfait
      */
     public function reportLigneHf(string $idVisiteur, string $idLigneHf) {
         $mois = $this->recupMoisLigneHf($idLigneHf);
@@ -831,6 +854,15 @@ class PdoGsb {
         return $lesLignes;
     }
     
+    /**
+     * 
+     * Fonction retournant le montant total des frais forfaitisés
+     * pour un visiteur et un mois donné
+     * 
+     * @param string $idVisiteur ID du visiteur
+     * @param string $mois       mois sous la forme aaaamm
+     * @return string
+     */
     public function getMontantTotalForfait(string $idVisiteur, string $mois): string
     {
         $requetePrepare = $this->connexion->prepare(
@@ -845,6 +877,15 @@ class PdoGsb {
         return $requetePrepare->fetchColumn();
     }
     
+    /**
+     * 
+     * Fonction retournant le montant total des frais hors forfait
+     * pour un visiteur et un mois donné
+     * 
+     * @param string $idVisiteur ID du visiteur
+     * @param string $mois       mois sous la forme aaaamm
+     * @return string
+     */
     public function getMontantTotalHorsForfait(string $idVisiteur, string $mois): string
         {
         $requetePrepare = $this->connexion->prepare(
