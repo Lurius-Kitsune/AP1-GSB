@@ -10,7 +10,6 @@
  */
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-
 if($action == 'fichePaiement'){
     $listeInfoFiche = $pdo->getResumeFiche();
     $ficheSelectionner = array();
@@ -27,4 +26,29 @@ if($action == 'fichePaiement'){
 }
 
 $listeInfoFiche = $pdo->getResumeFiche();
+
+if (isset($_GET['visiteurId']) && $_GET['visiteurId'] != 'none') {
+    $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    foreach ($listeInfoFiche as $key => $uneFiche) {
+        if ($uneFiche['id'] !== $selectedVisiteurId) {
+            unset($listeInfoFiche[$key]);
+        }
+    }
+}
+
+if (isset($_GET['month']) && $_GET['month'] != 'none') {
+    $selectedMonth= filter_input(INPUT_GET, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    foreach ($listeInfoFiche as $key => $uneFiche) {
+        if ($uneFiche['mois'] !== $selectedMonth) {
+            unset($listeInfoFiche[$key]);
+        }
+    }
+}
+
+$nbFiches = count($listeInfoFiche);
+
+$listeInfoFiche = array_slice($listeInfoFiche, 0, 100);
+
+$visiteurs = $pdo->getNomsVisiteurs();
+$lesMois = $pdo->getTousLesMoisDisponibles();
 include PATH_VIEWS . 'suivreFiches/v_suivreFiches.php';

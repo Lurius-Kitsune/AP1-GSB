@@ -630,6 +630,7 @@ class PdoGsb {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT visiteur.prenom, visiteur.nom, visiteur.id '
                 . 'FROM visiteur '
+                . 'ORDER BY visiteur.nom'
         );
         $requetePrepare->execute();
         return $requetePrepare->fetchAll();
@@ -818,7 +819,6 @@ class PdoGsb {
                 . 'INNER JOIN fichefrais on fichefrais.idvisiteur = visiteur.id '
                 . 'WHERE fichefrais.idetat = "VA" '
                 . 'order by mois '
-                . 'LIMIT 100'
         );
         $requetePrepare->execute();
         $lesLignes = $requetePrepare->fetchAll();
