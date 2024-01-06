@@ -64,7 +64,8 @@ class PdoGsb {
      * 
      * @param string $login     login de l'user
      * @param bool $isComptable Est-t'il comptable ? (true/false)
-     * @return string mdp de la bd
+     * 
+     * @return ?string mdp de la bd
      */
     public function getMdpUser($login, $isComptable): ?string {
         if ($isComptable) {
@@ -77,7 +78,7 @@ class PdoGsb {
     /**
      * Fonction qui renvoie le mdp hasher du login comptable.
      *
-     * @return array le mdp hasher du login utilisateur.
+     * @return string le mdp hasher du login utilisateur.
      */
     private function getMdpComptable($login): string {
         $requetePrepare = $this->connexion->prepare(
@@ -93,7 +94,7 @@ class PdoGsb {
     /**
      * Fonction qui renvoie le mdp hasher du login visiteur.
      *
-     * @return array le mdp hasher du login utilisateur.
+     * @return ?string le mdp hasher du login utilisateur.
      */
     private function getMdpVisiteur($login): ?string {
         $requetePrepare = $this->connexion->prepare(
@@ -112,8 +113,9 @@ class PdoGsb {
      * passé en paramètre est un visiteur ou un comptable.
      * Renvoie les informations associées à l'utilisateur (ID, nom, prenom)
      * 
-     * @param type $login le login (identifiant) de l'utilisateur
-     * @return array|bool
+     * @param string $login le login (identifiant) de l'utilisateur
+     * 
+     * @return array|bool   Infos utilisateur ainsi que son type (visiteur/comptable)
      */
     public function getUser($login): array|bool {
         $req = $this->getInfosComptable($login);
@@ -139,7 +141,7 @@ class PdoGsb {
      * @param String $login Login du comptable
      * @param String $mdp   Mot de passe du comptable
      *
-     * @return l'id, le nom et le prénom sous la forme d'un tableau associatif ou null si rien
+     * @return array|bool   l'id, le nom et le prénom sous la forme d'un tableau associatif ou null si rien
      */
     public function getInfosComptable($login): array|bool {
         $requetePrepare = $this->connexion->prepare(
@@ -159,7 +161,7 @@ class PdoGsb {
      * @param String $login Login du visiteur
      * @param String $mdp   Mot de passe du visiteur
      *
-     * @return l'id, le nom et le prénom sous la forme d'un tableau associatif ou null si rien
+     * @return array|bool   l'id, le nom et le prénom sous la forme d'un tableau associatif ou null si rien
      */
     public function getInfosVisiteur($login): array|bool {
         $requetePrepare = $this->connexion->prepare(
@@ -182,8 +184,8 @@ class PdoGsb {
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
      *
-     * @return tous les champs des lignes de frais hors forfait sous la forme
-     * d'un tableau associatif
+     * @return                   tous les champs des lignes de frais hors forfait sous la forme
+     *                           d'un tableau associatif
      */
     public function getLesFraisHorsForfait($idVisiteur, $mois): array {
         $requetePrepare = $this->connexion->prepare(
@@ -203,6 +205,7 @@ class PdoGsb {
      *
      * @param String $id ID de la ligne Hors Forfait 
      *
+     * @return null
      */
     public function denyUnFraisHorsForfait(string $id, string $idVisiteur): void {
         $requetePrepare = $this->connexion->prepare(
@@ -222,7 +225,7 @@ class PdoGsb {
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
      *
-     * @return le nombre entier de justificatifs
+     * @return int               le nombre entier de justificatifs
      */
     public function getNbjustificatifs($idVisiteur, $mois): int {
         $requetePrepare = $this->connexion->prepare(
@@ -244,8 +247,8 @@ class PdoGsb {
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
      *
-     * @return array l'id, le libelle et la quantité sous la forme d'un tableau
-     * associatif
+     * @return array             l'id, le libelle et la quantité sous la forme d'un tableau
+     *                           associatif
      */
     public function getLesFraisForfait($idVisiteur, $mois): array {
         $requetePrepare = $this->connexion->prepare(
@@ -268,7 +271,7 @@ class PdoGsb {
     /**
      * Retourne tous les id de la table FraisForfait
      *
-     * @return un tableau associatif
+     * @return array les id de la table FraisForfait
      */
     public function getLesIdFrais(): array {
         $requetePrepare = $this->connexion->prepare(
@@ -635,7 +638,7 @@ class PdoGsb {
      * de les afficher dans la maquette de validation
      * de fiches de frais
      * 
-     * @return array|bool
+     * @return array|bool Les noms de tout les visiteurs
      */
     public function getNomsVisiteurs(): array|bool {
         $requetePrepare = $this->connexion->prepare(
@@ -652,7 +655,7 @@ class PdoGsb {
      * de les afficher dans la maquette de validation
      * de fiches de frais
      * 
-     * @return array
+     * @return array L'ensemble des mois disponibles
      */
     public function getTousLesMoisDisponibles(): array {
         $requetePrepare = $this->connexion->prepare(
@@ -675,11 +678,10 @@ class PdoGsb {
     }
 
     /**
-     * Retourne l'ensemble des mois disponibles en vue
-     * de les afficher dans la maquette de validation
-     * de fiches de frais
+     * Retourne l'ensemble des mois disponibles où la fiche correspondante
+     * est dans l'état cloturé.
      * 
-     * @return array
+     * @return array L'ensemble des mois correspondants
      */
     public function getMoisFichesFraisCloturer(): array {
         $requetePrepare = $this->connexion->prepare(
@@ -707,9 +709,10 @@ class PdoGsb {
      * 
      * @param int $mois          mois au format aaaamm 
      * @param string $idVisiteur ID du visiteur
-     * @return bool
+     * 
+     * @return bool              Est-ce que la fiche existe ? (true/false)
      */
-     private function ficheExiste(int $mois, string $idVisiteur){
+     private function ficheExiste(int $mois, string $idVisiteur) : bool {
         $requetePrepare = $this->connexion->prepare(
                 'select * from fichefrais '
                 . 'where mois = :mois '
@@ -730,8 +733,10 @@ class PdoGsb {
      * a été passé en paramètres
      * 
      * @param type $idLigne ID de la ligne
+     * 
+     * @return array        Informations sur la ligne hors forfait désirée
      */
-    private function getFraisHorsForfait($idLigne){
+    private function getFraisHorsForfait($idLigne) : array {
         $requetePrepare = $this->connexion->prepare(
                 'select * from lignefraishorsforfait '
                 . 'where lignefraishorsforfait.id = :id'
@@ -746,8 +751,10 @@ class PdoGsb {
      * dont l'id a été renseigné
      * 
      * @param int $idLigneHf ID de la ligne hors forfait
+     * 
+     * @return array         Le mois souhaité
      */
-    private function recupMoisLigneHf(string $idLigneHf){
+    private function recupMoisLigneHf(string $idLigneHf) : array {
         $requetePrepare = $this->connexion->prepare(
                 'select mois from lignefraishorsforfait '
                 . 'where id = :id '
@@ -761,8 +768,10 @@ class PdoGsb {
      * Retourne le mois suivant celui donné dans la fonction
      * 
      * @param type $mois mois au format aaaamm
+     * 
+     * @return string    Le mois suivant celui donné
      */
-    private function getMoisSuivant($mois){
+    private function getMoisSuivant($mois) : string {
         $partieAnnee = (int)substr((string)$mois, 0, 4);
         $partieMois = (int)substr((string)$mois, -2);
         if ($partieMois==12){
@@ -787,8 +796,10 @@ class PdoGsb {
      * @param type $mois       mois sous la forme aaaamm
      * @param type $idVisiteur ID du visiteur
      * @param type $libelle    libellé de la ligne hors forfait
+     * 
+     * @return null
      */
-    private function deleteLigneHf($mois, $idVisiteur, $libelle){
+    private function deleteLigneHf($mois, $idVisiteur, $libelle) : void {
         $requetePrepare = $this->connexion->prepare(
                 'delete from lignefraishorsforfait '.
                 'where mois = :mois and idVisiteur = :idVisiteur '.
@@ -809,8 +820,10 @@ class PdoGsb {
      * 
      * @param string $idVisiteur ID du visiteur
      * @param int $idLigneHf     ID de la ligne hors forfait
+     * 
+     * @return null
      */
-    public function reportLigneHf(string $idVisiteur, string $idLigneHf) {
+    public function reportLigneHf(string $idVisiteur, string $idLigneHf) : void {
         $mois = $this->recupMoisLigneHf($idLigneHf);
         $moisSuivant = $this->getMoisSuivant($mois['mois']);
         $ligneAReporter = $this->getFraisHorsForfait($idLigneHf);
@@ -861,7 +874,8 @@ class PdoGsb {
      * 
      * @param string $idVisiteur ID du visiteur
      * @param string $mois       mois sous la forme aaaamm
-     * @return string
+     * 
+     * @return string            Le montant total des frais forfaitisés
      */
     public function getMontantTotalForfait(string $idVisiteur, string $mois): string
     {
@@ -884,7 +898,8 @@ class PdoGsb {
      * 
      * @param string $idVisiteur ID du visiteur
      * @param string $mois       mois sous la forme aaaamm
-     * @return string
+     * 
+     * @return string            Le montant total des frais hors forfait
      */
     public function getMontantTotalHorsForfait(string $idVisiteur, string $mois): string
         {
