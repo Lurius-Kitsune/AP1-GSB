@@ -25,7 +25,7 @@ use Outils\Utilitaires;
 
 <script src="/js/suivreFiches/selectAll.js"></script>
 <form action="/?uc=suivreFiches&action=fichePaiement" method="POST">
-    <h3 class="badge" style="font-size: 24px"><?= $nbFiches; ?> Fiches trouver</h3>
+    <h3 class="badge" style="font-size: 24px"><?= $nbFiches; ?> Fiches trouvées</h3>
     <div class="panel user">
         <div class="panel-heading">
             <p class="panel-title">Suivre le paiement des fiches</p>
@@ -51,3 +51,4 @@ use Outils\Utilitaires;
         </table>
     </div>
 </form>
+
