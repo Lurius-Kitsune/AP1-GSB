@@ -845,7 +845,7 @@ class PdoGsb {
         return $requetePrepare->fetchColumn();
     }
     
-        public function getMontantTotalHorsForfait(string $idVisiteur, string $mois): string
+    public function getMontantTotalHorsForfait(string $idVisiteur, string $mois): string
         {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT SUM(lignefraishorsforfait.montant) as totalHorsForfait '
