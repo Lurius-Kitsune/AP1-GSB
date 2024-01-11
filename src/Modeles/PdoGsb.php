@@ -184,7 +184,7 @@ class PdoGsb {
      * @param String $idVisiteur ID du visiteur
      * @param String $mois       Mois sous la forme aaaamm
      *
-     * @return                   tous les champs des lignes de frais hors forfait sous la forme
+     * @return array             Tous les champs des lignes de frais hors forfait sous la forme
      *                           d'un tableau associatif
      */
     public function getLesFraisHorsForfait($idVisiteur, $mois): array {
@@ -732,7 +732,7 @@ class PdoGsb {
      * Retourne les info de la ligne de frais hors forfaits dont l'id
      * a été passé en paramètres
      * 
-     * @param type $idLigne ID de la ligne
+     * @param int $idLigne ID de la ligne
      * 
      * @return array        Informations sur la ligne hors forfait désirée
      */
@@ -767,7 +767,7 @@ class PdoGsb {
     /**
      * Retourne le mois suivant celui donné dans la fonction
      * 
-     * @param type $mois mois au format aaaamm
+     * @param string $mois mois au format aaaamm
      * 
      * @return string    Le mois suivant celui donné
      */
@@ -793,9 +793,9 @@ class PdoGsb {
      * hors forfait choisit en fonction de son mois, de son 
      * visiteur, et de son libellé
      * 
-     * @param type $mois       mois sous la forme aaaamm
-     * @param type $idVisiteur ID du visiteur
-     * @param type $libelle    libellé de la ligne hors forfait
+     * @param string $mois       mois sous la forme aaaamm
+     * @param string $idVisiteur ID du visiteur
+     * @param string $libelle    libellé de la ligne hors forfait
      * 
      * @return null
      */
