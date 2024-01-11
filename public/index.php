@@ -47,6 +47,9 @@ switch ($uc) {
     case 'validerFiches':
         include PATH_CTRLS . 'c_validerFiches.php';
         break;
+    case 'suivreFiches':
+        include PATH_CTRLS . 'c_suivreFiches.php';
+        break;
     case 'gererFrais':
         include PATH_CTRLS . 'c_gererFrais.php';
         break;
