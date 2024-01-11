@@ -16,6 +16,7 @@ if ($action == 'fichePaiement') {
     $ficheSelectionner = array();
     foreach ($listeInfoFiche as $infoFiche) {
         $toVerif = $infoFiche['mois'] . '-' . $infoFiche['id'];
+        // On verifie si la checkbox et cocher !
         if (isset($_POST[$toVerif]) && $_POST[$toVerif] == 'on') {
             $ficheSelectionner[] = $infoFiche;
         }
