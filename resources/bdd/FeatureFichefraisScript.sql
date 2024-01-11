@@ -1,3 +1,5 @@
+use gsb_frais;
+
 -- US 2  Ajout de la table comptable 
 create table  if not exists comptable (
     id int not null auto_increment,
