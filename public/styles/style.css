@@ -32,3 +32,56 @@ footer .container p {
 code {
   font-size: 80%;
 }
+
+.user {
+    border-color: var(--couleur);
+}
+
+.user > .panel-heading {
+    border-color: var(--couleur);
+    background-color: var(--couleur);
+    color : white;
+}
+
+.btn-user {
+    background-color: var(--couleur);
+    color : white;
+    border-color: var(--couleur);
+}
+
+.btn-valider{
+    background-color: #51c151;
+    border-color: #51c151;
+}
+
+.btn-valider:hover{
+    background-color: #4b974b !important;
+}
+
+.btn-user:hover{
+    background-color: #c95f08;
+    color : white;
+}
+
+.div-user {
+    background-color: white; 
+}
+
+.user > li > a{
+    color: var(--couleur);
+}
+
+.user > li.active > a, .user > li.active > a:hover, .user > li.active > a:focus {
+    color:  white;
+    background-color: var(--couleur);
+}
+
+.table {
+  table-layout:fixed;
+}
+
+input.form-control {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -9,6 +9,7 @@
  * @package   GSB
  * @author    Réseau CERTA <contact@reseaucerta.org>
  * @author    José GIL <jgil@ac-nice.fr>
+ * @author    Marco Clin
  * @copyright 2017 Réseau CERTA
  * @license   Réseau CERTA
  * @version   GIT: <0>
@@ -29,8 +30,8 @@ switch ($action) {
     case 'valideConnexion':
         $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $mdp = filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $user = $pdo->getUser($login, $mdp);
-        if (!is_array($user)) {
+        $user = $pdo->getUser($login);
+        if (!is_array($user) || !password_verify($mdp, $pdo->getMdpUser($login, $user['isComptable']))) {
             Utilitaires::ajouterErreur('Login ou mot de passe incorrect');
             include PATH_VIEWS . 'v_erreurs.php';
             include PATH_VIEWS . 'v_connexion.php';
@@ -39,6 +40,7 @@ switch ($action) {
             $nom = $user['nom'];
             $prenom = $user['prenom'];
             $isComptable = $user['isComptable'];
+            $_SESSION['isComptable'] = $user['isComptable'];
             Utilitaires::connecter($id, $nom, $prenom, $isComptable);
             header('Location: index.php');
         }
