@@ -6,9 +6,13 @@ function initCss($pdf) : void{
     $pdf->SetFillColor(255, 255, 255);
 }
 
-$identiteVisiteur = $pdo->getNomVisiteur($_GET['idVisiteur']);
-$lesFraisForfaits = $pdo->getLesFraisForfait($_GET['idVisiteur'], $_GET['mois']);
-$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_GET['idVisiteur'], $_GET['mois']);
+$idVisiteur = filter_input(INPUT_GET, 'idVisiteur', FILTER_SANITIZE_SPECIAL_CHARS);
+$mois = filter_input(INPUT_GET, 'mois', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+$identiteVisiteur = $pdo->getNomVisiteur($idVisiteur);
+$lesFraisForfaits = $pdo->getLesFraisForfait($idVisiteur, $mois);
+$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
 
 // Crée une nouvelle instance PDF
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -57,7 +61,7 @@ $html = '
         <td>Nom</td>
     </tr>
     <tr>
-        <td>' . $_GET["idVisiteur"] . '</td>
+        <td>' . $idVisiteur . '</td>
         <td>' . $identiteVisiteur[0]['prenom'] . " " . $identiteVisiteur[0]['nom'] . '</td>
     </tr>
 </table>';
