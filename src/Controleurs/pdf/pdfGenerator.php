@@ -1,5 +1,14 @@
 <?php
 
+function initCss($pdf) : void{
+    $pdf->SetFont('helvetica', '', 10);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->SetFillColor(255, 255, 255);
+}
+
+$identiteVisiteur = $pdo->getNomVisiteur($_GET['idVisiteur']);
+$lesFraisForfaits = $pdo->getLesFraisForfait($_GET['idVisiteur'], $_GET['mois']);
+$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($_GET['idVisiteur'], $_GET['mois']);
 
 // Crée une nouvelle instance PDF
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -32,7 +41,11 @@ $pdf->SetFont('helvetica', '', 10);
 
 // Titre
 $pdf->Ln(25); // Déplacez le curseur vers le bas pour vous éloigner du logo
+$pdf->SetFont('helvetica', 'B', 12);
+$pdf->SetTextColor(34, 66, 124);
 $pdf->Cell(0, 0, 'ÉTAT DE FRAIS ENGAGÉS', 0, 1, 'C', 0, '', 0, false, 'T', 'M');
+initCss($pdf);
+$pdf->Cell(0, 0, 'A retourner accompagné des justificatifs au plus tard le 10 du mois qui suit l’engagement des frais', 0, 1, 'C', 0, '', 0, false, 'T', 'M');
 
 $pdf->Cell(0, 10, "Visiteur : ", 0, 1);
 
@@ -40,12 +53,12 @@ $pdf->Cell(0, 10, "Visiteur : ", 0, 1);
 $html = '
 <table border="1" cellpadding="4">
     <tr>
-        <td>Visiteur</td>
         <td>Matricule</td>
         <td>Nom</td>
     </tr>
     <tr>
-        <td></td>
+        <td>' . $_GET["idVisiteur"] . '</td>
+        <td>' . $identiteVisiteur[0]['prenom'] . " " . $identiteVisiteur[0]['nom'] . '</td>
     </tr>
 </table>';
 
@@ -62,28 +75,22 @@ $html = '
         <th>Quantité</th>
         <th>Montant unitaire</th>
         <th>Total</th>
-    </tr>
-    <tr>
-        <td>Nuitée</td>
-        <td></td>
-        <td></td>
-        <td>80.00</td>
-    </tr>
-    <tr>
-        <td>Repas Midi</td>
-        <td></td>
-        <td></td>
-        <td>29.00</td>
-    </tr>
-    <tr>
-        <td>Kilométrage</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+    </tr>';
+
+// affichage de chaque ligne des frais forfaits
+foreach ($lesFraisForfaits as $unFraiForfait){
+    $html.= '<tr>'
+    . '        <td>' . $unFraiForfait['libelle'] . '</td>'
+    . '        <td>' . $unFraiForfait['quantite'] . '</td>'
+    . '        <td>' . $unFraiForfait['montant'] . '</td>'
+    . '        <td>' . (int)$unFraiForfait['quantite'] * (int)$unFraiForfait['montant'] . '</td>'
+    . '     </tr>';
+}
+
+// Fin et affichage du tableau
+$html.='    
 </table>
 <h2 style="text-align: center;">Autres frais</h2>';
-
 $pdf->writeHTML($html, true, false, false, false, '');
 
 // Espacer avant le prochain tableau
@@ -96,15 +103,19 @@ $html = '
         <th>Date</th>
         <th>Libellé</th>
         <th>Montant</th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <!-- Ajoutez autant de lignes que nécessaire -->
-</table>';
+    </tr>';
 
+// affichage de chaque ligne des frais forfaits
+foreach ($lesFraisHorsForfait as $unFraiHorsForfait){
+    $html.= '<tr>'
+    . '        <td>' . $unFraiHorsForfait['date'] . '</td>'
+    . '        <td>' . $unFraiHorsForfait['libelle'] . '</td>'
+    . '        <td>' . $unFraiHorsForfait['montant'] . '</td>'
+    . '     </tr>';
+}
+
+// Fin et affichage du tableau
+$html .='</table>';
 $pdf->writeHTML($html, true, false, false, false, '');
 
 // Ajoutez un espace pour la signature

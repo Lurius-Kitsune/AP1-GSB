@@ -75,9 +75,8 @@
     </table>
 </div>
 <form action="/" method="get">
-    <!-- Vous pouvez ajouter des champs de formulaire ici si nécessaire -->
     <input type="hidden" name="uc" value="pdf"/>
-    <input type="hidden" name="mois" value="<?= $numMois . "-" . $numAnnee ?>"/>
+    <input type="hidden" name="mois" value="<?= $numAnnee . $numMois ?>"/>
     <input type="hidden" name="idVisiteur" value="<?= $idVisiteur ?>"/>
     <input type="submit" value="Générer le PDF" />
 </form>

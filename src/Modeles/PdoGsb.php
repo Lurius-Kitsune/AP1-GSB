@@ -104,6 +104,17 @@ class PdoGsb {
         $requetePrepare->execute();
         return $requetePrepare->fetch(PDO::FETCH_OBJ)->mdp;
     }
+    
+    public function getNomVisiteur($id) : array {
+        $requetePrepare = $this->connexion->prepare(
+              'select visiteur.nom, visiteur.prenom ' .
+              'from visiteur ' .
+              'where visiteur.id = :id'
+        );
+        $requetePrepare->bindParam('id', $id, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function getUser($login): array|bool {
         $req = $this->getInfosComptable($login);
@@ -241,6 +252,7 @@ class PdoGsb {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT fraisforfait.id as idfrais, '
                 . 'fraisforfait.libelle as libelle, '
+                . 'fraisforfait.montant as montant, '
                 . 'lignefraisforfait.quantite as quantite '
                 . 'FROM lignefraisforfait '
                 . 'INNER JOIN fraisforfait '
