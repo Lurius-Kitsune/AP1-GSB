@@ -83,7 +83,7 @@ foreach ($lesFraisForfaits as $unFraiForfait){
     . '        <td>' . $unFraiForfait['libelle'] . '</td>'
     . '        <td>' . $unFraiForfait['quantite'] . '</td>'
     . '        <td>' . $unFraiForfait['montant'] . '</td>'
-    . '        <td>' . (int)$unFraiForfait['quantite'] * (int)$unFraiForfait['montant'] . '</td>'
+    . '        <td>' . round(((float)$unFraiForfait['quantite'] * (float)$unFraiForfait['montant']), 2) . '</td>'
     . '     </tr>';
 }
 
