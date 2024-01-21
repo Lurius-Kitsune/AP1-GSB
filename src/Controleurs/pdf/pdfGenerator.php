@@ -99,19 +99,22 @@ $html = '
 
     td {
         border: none;
-        border-right: 1px solid black;
+        border-right: 1px solid rgb(34, 66, 124);
         text-align: right;
     }
     
     th {
         border: none;
-        border-right: 1px solid black;
+        border-right: 1px solid rgb(34, 66, 124);
         text-align: center;
+        font-style: italic;
+        font-weight: bold;v_etatFrais.
+        color: rgb(34, 66, 124);
     }
     
     .tableContainer {
-        border-left: 0.5px solid black;
-        border-right: 0.5px solid black;
+        border-left: 0.5px solid rgb(34, 66, 124);
+        border-right: 0.5px solid rgb(34, 66, 124);
         position: relative;
     }
     
@@ -147,7 +150,7 @@ foreach ($lesFraisForfaits as $unFraiForfait){
 // Fin et affichage du tableau
 $html.='    
 </table>
-<h2 style="text-align: center;">Autres frais</h2>';
+<h2 style="text-align: center; font-style: italic; color: rgb(34, 66, 124);">Autres frais</h2>';
 
 // Espacer avant le prochain tableau
 $pdf->Ln(4);
@@ -198,19 +201,19 @@ $html='
         left: 300;
         border-collapse: collapse;
         border: none;
-        border-left: 0.5px solid black;
-        border-right: 0.5px solid black;
+        border-left: 0.5px solid rgb(34, 66, 124);
+        border-right: 0.5px solid rgb(34, 66, 124);
     }
 
     td {
         border: none;
-        border-right: 1px solid black;
+        border-right: 1px solid rgb(34, 66, 124);
         text-align: right;
     }
     
     th {
         border: none;
-        border-right: 1px solid black;
+        border-right: 1px solid rgb(34, 66, 124);
         text-align: center;
     }
     
