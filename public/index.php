@@ -60,7 +60,7 @@ switch ($uc) {
         include PATH_CTRLS . 'c_deconnexion.php';
         break;
     case 'pdf':
-        include PATH_CTRLS . 'pdf/pdfGenerator.php';
+        include PATH_CTRLS . 'pdf/c_pdfGenerator.php';
         break;
     default:
         Utilitaires::ajouterErreur('Page non trouvée, veuillez vérifier votre lien...');
