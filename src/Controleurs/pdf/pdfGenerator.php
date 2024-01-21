@@ -19,7 +19,7 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // Définit les informations du document
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Votre Nom');
+$pdf->SetAuthor('GSB');
 $pdf->SetTitle('État de frais engagés');
 $pdf->SetSubject('Frais Engagés');
 $pdf->SetKeywords('TCPDF, PDF, exemple, état des frais, GSB');
@@ -51,18 +51,36 @@ $pdf->Cell(0, 0, 'ÉTAT DE FRAIS ENGAGÉS', 0, 1, 'C', 0, '', 0, false, 'T', 'M'
 initCss($pdf);
 $pdf->Cell(0, 0, 'A retourner accompagné des justificatifs au plus tard le 10 du mois qui suit l’engagement des frais', 0, 1, 'C', 0, '', 0, false, 'T', 'M');
 
-$pdf->Cell(0, 10, "Visiteur : ", 0, 1);
+$pdf->Ln(6);
+
+$moisStr=[
+    '01' => 'Janvier',
+    '02' => 'Février',
+    '03' => 'Mars',
+    '04' => 'Avril',
+    '05' => 'Mai',
+    '06' => 'Juin',
+    '07' => 'Juillet',
+    '08' => 'Août',
+    '09' => 'Septembre',
+    '10' => 'Octobre',
+    '11' => 'Novembre',
+    '12' => 'Décembre'
+];
+$partieAnnee = substr($mois, 0, 4);
+$partieMois = substr($mois, 4);
 
 // Tableau pour les informations du visiteur
 $html = '
-<table border="1" cellpadding="4">
+<table cellpadding="4">
     <tr>
-        <td>Matricule</td>
-        <td>Nom</td>
+        <td>Visiteur</td>
+        <td>' . $idVisiteur . '</td>
+        <td>' . $identiteVisiteur[0]['prenom'] . " " . strtoupper($identiteVisiteur[0]['nom']) . '</td>
     </tr>
     <tr>
-        <td>' . $idVisiteur . '</td>
-        <td>' . $identiteVisiteur[0]['prenom'] . " " . $identiteVisiteur[0]['nom'] . '</td>
+        <td>Mois</td>
+        <td>' . $moisStr[$partieMois] . " " . $partieAnnee . '</td>
     </tr>
 </table>';
 
@@ -73,21 +91,56 @@ $pdf->Ln(4);
 
 // Tableau pour les frais forfaitaires
 $html = '
-<table border="1" cellpadding="4">
-    <tr>
-        <th>Frais Forfaitaires</th>
-        <th>Quantité</th>
-        <th>Montant unitaire</th>
-        <th>Total</th>
-    </tr>';
+    <style>
+    table {
+        border-collapse: collapse;
+        border: none;
+    }
+
+    td {
+        border: none;
+        border-right: 1px solid black;
+        text-align: right;
+    }
+    
+    th {
+        border: none;
+        border-right: 1px solid black;
+        text-align: center;
+    }
+    
+    .tableContainer {
+        border-left: 0.5px solid black;
+        border-right: 0.5px solid black;
+        position: relative;
+    }
+    
+    .gauche {
+        text-align: left;
+    }
+    
+    .fin {
+        border-right: none;
+    }
+
+    </style>
+    
+<div class="tableContainer"> 
+    <table cellpadding="4">
+        <tr>
+            <th>Frais Forfaitaires</th>
+            <th>Quantité</th>
+            <th>Montant unitaire</th>
+            <th class="fin">Total</th>
+        </tr>';
 
 // affichage de chaque ligne des frais forfaits
 foreach ($lesFraisForfaits as $unFraiForfait){
     $html.= '<tr>'
-    . '        <td>' . $unFraiForfait['libelle'] . '</td>'
+    . '        <td class="gauche">' . $unFraiForfait['libelle'] . '</td>'
     . '        <td>' . $unFraiForfait['quantite'] . '</td>'
-    . '        <td>' . $unFraiForfait['montant'] . '</td>'
-    . '        <td>' . round(((float)$unFraiForfait['quantite'] * (float)$unFraiForfait['montant']), 2) . '</td>'
+    . '        <td>' . $unFraiForfait['montant'] . '€' .  '</td>'
+    . '        <td class="fin">' . round(((float)$unFraiForfait['quantite'] * (float)$unFraiForfait['montant']), 2) . '€' .  '</td>'
     . '     </tr>';
 }
 
@@ -95,31 +148,89 @@ foreach ($lesFraisForfaits as $unFraiForfait){
 $html.='    
 </table>
 <h2 style="text-align: center;">Autres frais</h2>';
-$pdf->writeHTML($html, true, false, false, false, '');
 
 // Espacer avant le prochain tableau
 $pdf->Ln(4);
 
 // Tableau pour les autres frais
-$html = '
-<table border="1" cellpadding="4">
+$html .= '
+<table cellpadding="4">
     <tr>
         <th>Date</th>
         <th>Libellé</th>
-        <th>Montant</th>
+        <th class="fin">Montant</th>
     </tr>';
 
 // affichage de chaque ligne des frais forfaits
 foreach ($lesFraisHorsForfait as $unFraiHorsForfait){
     $html.= '<tr>'
-    . '        <td>' . $unFraiHorsForfait['date'] . '</td>'
-    . '        <td>' . $unFraiHorsForfait['libelle'] . '</td>'
-    . '        <td>' . $unFraiHorsForfait['montant'] . '</td>'
+    . '        <td class="gauche">' . $unFraiHorsForfait['date'] . '</td>'
+    . '        <td class="gauche">' . $unFraiHorsForfait['libelle'] . '</td>'
+    . '        <td class="fin">' . $unFraiHorsForfait['montant'] . '€' . '</td>'
     . '     </tr>';
 }
 
 // Fin et affichage du tableau
-$html .='</table>';
+$html .='</table>'
+        . '</div>';
+$pdf->writeHTML($html, true, false, false, false, '');
+
+// Ajouter un espace pour le total
+$pdf->Ln(10);
+
+
+// calcul du total
+$total=0;
+foreach ($lesFraisForfaits as $unFraiForfait){
+    $total += round(((float)$unFraiForfait['quantite'] * (float)$unFraiForfait['montant']), 2);
+}
+foreach ($lesFraisHorsForfait as $unFraiHorsForfait){
+    $total += (int)$unFraiHorsForfait['montant'];
+}
+
+
+$html='  
+<style>
+
+    .total {
+        width: 35%;
+        position: absolute;
+        left: 300;
+        border-collapse: collapse;
+        border: none;
+        border-left: 0.5px solid black;
+        border-right: 0.5px solid black;
+    }
+
+    td {
+        border: none;
+        border-right: 1px solid black;
+        text-align: right;
+    }
+    
+    th {
+        border: none;
+        border-right: 1px solid black;
+        text-align: center;
+    }
+    
+    .gauche {
+        text-align: left;
+    }
+    
+    .fin {
+        border-right: none;
+    }
+    
+</style>
+
+    <table class="total">
+        <tr>
+            <td class="gauche">TOTAL ' . $partieMois . '/' . $partieAnnee . '</td>
+            <td class="fin">' . $total . '€' .  '</td>
+        </tr>
+    </table>
+';
 $pdf->writeHTML($html, true, false, false, false, '');
 
 // Ajoutez un espace pour la signature
