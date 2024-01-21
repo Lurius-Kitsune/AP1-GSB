@@ -5,6 +5,17 @@
         border: none;
     }
 
+    table.total {
+        width: 35%;
+        border-collapse: collapse;
+        border: none;
+        border-left: 0.5px solid black;
+        border-right: 0.5px solid black;
+        margin-left: auto; /* Ajout de cette ligne pour aligner à droite */
+        margin-right: 0;   /* Ajout de cette ligne pour aligner à droite */
+    }
+
+
     th {
         border: none;
         border-right: 1px solid black;
@@ -23,16 +34,6 @@
 
     .fin {
         border-right: none;
-    }
-
-    .total {
-        width: 35%;
-        position: absolute;
-        left: 300;
-        border-collapse: collapse;
-        border: none;
-        border-left: 0.5px solid black;
-        border-right: 0.5px solid black;
     }
 
     table.tableForm > tr > td {
@@ -105,13 +106,13 @@
             <?php endforeach; ?>
         </table>
     </div>
-
-    <table class="total tableForm">
-        <tr>
-            <td class="gauche">TOTAL <?= $partieMois . '/' . $partieAnnee; ?></td>
-            <td class="fin"><?= $total . '€'; ?></td>
-        </tr>
-    </table>
-
+    <div class="totalContainer">
+        <table class="total">
+            <tr>
+                <td class="gauche">TOTAL <?= $partieMois . '/' . $partieAnnee; ?></td>
+                <td class="fin"><?= $total . '€'; ?></td>
+            </tr>
+        </table>
+    </div>
     <span class="signature">Signature</span>
 </div>
