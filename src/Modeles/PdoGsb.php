@@ -280,9 +280,8 @@ class PdoGsb {
                 . 'ON fraisforfait.id = lignefraisforfait.idfraisforfait '
                 . 'WHERE lignefraisforfait.idvisiteur = :unIdVisiteur '
                 . 'AND lignefraisforfait.mois = :unMois '
-                . 'AND fraisforfait.id = "4D" OR fraisforfait.id = "56D" '
-                . 'OR fraisforfait.id = "4E" OR fraisforfait.id = "56E" '
-                . 'ORDER BY lignefraisforfait.idfraisforfait'
+                . 'AND lignefraisforfait.idfraisforfait = "4D" OR lignefraisforfait.idfraisforfait = "56D" '
+                . 'OR lignefraisforfait.idfraisforfait = "4E" OR lignefraisforfait.idfraisforfait = "56E" '
         );
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
