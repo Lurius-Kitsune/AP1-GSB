@@ -91,11 +91,21 @@ use Modeles\PdoGsb;
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-sm-3">
+            <div class="form-group col-sm-4">
                 <label for="inputFraisKm">Frais Kilométrique</label>
-                <input type="text" name="fraisKm" class="form-control" id="inputFraisKm" 
-                       value="<?= $infoFraisForfait[1]['quantite'] ?? '0' ?>"
-                       placeholder="<?= $infoFraisForfait[1]['quantite'] ?? '0' ?>">
+                <div class="form-inline">
+                    <input type="hidden" name="Km[oldType]" value="<?= $leFraisKm['idfrais']; ?>">
+                    <input type="text" id="idFrais" 
+                           name="Km[value]"
+                           size="10" maxlength="5" 
+                           value="<?= $leFraisKm['quantite']; ?>" 
+                           class="form-control">
+                    <select name="Km[type]" class="form-control">
+                        <?php foreach ($pdo->getLesFraisKmList() as $fraisKm) :?>
+                            <option <?= $fraisKm['id'] == $leFraisKm['idfrais'] ? "selected" : "" ; ?> value="<?= $fraisKm['id']; ?>"><?= $fraisKm['libelle']; ?></option>
+                        <?php endforeach; ?>
+                    </select> 
+                </div>
             </div>
         </div>
         <div class="row">

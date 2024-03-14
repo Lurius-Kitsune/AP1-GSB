@@ -30,7 +30,12 @@ switch ($action) {
         break;
     case 'validerMajFraisForfait':
         $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
+        $lesFraisKm = filter_input(INPUT_POST, 'Km', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
+        $lesFrais[$lesFraisKm['type']] = $lesFraisKm['value'];
         if (Utilitaires::lesQteFraisValides($lesFrais)) {
+            if ($lesFraisKm['type'] != $lesFraisKm['oldType']) {
+                $pdo->majFraisKm($idVisiteur, $mois, $lesFraisKm);
+            }
             $pdo->majFraisForfait($idVisiteur, $mois, $lesFrais);
         } else {
             Utilitaires::ajouterErreur('Les valeurs des frais doivent être numériques');
@@ -56,6 +61,8 @@ switch ($action) {
         break;
 }
 $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
+$lesFraisKmList = $pdo->getLesFraisKmList();
+$leFraisKm = $pdo->getLeFraisKm($idVisiteur, $mois);
 $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $mois);
 require PATH_VIEWS . 'v_listeFraisForfait.php';
 require PATH_VIEWS . 'v_listeFraisHorsForfait.php';
