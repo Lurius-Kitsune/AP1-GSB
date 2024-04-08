@@ -24,14 +24,13 @@ switch ($action) {
         $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
         // Afin de sélectionner par défaut le dernier mois dans la zone de liste
         // on demande toutes les clés, et on prend la première,
-        // les mois étant triés décroissants
+        // les mois étant triés dans l'ordre décroissant
         $lesCles = array_keys($lesMois);
         $moisASelectionner = $lesCles[0];
         include PATH_VIEWS . 'v_listeMois.php';
         break;
     case 'voirEtatFrais':
         $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
         $moisASelectionner = $leMois;
         include PATH_VIEWS . 'v_listeMois.php';
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);

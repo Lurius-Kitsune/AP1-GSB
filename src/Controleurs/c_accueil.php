@@ -15,6 +15,7 @@
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
 
+// Vérification de la connexion et du type d'utilisateur pour afficher la vue adéquate
 if ($estConnecte) {
     include_once PATH_VIEWS . 'v_entete.php';
     if ($_SESSION['isComptable']){

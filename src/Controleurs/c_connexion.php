@@ -24,9 +24,11 @@ if (!$uc) {
 }
 
 switch ($action) {
+    // si l'utilisateur veut se connecter
     case 'demandeConnexion':
         include PATH_VIEWS . 'v_connexion.php';
         break;
+    // si l'utilisateur envoie ses données pour se connecter
     case 'valideConnexion':
         $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $mdp = filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
