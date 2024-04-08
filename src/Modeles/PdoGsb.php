@@ -674,6 +674,17 @@ class PdoGsb {
         $requetePrepare->execute();
     }
 
+    public function getNomVisiteur($id) : array {
+        $requetePrepare = $this->connexion->prepare(
+                'select visiteur.nom, visiteur.prenom ' .
+                'from visiteur ' .
+                'where visiteur.id = :id'
+        );
+        $requetePrepare->bindParam('id', $id, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
     /**
      * Retourne les noms de tout les visiteurs en vue
      * de les afficher dans la maquette de validation
