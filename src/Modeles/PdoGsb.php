@@ -107,6 +107,13 @@ class PdoGsb {
         return $requetePrepare->fetch(PDO::FETCH_OBJ)->mdp;
     }
 
+    /**
+     * Fonction qui renvoie l'utilisateur courant sous forme d'array,
+     * false si il n'existe pas
+     * 
+     * @param string $login  le login de l'utilisateur (username)
+     * @return array|bool
+     */
     public function getUser($login): array|bool {
         $req = $this->getInfosComptable($login);
         if (is_array($req)) {
@@ -261,6 +268,14 @@ class PdoGsb {
         return $requetePrepare->fetchAll();
     }
     
+    /**
+     * Renvoie le frai kilométrique pour un visiteur et un mois donné en 
+     * paramètres 
+     * 
+     * @param string $idVisiteur  ID du visiteur
+     * @param string $mois        Mois sous la forme aaaamm
+     * @return array
+     */
     public function getLeFraisKm($idVisiteur, $mois): array {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT fraisforfait.id as idfrais, '
@@ -297,6 +312,12 @@ class PdoGsb {
         return $requetePrepare->fetchAll();
     }
 
+    /**
+     * Renvoie tout les frais kilométriques différents, avec leur id
+     * leur libelle et leur montant
+     * 
+     * @return array
+     */
     public function getLesFraisKmList(): array {
         $requetePrepare = $this->connexion->prepare(
                 'SELECT * '
@@ -339,6 +360,16 @@ class PdoGsb {
         }
     }
     
+    /**
+     * Met à jour le type de frais kilométriques d'un utilisateur et un mois donné.
+     * Le différent type de frais est passé en paramètre avec un array.
+     * L'array doit avoir les champs 'type' et 'oldType'
+     * 
+     * @param string $idVisiteur    L'ID du visiteur
+     * @param string $mois          Le mois correspondant aux frais modifiés
+     * @param array $lesFraisKm     L'array contenant l'ancien et le nouveau type de frais
+     * @return void
+     */
     public function majFraisKm($idVisiteur, $mois, $lesFraisKm): void {
         $requetePrepare = $this->connexion->prepare(
                 'UPDATE lignefraisforfait '
@@ -674,6 +705,12 @@ class PdoGsb {
         $requetePrepare->execute();
     }
 
+    /**
+     * Renvoie le nom d'un visiteur médical à partir de son ID
+     * 
+     * @param type $id  l'ID du visiteur médical
+     * @return array
+     */
     public function getNomVisiteur($id) : array {
         $requetePrepare = $this->connexion->prepare(
                 'select visiteur.nom, visiteur.prenom ' .
