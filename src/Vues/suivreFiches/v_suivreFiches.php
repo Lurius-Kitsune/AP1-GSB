@@ -19,9 +19,10 @@
  * @var $listesInfoFiche array
  */
 use Outils\Utilitaires;
+
+include PATH_VIEWS . 'suivreFiches/v_filter.php'; 
+
 ?>
-<?php include PATH_VIEWS . 'suivreFiches/v_actionSuivre.php'; ?>
-<?php include PATH_VIEWS . 'suivreFiches/v_filter.php'; ?>
 
 <script src="/js/suivreFiches/selectAll.js"></script>
 <form action="/?uc=suivreFiches&action=fichePaiement" method="POST">
@@ -50,5 +51,6 @@ use Outils\Utilitaires;
             </tbody>
         </table>
     </div>
+    <?php include PATH_VIEWS . 'suivreFiches/v_actionSuivre.php'; ?>
 </form>
 
