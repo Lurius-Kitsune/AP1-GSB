@@ -95,8 +95,8 @@ INSERT INTO etat (id, libelle) VALUES
 ('RB', 'Remboursée'),
 ('CL', 'Saisie clôturée'),
 ('CR', 'Fiche créée, saisie en cours'),
-('VA', 'Validée');
-('MP', 'Mise en paiement'),
+('VA', 'Validée'),
+('MP', 'Mise en paiement');
 
 -- Récupération des utilisateurs
 INSERT INTO `visiteur` VALUES 
@@ -55717,6 +55717,6 @@ INSERT INTO `lignefraishorsforfait` VALUES
 ALTER TABLE visiteur MODIFY mdp CHAR(128) ;
 ALTER TABLE comptable MODIFY mdp CHAR(128) ;
 
-UPDATE visiteur SET mdp = sha2(mdp, 512);
+UPDATE visiteur SET mdp = sha2(mdp, 128);
 
-UPDATE comptable SET mdp = sha2(mdp, 512);
+UPDATE comptable SET mdp = sha2(mdp, 128);
