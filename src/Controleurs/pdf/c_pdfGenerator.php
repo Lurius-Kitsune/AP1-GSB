@@ -15,6 +15,8 @@ if(file_exists($cheminComplet)){
     header('Content-Type: application/pdf');
     header('Content-Disposition: attachment; filename="' . $nomPdf . '"');
     header('Content-Length: ' . filesize($cheminComplet));
+    ob_clean();
+    flush();
     readfile($cheminComplet);
 }else{
     $identiteVisiteur = $pdo->getNomVisiteur($idVisiteur);

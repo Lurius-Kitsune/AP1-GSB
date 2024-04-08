@@ -55717,6 +55717,6 @@ INSERT INTO `lignefraishorsforfait` VALUES
 ALTER TABLE visiteur MODIFY mdp CHAR(128) ;
 ALTER TABLE comptable MODIFY mdp CHAR(128) ;
 
-UPDATE visiteur SET mdp = sha2(mdp, 512);
+UPDATE visiteur SET mdp = sha2(mdp, 128);
 
-UPDATE comptable SET mdp = sha2(mdp, 512);
+UPDATE comptable SET mdp = sha2(mdp, 128);
