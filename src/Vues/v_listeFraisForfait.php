@@ -26,7 +26,23 @@
         <form method="post" 
               action="index.php?uc=gererFrais&action=validerMajFraisForfait" 
               role="form">
-            <fieldset>       
+            <fieldset>
+                <div class="form-group">
+                    <label for="idFrais">Frais Kilométriques</label>
+                    <div class="form-inline">
+                        <input type="hidden" name="Km[oldType]" value="<?= $leFraisKm['idfrais']; ?>">
+                        <input type="text" id="idFrais" 
+                               name="Km[value]"
+                               size="10" maxlength="5" 
+                               value="<?= $leFraisKm['quantite']; ?>" 
+                               class="form-control">
+                        <select name="Km[type]" class="form-control">
+                            <?php foreach ($lesFraisKmList as $fraisKm) :?>
+                                <option <?= $fraisKm['id'] == $leFraisKm['idfrais'] ? "selected" : "" ; ?> value="<?= $fraisKm['id']; ?>"><?= $fraisKm['libelle']; ?></option>
+                            <?php endforeach; ?>
+                        </select> 
+                    </div>
+                </div>
                 <?php
                 foreach ($lesFraisForfait as $unFrais) {
                     $idFrais = $unFrais['idfrais'];
