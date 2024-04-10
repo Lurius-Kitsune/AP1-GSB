@@ -30,6 +30,7 @@ switch ($action) {
         include PATH_VIEWS . 'v_listeMois.php';
         break;
     case 'voirEtatFrais':
+        $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
         $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $moisASelectionner = $leMois;
         include PATH_VIEWS . 'v_listeMois.php';
