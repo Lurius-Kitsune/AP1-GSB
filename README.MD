@@ -43,6 +43,11 @@ Lancer la mise à jour/regénération de la documentation avec la commande suiva
 - [x] Tache 7 : Génération d'un état de frais au format PDF
 - [x] Tache 8 : Davantage d'écologie dans l'application
 
+# Tester la prod
+Note: Avoir accées au serveur 10.10.2.165
+1. Configurer son fichier host et ajouter : `10.10.2.165 <nomchoisi>`
+2. se connecter à http://\<nomchoisi>
+
 ## Auteurs
 
 * [Bruel Lucas](https://github.com/Lurius-Kitsune)
