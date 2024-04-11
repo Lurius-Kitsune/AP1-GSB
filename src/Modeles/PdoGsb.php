@@ -1014,7 +1014,7 @@ class PdoGsb
      * 
      * @return string            Le montant total des frais forfaitisés
      */
-    public function getMontantTotalForfait(string $idVisiteur, string $mois): string
+    public function getMontantTotalForfait(string $idVisiteur, string $mois): string 
     {
         $requetePrepare = $this->connexion->prepare(
             'SELECT SUM(fraisforfait.montant*lignefraisforfait.quantite) as totalForfait '
@@ -1025,7 +1025,7 @@ class PdoGsb
         $requetePrepare->bindParam(':idvisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
-        return $requetePrepare->fetchColumn();
+        return $requetePrepare->fetchColumn() ?? '0';
     }
 
     /**
@@ -1049,6 +1049,6 @@ class PdoGsb
         $requetePrepare->bindParam(':idvisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':mois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
-        return strval($requetePrepare->fetchColumn());
+        return strval($requetePrepare->fetchColumn() ?? '0');
     }
 }
