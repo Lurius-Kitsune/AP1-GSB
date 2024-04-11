@@ -50,9 +50,9 @@ Note: Avoir accées au serveur 10.10.2.165
 
 # Information de test
 
-Visiteur : user : p.ayot - mdp : xiej3uuY0
+Visiteur : user : `p.ayot` - mdp : `xiej3uuY0`
 
-Utilisateur comptable : user : l.bruel - mdp : mdp
+Utilisateur comptable : user : `l.bruel` - mdp : `mdp`
 
 ## Auteurs
 
