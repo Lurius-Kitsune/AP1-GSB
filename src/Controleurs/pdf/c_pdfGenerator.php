@@ -21,6 +21,7 @@ if(file_exists($cheminComplet)){
 }else{
     $identiteVisiteur = $pdo->getNomVisiteur($idVisiteur);
     $lesFraisForfaits = $pdo->getLesFraisForfait($idVisiteur, $mois);
+    $leFraisKilometrique = $pdo->getLeFraisKm($idVisiteur, $mois);
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
 
 
@@ -153,6 +154,12 @@ if(file_exists($cheminComplet)){
                 . '        <td class="fin">' . round(((float) $unFraiForfait['quantite'] * (float) $unFraiForfait['montant']), 2) . '€' . '</td>'
                 . '     </tr>';
     }
+    $html .= '<tr>'
+                . '        <td class="gauche">' . $leFraisKilometrique['libelle'] . '</td>'
+                . '        <td>' . $leFraisKilometrique['quantite'] . '</td>'
+                . '        <td>' . $leFraisKilometrique['montant'] . '€' . '</td>'
+                . '        <td class="fin">' . round(((float) $leFraisKilometrique['quantite'] * (float) $leFraisKilometrique['montant']), 2) . '€' . '</td>'
+                . '     </tr>';
 
     // Fin et affichage du tableau
     $html .= '    

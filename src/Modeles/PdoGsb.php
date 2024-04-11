@@ -310,22 +310,7 @@ class PdoGsb
         $requetePrepare->execute();
         $result = $requetePrepare->fetch();
         if ($result == false) {
-            $requetePrepare = $this->connexion->prepare(
-                'SELECT fraisforfait.id as idfrais, '
-                    . 'fraisforfait.libelle as libelle, '
-                    . 'fraisforfait.montant as montant, '
-                    . 'lignefraisforfait.quantite as quantite '
-                    . 'FROM lignefraisforfait '
-                    . 'INNER JOIN fraisforfait '
-                    . 'ON fraisforfait.id = lignefraisforfait.idfraisforfait '
-                    . 'WHERE lignefraisforfait.idvisiteur = :unIdVisiteur '
-                    . 'AND lignefraisforfait.mois = :unMois '
-                    . 'AND lignefraisforfait.idfraisforfait = "KM" '
-            );
-            $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
-            $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
-            $requetePrepare->execute();
-            return $requetePrepare->fetch();
+            return 0;
         }
         else {
             return $result;
