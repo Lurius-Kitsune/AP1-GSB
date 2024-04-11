@@ -561,3 +561,4 @@ UPDATE comptable set mdp = 'mdp';
 Alter table lignefraishorsforfait add (
 	isDeny BOOLEAN NOT NULL DEFAULT false
 );
+

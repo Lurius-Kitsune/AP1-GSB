@@ -1,3 +1,4 @@
+
 INSERT INTO fraisforfait VALUES 
 ('4D','Frais KM 4CV Di.', 0.52),
 ('56D','Frais KM 5/6CV Di.', 0.58),
