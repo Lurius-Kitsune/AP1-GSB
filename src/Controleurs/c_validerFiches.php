@@ -20,6 +20,7 @@
  */
 use Outils\Utilitaires;
 use App\Entity\LigneHorsForfait;
+use Modeles\PdoGsb;
 
 if (!empty($_POST)) {
     $case = filter_input(INPUT_POST, 'case', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -49,6 +50,7 @@ if (isset($_GET['visiteurId']) && $_GET['visiteurId'] != 'none') {
     $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $infoFicheFrais = $pdo->getLesInfosFicheFrais($selectedVisiteurId, $selectedMonth);
     $infoFraisForfait = $infoFicheFrais['idEtat'] === 'CL' ? $pdo->getLesFraisForfait($selectedVisiteurId, $selectedMonth) : null;
+    $leFraisKm = $infoFicheFrais['idEtat'] === 'CL' ? $pdo->getLeFraisKm($selectedVisiteurId, $selectedMonth) : null;
     $listeFraisHorsForfait = $infoFicheFrais['idEtat'] === 'CL' ? $pdo->getLesFraisHorsForfait($selectedVisiteurId, $selectedMonth) : null;
     $nbJustificatif = $infoFicheFrais['nbJustificatifs'];
 }
@@ -58,7 +60,7 @@ $visiteurs = $pdo->getVisiteurHavingFicheMonth($selectedMonth);
 require PATH_VIEWS . 'validerFiches/v_validerFiches.php';
 
 /**
- * Interaction avec les lignes Hors Forfait
+ * Interactions avec les lignes Hors Forfait
  */
 function actionLigneHorsForfait($pdo) {
     $buttonInput = filter_input(INPUT_POST, 'buttonInput', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -73,12 +75,12 @@ function actionLigneHorsForfait($pdo) {
             "libelle" => filter_input(INPUT_POST, 'libelleLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
             "montant" => filter_input(INPUT_POST, 'montantLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
         );
-        $ligneHf=array();
-        foreach($params as $paramCle => $paramVal){
-            $ligneHf[$paramCle]=$paramVal;
+        $ligneHf = array();
+        foreach ($params as $paramCle => $paramVal) {
+            $ligneHf[$paramCle] = $paramVal;
         }
         $pdo->majFraisHorsForfait(filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_SPECIAL_CHARS), filter_input(INPUT_GET, 'month', FILTER_SANITIZE_SPECIAL_CHARS), $ligneHf);
-    } else if ($buttonInput == 'reporter'){
+    } else if ($buttonInput == 'reporter') {
         $selectedVisiteurId = filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $idLigneHorsForfait = filter_input(INPUT_POST, 'idLigneHorsForfait', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $pdo->reportLigneHf($selectedVisiteurId, $idLigneHorsForfait);
@@ -87,26 +89,38 @@ function actionLigneHorsForfait($pdo) {
 }
 
 /**
- * Interaction avec la partie frais forfait
+ * Interactions avec la partie frais forfait
  */
 function actionForfait($pdo) {
-    if (isset($_POST['forfaitEtape']) && isset($_POST['fraisKm']) && isset($_POST['nuitHotel']) && isset($_POST['repasResto'])) {
+    if (isset($_POST['forfaitEtape']) && isset($_POST['Km']) && isset($_POST['nuitHotel']) && isset($_POST['repasResto'])) {
+        $infoFraisKm = filter_input(INPUT_POST, 'Km', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
         $val = array(
             "ETP" => filter_input(INPUT_POST, 'forfaitEtape', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-            "KM" => filter_input(INPUT_POST, 'fraisKm', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            $infoFraisKm['type'] => $infoFraisKm['value'],
             "NUI" => filter_input(INPUT_POST, 'nuitHotel', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
             "REP" => filter_input(INPUT_POST, 'repasResto', FILTER_SANITIZE_FULL_SPECIAL_CHARS)
         );
-        $pdo->majFraisForfait(filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_SPECIAL_CHARS), filter_input(INPUT_GET, 'month', FILTER_SANITIZE_SPECIAL_CHARS), $val);
-        echo "<br><div class=\"alert alert-success\" role=\"alert\">Les données ont bien été mises à jour.</div>";
+        if ($infoFraisKm != false) {
+            if ($infoFraisKm['type'] != $infoFraisKm['oldType']) {
+                $pdo->majFraisKm(filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_SPECIAL_CHARS), filter_input(INPUT_GET, 'month', FILTER_SANITIZE_SPECIAL_CHARS), $infoFraisKm);
+            }
+            $pdo->majFraisForfait(filter_input(INPUT_GET, 'visiteurId', FILTER_SANITIZE_SPECIAL_CHARS), filter_input(INPUT_GET, 'month', FILTER_SANITIZE_SPECIAL_CHARS), $val);
+            echo "<br><div class=\"alert alert-success\" role=\"alert\">Les données ont bien été mises à jour.</div>";
+        } else {
+            echo "<br><div class=\"alert alert-danger\" role=\"alert\">ERREUR.</div>";
+        }
     }
 }
 
+/**
+ * Validation des frais et passage de la fiche en état validé
+ * @param PdoGsb $pdo
+ */
 function validerFiche($pdo) {
     $visiteurId = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $nbJustificatif = filter_input(INPUT_POST, 'nbJustificatif', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    
+
     $pdo->majNbJustificatifs($visiteurId, $month, $nbJustificatif);
     $pdo->majMontantValiderFicheFrais($visiteurId, $month);
     $pdo->majEtatFicheFrais($visiteurId, $month, 'VA');
