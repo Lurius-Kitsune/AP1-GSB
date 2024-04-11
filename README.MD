@@ -48,6 +48,12 @@ Note: Avoir accées au serveur 10.10.2.165
 1. Configurer son fichier host et ajouter : `10.10.2.165 <nomchoisi>`
 2. se connecter à http://\<nomchoisi>
 
+# Information de test
+
+Visiteur : user : p.ayot - mdp : xiej3uuY0
+
+Utilisateur comptable : user : l.bruel - mdp : mdp
+
 ## Auteurs
 
 * [Bruel Lucas](https://github.com/Lurius-Kitsune)
