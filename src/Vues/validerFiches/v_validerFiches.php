@@ -102,7 +102,7 @@ use Modeles\PdoGsb;
                            class="form-control">
                     <select name="Km[type]" class="form-control">
                         <?php foreach ($pdo->getLesFraisKmList() as $fraisKm) :?>
-                            <option <?= $fraisKm['id'] == $leFraisKm['idfrais'] ? "selected" : "" ; ?> value="<?= $fraisKm['id']; ?>"><?= $fraisKm['libelle']; ?></option>
+                            <option <?= $fraisKm['id'] == $leFraisKm['idfrais'] ? "selected" : "" ; ?> value="<?= $fraisKm['id']; ?>" <?= $fraisKm['id'] == 'KM' ? 'disabled' : '' ?>><?= $fraisKm['libelle']; ?></option>
                         <?php endforeach; ?>
                     </select> 
                 </div>

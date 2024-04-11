@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS lignefraishorsforfait (
   libelle varchar(100) DEFAULT NULL,
   date date DEFAULT NULL,
   montant decimal(10,2) DEFAULT NULL,
+  isDeny BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (id),
   FOREIGN KEY (idvisiteur, mois) REFERENCES fichefrais(idvisiteur, mois)
 ) ENGINE=InnoDB;

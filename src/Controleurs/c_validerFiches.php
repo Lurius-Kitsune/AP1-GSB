@@ -20,6 +20,7 @@
  */
 use Outils\Utilitaires;
 use App\Entity\LigneHorsForfait;
+use Modeles\PdoGsb;
 
 if (!empty($_POST)) {
     $case = filter_input(INPUT_POST, 'case', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -59,7 +60,7 @@ $visiteurs = $pdo->getVisiteurHavingFicheMonth($selectedMonth);
 require PATH_VIEWS . 'validerFiches/v_validerFiches.php';
 
 /**
- * Interaction avec les lignes Hors Forfait
+ * Interactions avec les lignes Hors Forfait
  */
 function actionLigneHorsForfait($pdo) {
     $buttonInput = filter_input(INPUT_POST, 'buttonInput', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -88,7 +89,7 @@ function actionLigneHorsForfait($pdo) {
 }
 
 /**
- * Interaction avec la partie frais forfait
+ * Interactions avec la partie frais forfait
  */
 function actionForfait($pdo) {
     if (isset($_POST['forfaitEtape']) && isset($_POST['Km']) && isset($_POST['nuitHotel']) && isset($_POST['repasResto'])) {
@@ -111,6 +112,10 @@ function actionForfait($pdo) {
     }
 }
 
+/**
+ * Validation des frais et passage de la fiche en état validé
+ * @param PdoGsb $pdo
+ */
 function validerFiche($pdo) {
     $visiteurId = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
