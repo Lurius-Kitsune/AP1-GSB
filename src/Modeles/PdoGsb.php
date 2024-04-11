@@ -290,7 +290,7 @@ class PdoGsb
      * @param string $mois        Mois sous la forme aaaamm
      * @return array
      */
-    public function getLeFraisKm($idVisiteur, $mois): array
+    public function getLeFraisKm($idVisiteur, $mois): array | bool
     {
         $requetePrepare = $this->connexion->prepare(
             'SELECT fraisforfait.id as idfrais, '
@@ -308,7 +308,8 @@ class PdoGsb
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
-        if ($requetePrepare->fetch() == false) {
+        $result = $requetePrepare->fetch();
+        if ($result == false) {
             $requetePrepare = $this->connexion->prepare(
                 'SELECT fraisforfait.id as idfrais, '
                     . 'fraisforfait.libelle as libelle, '
@@ -327,7 +328,7 @@ class PdoGsb
             return $requetePrepare->fetch();
         }
         else {
-            return $requetePrepare->fetch();
+            return $result;
         }
     }
 
