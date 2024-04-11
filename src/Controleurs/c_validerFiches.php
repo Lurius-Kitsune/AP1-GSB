@@ -20,6 +20,7 @@
  */
 use Outils\Utilitaires;
 use App\Entity\LigneHorsForfait;
+use Modeles\PdoGsb;
 
 if (!empty($_POST)) {
     $case = filter_input(INPUT_POST, 'case', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -113,7 +114,7 @@ function actionForfait($pdo) {
 
 /**
  * Validation des frais et passage de la fiche en état validé
- * @param PDO $pdo
+ * @param PdoGsb $pdo
  */
 function validerFiche($pdo) {
     $visiteurId = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
