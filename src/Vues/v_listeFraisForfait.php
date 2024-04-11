@@ -17,30 +17,26 @@
  */
 
 ?>
-<div class="row">    
-    <h2>Renseigner ma fiche de frais du mois 
+<div class="row">
+    <h2>Renseigner ma fiche de frais du mois
         <?php echo $numMois . '-' . $numAnnee ?>
     </h2>
     <h3>Eléments forfaitisés</h3>
     <div class="col-md-4">
-        <form method="post" 
-              action="index.php?uc=gererFrais&action=validerMajFraisForfait" 
-              role="form">
+        <form method="post" action="index.php?uc=gererFrais&action=validerMajFraisForfait" role="form">
             <fieldset>
                 <div class="form-group">
                     <label for="idFrais">Frais Kilométriques</label>
                     <div class="form-inline">
                         <input type="hidden" name="Km[oldType]" value="<?= $leFraisKm['idfrais']; ?>">
-                        <input type="text" id="idFrais" 
-                               name="Km[value]"
-                               size="10" maxlength="5" 
-                               value="<?= $leFraisKm['quantite']; ?>" 
-                               class="form-control">
+                        <input type="text" id="idFrais" name="Km[value]" size="10" maxlength="5" value="<?= $leFraisKm['quantite']; ?>" class="form-control">
                         <select name="Km[type]" class="form-control">
-                            <?php foreach ($lesFraisKmList as $fraisKm) :?>
-                                <option <?= $fraisKm['id'] == $leFraisKm['idfrais'] ? "selected" : "" ; ?> value="<?= $fraisKm['id']; ?>"><?= $fraisKm['libelle']; ?></option>
+                            <?php foreach ($lesFraisKmList as $fraisKm) : ?>
+                                <?php if ($fraisKm['id'] != 'KM') : ?>
+                                    <option <?= $fraisKm['id'] == $leFraisKm['idfrais'] ? "selected" : ""; ?> value="<?= $fraisKm['id']; ?>"><?= $fraisKm['libelle']; ?></option>
+                                <?php endif; ?>
                             <?php endforeach; ?>
-                        </select> 
+                        </select>
                     </div>
                 </div>
                 <?php
@@ -50,13 +46,9 @@
                     $quantite = $unFrais['quantite']; ?>
                     <div class="form-group">
                         <label for="idFrais"><?php echo $libelle ?></label>
-                        <input type="text" id="idFrais" 
-                               name="lesFrais[<?php echo $idFrais ?>]"
-                               size="10" maxlength="5" 
-                               value="<?php echo $quantite ?>" 
-                               class="form-control">
+                        <input type="text" id="idFrais" name="lesFrais[<?php echo $idFrais ?>]" size="10" maxlength="5" value="<?php echo $quantite ?>" class="form-control">
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
                 <button class="btn btn-success" type="submit">Ajouter</button>
